@@ -5,14 +5,13 @@ require([
 ], function (CardView, CardModel) {
     module('view.card', {
         setup: function() {
-            // ToDo: can we avoid having the view being dependent on the QUnit DOM?
-            $('body').append('<div id="card"></div>');
+            var document = $('<div><div id="card"></div></div>');
             var model = new CardModel({title: 'Meet Rob'});
-            this.cardView = new CardView({model: model});
+            this.cardView = new CardView({document: document, model: model});
+            this.cardView.initialize();
         },
         teardown: function() {
             this.cardView.remove();
-            $('#card').remove();
         }
     });
 

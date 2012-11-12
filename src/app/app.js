@@ -25,7 +25,7 @@ function($, _, Backbone, CardModel, CardView) {
     // ToDo: load data from server
     var model = new CardModel({title: 'Meet Rob'});
     // ToDo: is this the right place to initialize the view?
-    var view = new CardView({model: model});
+    var view = new CardView({document: window.document, model: model});
     // ToDo: do we need to render the view manually?
     view.render();
 
