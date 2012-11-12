@@ -3,8 +3,8 @@ define([
     'backbone'
 ], function (Backbone) {
     'use strict';
-    var CardModel = Backbone.Model.extend({
+    var Card = Backbone.Model.extend({
         defaults: { title: ''}
     });
-    return CardModel;
+    return Card;
 });

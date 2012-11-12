@@ -2,7 +2,7 @@
 require([
     'models/card'
 ], function (Card) {
-    module('card.test');
+    module('model.card');
 
     test('constructor', function () {
         // given
