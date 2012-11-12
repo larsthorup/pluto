@@ -1,15 +1,16 @@
 /*jshint undef:false, strict:false*/ // Note: to avoid having to write QUnit.module, etc
 require([
-    'views/card',
-    'models/card'
-], function (CardView, CardModel) {
-    module('app');
+    'app'
+], function (app) {
+    module('app', {
+        setup: function() {
+            // given
+            // this.app = new App();
+        }
+    });
 
     test('not implemented yet', function () {
-        // given
-
-        // when
-
         // then
+        // equal(app.Views[0].model.title, 'Meet Rob', 'app.view.model.title');
     });
 });
