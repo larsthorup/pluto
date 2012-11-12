@@ -9,8 +9,8 @@ require([
         }
     });
 
-    test('not implemented yet', function () {
+    test('construction', function () {
         // then
-        // equal(app.Views[0].model.title, 'Meet Rob', 'app.view.model.title');
+        equal(app.view.model.get('title'), 'Meet Rob', 'app.view.model.title');
     });
 });

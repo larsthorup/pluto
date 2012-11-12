@@ -25,9 +25,9 @@ function($, _, Backbone, CardModel, CardView) {
     // ToDo: load data from server
     var model = new CardModel({title: 'Meet Rob'});
     // ToDo: is this the right place to initialize the top view?
-    var view = new CardView({document: window.document, model: model});
+    app.view = new CardView({document: window.document, model: model});
     // ToDo: how to avoid having to render the view manually?
-    view.render();
+    app.view.render();
 
     // Localize or create a new JavaScript Template object.
   var JST = window.JST = window.JST || {};
@@ -62,8 +62,7 @@ function($, _, Backbone, CardModel, CardView) {
   return _.extend(app, {
     // Create a custom object with a nested Views object.
     module: function(additionalProps) {
-        // ToDo: is this the right way to register the view?
-      return _.extend({ Views: [view] }, additionalProps);
+      return _.extend({ Views: {} }, additionalProps);
     },
 
     // Helper for using layouts.
