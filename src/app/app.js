@@ -4,11 +4,16 @@ define([
   "lodash",
   "backbone",
 
+    // Our app code
+    "models/card",
+    "views/card",
+
   // Plugins.
   "plugins/backbone.layoutmanager"
+
 ],
 
-function($, _, Backbone) {
+function($, _, Backbone, CardModel, CardView) {
 
   // Provide a global location to place configuration settings and module
   // creation.
@@ -17,7 +22,14 @@ function($, _, Backbone) {
     root: "/"
   };
 
-  // Localize or create a new JavaScript Template object.
+    // ToDo: load data from server
+    var model = new CardModel({title: 'Meet Rob'});
+    // ToDo: is this the right place to initialize the view?
+    var view = new CardView({model: model});
+    // ToDo: do we need to render the view manually?
+    view.render();
+
+    // Localize or create a new JavaScript Template object.
   var JST = window.JST = window.JST || {};
 
   // Configure LayoutManager with Backbone Boilerplate defaults.
