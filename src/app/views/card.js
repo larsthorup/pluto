@@ -1,8 +1,9 @@
 /*global define*/
 define([
+    'jquery',
     'backbone',
     'lodash'
-], function (Backbone,_) {
+], function ($, Backbone,_) {
     'use strict';
     var CardView = Backbone.View.extend({
         initialize: function() {
