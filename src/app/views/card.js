@@ -1,7 +1,8 @@
 /*global define*/
 define([
-    'backbone'
-], function (Backbone) {
+    'backbone',
+    'lodash'
+], function (Backbone,_) {
     'use strict';
     var CardView = Backbone.View.extend({
         initialize: function() {
