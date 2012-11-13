@@ -1,0 +1,14 @@
+{
+    "name": "pluto",
+    "version": "0.1.1-1",
+    "description": "Backbone sandbox",
+    "author": "Lars Thorup <lars@zealake.com>",
+    "dependencies": {
+        "grunt": "0.3.x",
+        "phantomjs": "0.2.x",
+        "grunt-junit": "0.1.x",
+        "grunt-qunit-cov": ">=0.2.4",
+        "grunt-requirejs": "0.2.x"
+    },
+    "engine": "node 1.1.x"
+}

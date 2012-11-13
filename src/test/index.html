@@ -29,11 +29,14 @@
 
     <script>
         // Note: base directory is app/, which is why ../test is necessary
+        QUnit.config.autostart = false;
         require({ paths: { tests: "../test/tests" } }, [
             "tests/app.test",
             "tests/models/card.test",
             "tests/views/card.test"
-        ]);
+        ],function() {
+            QUnit.start();
+        });
   </script>
 </body>
 </html>

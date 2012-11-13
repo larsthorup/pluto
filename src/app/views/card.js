@@ -3,14 +3,14 @@ define([
     'jquery',
     'backbone',
     'lodash'
-], function ($, Backbone,_) {
+], function ($, Backbone, _) {
     'use strict';
     var CardView = Backbone.View.extend({
-        initialize: function() {
+        initialize: function () {
             var $el = $('#card', this.options.document);
             this.setElement($el[0]);
         },
-        render: function() {
+        render: function () {
             // ToDo: how to cache the template?
             var template = _.template($('#card-template', this.options.document).html());
             // ToDo: why toJSON??

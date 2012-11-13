@@ -3,7 +3,7 @@ require([
     'app'
 ], function (app) {
     module('app', {
-        setup: function() {
+        setup: function () {
             // given
             // this.app = new App();
         }

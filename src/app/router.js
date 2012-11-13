@@ -1,21 +1,19 @@
+/*global define*/
 define([
-  // Application.
-  "app"
+    'backbone'
 ],
 
-function(app) {
+function (Backbone) {
+    'use strict';
 
-  // Defining the application router, you can attach sub routers here.
-  var Router = Backbone.Router.extend({
-    routes: {
-      "": "index"
-    },
+    // Defining the application router, you can attach sub routers here.
+    var Router = Backbone.Router.extend({
+        routes: {
+            '': 'index'
+        },
+        index: function () {
+        }
+    });
 
-    index: function() {
-
-    }
-  });
-
-  return Router;
-
+    return Router;
 });
