@@ -20,12 +20,36 @@
     <script src="../assets/js/libs/lodash.js"></script>
     <script src="../assets/js/libs/backbone.js"></script>
 
-    <script data-main="../app/config" src="../assets/js/libs/require.js"></script>
+    <script src="../assets/js/libs/require.js"></script>
 
     <script>
-        // Note: base directory is app/, which is why ../test is necessary
         QUnit.config.autostart = false;
-        require({ paths: { tests: "../test/tests" } }, [
+        require.config({
+            baseUrl: "../app",
+            paths: {
+                // JavaScript folders.
+                libs: '../assets/js/libs',
+                plugins: '../assets/js/plugins',
+                vendor: '../assets/vendor',
+                // Libraries.
+                jquery: '../assets/js/libs/jquery',
+                lodash: '../assets/js/libs/lodash',
+                backbone: '../assets/js/libs/backbone',
+                tests: "../test/tests"
+            },
+            shim: {
+                // Backbone library depends on lodash and jQuery.
+                backbone: {
+                    deps: ['lodash', 'jquery'],
+                    exports: 'Backbone'
+                },
+
+                // Backbone.LayoutManager depends on Backbone.
+                'plugins/backbone.layoutmanager': ['backbone']
+            }
+        });
+        // Note: base directory is app/, which is why ../test is necessary
+        require([
             // ToDo: To get grunt test to work we need to require the production code here, in addition to the tests. Why?
             // "backbone",
             "models/card",
@@ -33,7 +57,7 @@
             // Tests:
             "tests/util.test",
             "tests/models/card.test",
-            "tests/views/card.test",
+            "tests/views/card.test"
             // ToDo: app tests should be more robust
             // "app",
             // "tests/app.test"
