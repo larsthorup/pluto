@@ -12,12 +12,7 @@
 </head>
 
 <body>
-    <div class="dataset-test">
-        <h1 id="qunit-header">Pluto Test Suite</h1>
-        <h2 id="qunit-banner"></h2>
-        <h2 id="qunit-userAgent"></h2>
-        <ol id="qunit-tests"></ol>
-    </div>
+    <div id="qunit"></div>
 
     <script src="vendor/qunit.js"></script>
 
@@ -31,9 +26,17 @@
         // Note: base directory is app/, which is why ../test is necessary
         QUnit.config.autostart = false;
         require({ paths: { tests: "../test/tests" } }, [
-            "tests/app.test",
+            // ToDo: To get grunt test to work we need to require the production code here, in addition to the tests. Why?
+            // "backbone",
+            "models/card",
+            "views/card",
+            // Tests:
+            "tests/util.test",
             "tests/models/card.test",
-            "tests/views/card.test"
+            "tests/views/card.test",
+            // ToDo: app tests should be more robust
+            // "app",
+            // "tests/app.test"
         ],function() {
             QUnit.start();
         });
