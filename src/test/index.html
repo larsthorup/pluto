@@ -50,10 +50,8 @@
         });
         // Note: base directory is app/, which is why ../test is necessary
         require([
-            // ToDo: To get grunt test to work we need to require the production code here, in addition to the tests. Why?
-            // "backbone",
-            "models/card",
-            "views/card",
+            // ToDo: To get grunt test to work we need to require the backbone here, in addition to the tests. Why?
+            "backbone",
             // Tests:
             "tests/util.test",
             "tests/models/card.test",
