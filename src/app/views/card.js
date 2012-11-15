@@ -7,14 +7,14 @@ define([
     'use strict';
     var CardView = Backbone.View.extend({
         initialize: function () {
-            var $el = $('#card', this.options.document);
+            this.document = this.options.document;
+            var $el = $('#card', this.document);
             this.setElement($el[0]);
+            // Note: cache the template
+            this.template = _.template($('#card-template', this.document).html());
         },
         render: function () {
-            // ToDo: how to cache the template?
-            var template = _.template($('#card-template', this.options.document).html());
-            // ToDo: why toJSON??
-            this.$el.html(template(this.model.toJSON()));
+            this.$el.html(this.template(this.model.toJSON()));
             return this;
         }
     });

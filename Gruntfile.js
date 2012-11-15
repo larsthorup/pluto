@@ -27,7 +27,7 @@ module.exports = function (grunt) {
         watch: {
             scripts: {
                 files: 'src/**/*.*',
-                tasks: 'lint qunit'
+                tasks: 'lint qunit:src'
             }
         },
         qunit: {
