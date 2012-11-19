@@ -1,14 +1,11 @@
-/*global require, document, location*/
-// ToDo: inject document, location
-require([
-    'jquery',
-    'backbone',
-    'app',
-    'router'
-],
-
-function ($, Backbone, app, Router) {
+/*global define, document*/
+// ToDo: consider using domReady require.js plugin to inject document object
+define(function (require) {
     'use strict';
+    var $ = require('$');
+    var Backbone = require('backbone');
+    var app = require('app');
+    var Router = require('router');
 
     // Define your master router on the application namespace and trigger all
     // navigation from this instance.
@@ -25,7 +22,7 @@ function ($, Backbone, app, Router) {
         // Get the absolute anchor href.
         var href = { prop: $(this).prop('href'), attr: $(this).attr('href') };
         // Get the absolute root.
-        var root = location.protocol + '//' + location.host + app.root;
+        var root = document.location.protocol + '//' + document.location.host + app.root;
 
         // Ensure the root is part of the anchor href, meaning it's relative.
         if (href.prop.slice(0, root.length) === root) {

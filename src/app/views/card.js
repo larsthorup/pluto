@@ -1,10 +1,10 @@
 /*global define*/
-define([
-    'jquery',
-    'backbone',
-    'lodash'
-], function ($, Backbone, _) {
+define(function (require) {
     'use strict';
+    var $ = require('jquery');
+    var Backbone = require('backbone');
+    var _ = require('lodash');
+
     var CardView = Backbone.View.extend({
         initialize: function () {
             this.document = this.options.document;
