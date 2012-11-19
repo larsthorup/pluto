@@ -1,7 +1,6 @@
 /*jshint undef:false, strict:false*/ // Note: to avoid having to write QUnit.module, etc
-require([
-    'models/card'
-], function (Card) {
+define(function (require) {
+    var Card = require('models/card');
     module('model.card');
 
     test('constructor', function () {

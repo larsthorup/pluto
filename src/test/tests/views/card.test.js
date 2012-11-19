@@ -1,8 +1,8 @@
 /*jshint undef:false, strict:false*/ // Note: to avoid having to write QUnit.module, etc
-require([
-    'views/card',
-    'models/card'
-], function (CardView, Card) {
+define(function (require) {
+    var Card = require('models/card');
+    var CardView = require('views/card');
+
     module('view.card', {
         setup: function () {
             var document = $('<div><div id="card"></div><script type="template/text" id="card-template"><span><%=title%></span></script></div>');

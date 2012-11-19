@@ -1,7 +1,6 @@
 /*jshint undef:false, strict:false*/ // Note: to avoid having to write QUnit.module, etc
-require([
-    'app'
-], function (app) {
+define(function (require) {
+    var app = require('app');
     module('app', {
         setup: function () {
             // given
