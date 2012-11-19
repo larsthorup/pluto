@@ -50,15 +50,14 @@
         });
         // Note: base directory is app/, which is why ../test is necessary
         require([
-            // ToDo: To get grunt test to work we need to require the backbone here, in addition to the tests. Why?
+            // ToDo: To get grunt test to work we need to require backbone and app here, in addition to the tests. Why?
             "backbone",
+            "app",
             // Tests:
             "tests/util.test",
             "tests/models/card.test",
-            "tests/views/card.test"
-            // ToDo: app tests should be more robust
-            // "app",
-            // "tests/app.test"
+            "tests/views/card.test",
+            "tests/app.test"
         ],function() {
             QUnit.start();
         });
