@@ -7,9 +7,10 @@ define(function (require) {
 
     var CardView = Backbone.View.extend({
 
-        events: {
-            // ToDo: do we really have to put method names in string? that makes it harder to refactor
-            'click': 'duplicate'
+        events: function () { // Note: using a function allows us to reference methods by identifier instead of as a string
+            return {
+                'click': this.duplicate
+            };
         },
 
         initialize: function () {
