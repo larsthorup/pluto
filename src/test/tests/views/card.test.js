@@ -8,11 +8,15 @@ define(function (require) {
     QUnit.module('view.card', {
         setup: function () {
             // given
-            var document = $('<div><div id="card"></div><script type="template/text" id="card-template"><span><%=title%></span></script></div>');
+            var document = $('<div><div id="view"></div><script type="template/text" id="card-template"><span><%=title%></span></script></div>');
             this.model = new Card({title: 'Meet Rob'});
             this.model.on = sinon.spy();
             this.model.duplicate = sinon.spy();
-            this.cardView = new CardView({document: document, model: this.model});
+            this.cardView = new CardView({
+                document: document,
+                el: $('#view', document),
+                model: this.model
+            });
             this.cardView.initialize();
         },
         teardown: function () {

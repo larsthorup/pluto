@@ -15,8 +15,6 @@ define(function (require) {
 
         initialize: function () {
             this.document = this.options.document;
-            var $el = $('#card', this.document);
-            this.setElement($el[0]);
             this.template = _.template($('#card-template', this.document).html());
             this.model.on('change', this.render, this);
         },

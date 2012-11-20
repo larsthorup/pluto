@@ -2,6 +2,7 @@
 /*global define,document*/
 define(function (require) {
     'use strict';
+    var $ = require('jquery');
     var Card = require('models/card');
     var CardView = require('views/card');
 
@@ -12,9 +13,13 @@ define(function (require) {
         root: '/'
     };
 
-    // ToDo: load data from server
     var model = new Card();
-    app.view = new CardView({document: document, model: model});
+    app.view = new CardView({
+        document: document,
+        el: $('#main', document),
+        model: model
+    });
+    // ToDo: load data from server
     model.set('title', 'Meet Rob');
 
     return app;
