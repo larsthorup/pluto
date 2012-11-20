@@ -1,7 +1,9 @@
-/*jshint undef:false, strict:false*/ // Note: to avoid having to write QUnit.module, etc
+/*global define,QUnit*/
 define(function (/*require*/) {
-    module('util');
-    test('simple', function () {
-        equal(2 + 2, 4, 'kindergarten');
+    'use strict';
+
+    QUnit.module('util');
+    QUnit.test('simple', function () {
+        QUnit.equal(2 + 2, 4, 'kindergarten');
     });
 });

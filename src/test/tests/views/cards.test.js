@@ -1,9 +1,10 @@
-/*jshint undef:false, strict:false*/ // Note: to avoid having to write QUnit.module, etc
+/*global define,QUnit*/
 define(function (/*require*/) {
+    'use strict';
 
-    module('view/cards');
+    QUnit.module('view/cards');
 
-    test('render', function () {
-        expect(0);
+    QUnit.test('render', function () {
+        QUnit.expect(0);
     });
 });

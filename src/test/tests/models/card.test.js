@@ -1,9 +1,11 @@
-/*jshint undef:false, strict:false*/ // Note: to avoid having to write QUnit.module, etc
+/*global define,QUnit*/
 define(function (require) {
+    'use strict';
     var Card = require('models/card');
-    module('model.card');
 
-    test('constructor', function () {
+    QUnit.module('model.card');
+
+    QUnit.test('constructor', function () {
         // given
         var card = new Card({title: 'Buy milk'});
 
@@ -11,10 +13,10 @@ define(function (require) {
         var title = card.get('title');
 
         // then
-        equal(title, 'Buy milk', 'title');
+        QUnit.equal(title, 'Buy milk', 'title');
     });
 
-    test('duplicate', function () {
+    QUnit.test('duplicate', function () {
         // given
         var card = new Card({title: 'Mono'});
 
@@ -22,6 +24,6 @@ define(function (require) {
         card.duplicate();
 
         // then
-        equal(card.get('title'), 'MonoMono', 'title');
+        QUnit.equal(card.get('title'), 'MonoMono', 'title');
     });
 });

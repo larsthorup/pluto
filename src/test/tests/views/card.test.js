@@ -1,9 +1,11 @@
-/*jshint undef:false, strict:false*/ // Note: to avoid having to write QUnit.module, etc
+/*global define,QUnit,sinon*/
 define(function (require) {
+    'use strict';
+    var $ = require('jquery');
     var Card = require('models/card');
     var CardView = require('views/card');
 
-    module('view.card', {
+    QUnit.module('view.card', {
         setup: function () {
             // given
             var document = $('<div><div id="card"></div><script type="template/text" id="card-template"><span><%=title%></span></script></div>');
@@ -18,25 +20,25 @@ define(function (require) {
         }
     });
 
-    test('initialize', function () {
+    QUnit.test('initialize', function () {
         // then
-        ok(this.model.on.calledWith('change', this.cardView.render, this.cardView), 'model.on'); // Note: white box tests that we will re-render the view when model is updated
+        QUnit.ok(this.model.on.calledWith('change', this.cardView.render, this.cardView), 'model.on'); // Note: white box tests that we will re-render the view when model is updated
     });
 
-    test('render', function () {
+    QUnit.test('render', function () {
         // when
         this.cardView.render();
 
         // then
-        equal(this.cardView.$el.html(), '<span>Meet Rob</span>', 'cardView.html');
+        QUnit.equal(this.cardView.$el.html(), '<span>Meet Rob</span>', 'cardView.html');
     });
 
-    test('duplicate', function () {
+    QUnit.test('duplicate', function () {
         // when
         this.cardView.duplicate();
 
         // then
-        ok(this.model.duplicate.calledOnce, 'model.duplicate');
+        QUnit.ok(this.model.duplicate.calledOnce, 'model.duplicate');
     });
 });
 

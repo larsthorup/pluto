@@ -1,11 +1,12 @@
-/*jshint undef:false, strict:false*/ // Note: to avoid having to write QUnit.module, etc
+/*global define, QUnit*/
 define(function (require) {
+    'use strict';
     var Card = require('models/card');
     var Cards = require('collections/cards');
 
-    module('collection.cards');
+    QUnit.module('collection.cards');
 
-    test('model', function () {
+    QUnit.test('model', function () {
         // given
         var cards = new Cards();
 
@@ -13,9 +14,9 @@ define(function (require) {
         cards.create({id: 42, title: 'Grow tomatoes'});
 
         // then
-        equal(cards.length, 1, 'cards.length');
+        QUnit.equal(cards.length, 1, 'cards.length');
         var card = cards.get(42);
-        ok(card instanceof Card, 'card instanceof Cards');
-        equal(card.get('title'), 'Grow tomatoes', 'card.title');
+        QUnit.ok(card instanceof Card, 'card instanceof Cards');
+        QUnit.equal(card.get('title'), 'Grow tomatoes', 'card.title');
     });
 });
