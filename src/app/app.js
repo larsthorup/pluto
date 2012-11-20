@@ -13,10 +13,9 @@ define(function (require) {
     };
 
     // ToDo: load data from server
-    var model = new Card({title: 'Meet Rob'});
+    var model = new Card();
     app.view = new CardView({document: document, model: model});
-    // ToDo: how to avoid having to render the view manually?
-    app.view.render();
+    model.set('title', 'Meet Rob');
 
     return app;
 });

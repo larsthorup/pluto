@@ -12,6 +12,7 @@ define(function (require) {
             this.setElement($el[0]);
             // Note: cache the template
             this.template = _.template($('#card-template', this.document).html());
+            this.model.on('change', this.render, this);
         },
         render: function () {
             this.$el.html(this.template(this.model.toJSON()));
