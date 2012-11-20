@@ -33,13 +33,21 @@ define(function (require) {
 
     QUnit.test('addOne', function () {
         // given
+        this.cardsView.render();
         var card = new Card({title: 'Buy cheese'});
-        this.cardsView.render(); // Note: collection view must be rendered before we can render collection items
 
         // when
         this.cardsView.addOne(card);
 
         // then
         QUnit.equal(this.cardsView.$el.html(), '<ul><li>Buy cheese</li></ul>', 'cardsView.html');
+    });
+
+    QUnit.test('addOne-failsBeforeRender', function () {
+        // given
+        var card = new Card({title: 'Buy cheese'});
+
+        // when + then
+        QUnit.throws(function () { this.cardsView.addOne(card); }, /assertion/, 'assertion');
     });
 });
