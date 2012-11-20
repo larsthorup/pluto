@@ -4,7 +4,15 @@ define(function (require) {
     var Backbone = require('backbone');
 
     var Card = Backbone.Model.extend({
-        defaults: { title: ''}
+
+        defaults: {
+            title: ''
+        },
+
+        duplicate: function () {
+            var title = this.get('title');
+            this.set('title', title + title);
+        }
     });
     return Card;
 });

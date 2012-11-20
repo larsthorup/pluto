@@ -13,4 +13,15 @@ define(function (require) {
         // then
         equal(title, 'Buy milk', 'title');
     });
+
+    test('duplicate', function () {
+        // given
+        var card = new Card({title: 'Mono'});
+
+        // when
+        card.duplicate();
+
+        // then
+        equal(card.get('title'), 'MonoMono', 'title');
+    });
 });

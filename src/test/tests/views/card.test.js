@@ -9,6 +9,7 @@ define(function (require) {
             var document = $('<div><div id="card"></div><script type="template/text" id="card-template"><span><%=title%></span></script></div>');
             this.model = new Card({title: 'Meet Rob'});
             this.model.on = sinon.spy();
+            this.model.duplicate = sinon.spy();
             this.cardView = new CardView({document: document, model: this.model});
             this.cardView.initialize();
         },
@@ -17,16 +18,25 @@ define(function (require) {
         }
     });
 
+    test('initialize', function () {
+        // then
+        ok(this.model.on.calledWith('change', this.cardView.render, this.cardView), 'model.on'); // Note: white box tests that we will re-render the view when model is updated
+    });
+
     test('render', function () {
         // when
         this.cardView.render();
 
         // then
-        equal(this.cardView.$el.html(), '<span>Meet Rob</span>');
+        equal(this.cardView.$el.html(), '<span>Meet Rob</span>', 'cardView.html');
     });
 
-    test('initialize', function () {
+    test('duplicate', function () {
+        // when
+        this.cardView.duplicate();
+
         // then
-        ok(this.model.on.calledWith('change', this.cardView.render, this.cardView)); // Note: white box tests that we will re-render the view when model is updated
+        ok(this.model.duplicate.calledOnce, 'model.duplicate');
     });
 });
+
