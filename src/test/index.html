@@ -22,45 +22,10 @@
     <script src="../assets/js/libs/backbone.js"></script>
 
     <script src="../assets/js/libs/require.js"></script>
+    <script src="config.js"></script>
 
     <script>
-        QUnit.config.autostart = false;
-        require.config({
-            baseUrl: "../app",
-            paths: {
-                // JavaScript folders.
-                libs: '../assets/js/libs',
-                plugins: '../assets/js/plugins',
-                vendor: '../assets/vendor',
-                // Libraries.
-                jquery: '../assets/js/libs/jquery',
-                lodash: '../assets/js/libs/lodash',
-                backbone: '../assets/js/libs/backbone',
-                tests: "../test/tests"
-            },
-            shim: {
-                // Backbone library depends on lodash and jQuery.
-                backbone: {
-                    deps: ['lodash', 'jquery'],
-                    exports: 'Backbone'
-                },
-
-                // Backbone.LayoutManager depends on Backbone.
-                'plugins/backbone.layoutmanager': ['backbone']
-            }
-        });
-        // Note: base directory is app/, which is why ../test is necessary
-        require([
-            // Tests:
-            "tests/util.test",
-            "tests/models/card.test",
-            "tests/collections/cards.test",
-            "tests/views/card.test",
-            "tests/views/cards.test",
-            "tests/app.test"
-        ],function() {
-            QUnit.start();
-        });
-  </script>
+        config();
+    </script>
 </body>
 </html>
