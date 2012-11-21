@@ -1,4 +1,4 @@
-/*global define,QUnit*/
+/*global define,QUnit,sinon*/
 define(function (require) {
     'use strict';
     var $ = require('jquery');
@@ -15,12 +15,20 @@ define(function (require) {
                 '<script type="template/text" id="cards-item-template"><li></li></script>' +
                 '<script type="template/text" id="card-template"><%=title%></script>' +
                 '</div>');
+            this.collection = {};
+            this.collection.on = sinon.spy();
             this.cardsView = new CardsView({
                 document: document,
+                collection: this.collection,
                 el: $('#view', document)
             });
             this.cardsView.initialize();
         }
+    });
+
+    QUnit.test('initialize', function () {
+        // then
+        QUnit.ok(this.collection.on.calledWith('add', this.cardsView.addOne, this.cardsView), 'collection.on'); // Note: white box tests that we will re-render the view when collection grows
     });
 
     QUnit.test('render', function () {

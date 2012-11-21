@@ -16,6 +16,8 @@ define(function (require) {
 
         initialize: function () {
             this.document = this.options.document;
+            this.collection = this.options.collection;
+            this.collection.on('add', this.addOne, this);
             this.template = _.template($('#cards-template', this.document).html());
             this.itemTemplate = _.template($('#cards-item-template', this.document).html());
         },
