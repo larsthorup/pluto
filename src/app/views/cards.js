@@ -18,12 +18,13 @@ define(function (require) {
             this.document = this.options.document;
             this.collection = this.options.collection;
             this.collection.on('add', this.addOne, this);
-            this.template = _.template($('#cards-template', this.document).html());
-            this.itemTemplate = _.template($('#cards-item-template', this.document).html());
+            this.template = this.makeTemplate('cards-template');
+            this.itemTemplate = this.makeTemplate('cards-item-template');
         },
 
         render: function () {
-            this.$el.html(this.template());
+            var html = this.template();
+            this.$el.html(html);
             this.$cards = $('ul', this.$el);
             return this;
         },
@@ -38,7 +39,17 @@ define(function (require) {
                 model: card
             });
             var cardHtml = cardView.render();
+            // ToDo: use template to pinpoint position to insert?
             this.$cards.append(cardHtml.el);
+        },
+
+        // ToDo: move this function to some utility class, or base View class
+        makeTemplate: function (id) {
+            var html = $('#' + id + '', this.document).html();
+//            if (!html) {
+//                throw new Error('assertion: template with id "' + id + '" not found');
+//            }
+            return _.template(html);
         }
     });
     return CardsView;

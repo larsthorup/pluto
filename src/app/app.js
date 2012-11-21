@@ -5,6 +5,8 @@ define(function (require) {
     var $ = require('jquery');
     var Card = require('models/card');
     var CardView = require('views/card');
+//    var CardCollection = require('collections/cards');
+//    var CardsView = require('views/cards');
 
     // Provide a global location to place configuration settings and module
     // creation.
@@ -21,6 +23,16 @@ define(function (require) {
     });
     // ToDo: load data from server
     model.set('title', 'Meet Rob');
+
+//    var collection = new CardCollection();
+//    var cardsView = new CardsView({
+//        document: document,
+//        el: $('#main', document),
+//        collection: collection
+//    });
+    // cardsView.render();
+    // app.view = cardsView;
+    // collection.add(model);
 
     return app;
 });
