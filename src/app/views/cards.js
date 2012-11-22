@@ -24,7 +24,7 @@ define(function (require) {
         render: function () {
             var html = this.template();
             this.$el.html(html);
-            this.$cards = $('ul', this.$el);
+            this.$cards = $('.items', this.$el);
             return this;
         },
 

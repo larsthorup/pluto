@@ -11,7 +11,7 @@ define(function (require) {
             // ToDo: mock CardView so we won't have to include its template here
             var document = $('<div>' +
                 '<div id="view"></div>' +
-                '<script type="template/text" id="cards-template"><ul></ul></script>' +
+                '<script type="template/text" id="cards-template"><ul class="items"></ul></script>' +
                 '<script type="template/text" id="cards-item-template"><li></li></script>' +
                 '<script type="template/text" id="card-template"><%=title%></script>' +
                 '</div>');
@@ -36,7 +36,7 @@ define(function (require) {
         this.cardsView.render();
 
         // then
-        QUnit.equal(this.cardsView.$el.html(), '<ul></ul>', 'cardsView.html');
+        QUnit.equal(this.cardsView.$el.html(), '<ul class="items"></ul>', 'cardsView.html');
     });
 
     QUnit.test('addOne', function () {
@@ -48,7 +48,7 @@ define(function (require) {
         this.cardsView.addOne(card);
 
         // then
-        QUnit.equal(this.cardsView.$el.html(), '<ul><li>Buy cheese</li></ul>', 'cardsView.html');
+        QUnit.equal(this.cardsView.$el.html(), '<ul class="items"><li>Buy cheese</li></ul>', 'cardsView.html');
     });
 
     QUnit.test('addOne-failsBeforeRender', function () {
