@@ -46,9 +46,9 @@ define(function (require) {
         // ToDo: move this function to some utility class, or base View class
         makeTemplate: function (id) {
             var html = $('#' + id + '', this.document).html();
-//            if (!html) {
-//                throw new Error('assertion: template with id "' + id + '" not found');
-//            }
+            if (!html) {
+                throw new Error('assertion: template with id "' + id + '" not found');
+            }
             return _.template(html);
         }
     });

@@ -7,7 +7,7 @@ define(function (require) {
 
     var CardView = Backbone.View.extend({
 
-        events: function () { // Note: using a function allows us to reference methods by identifier instead of as a string
+        events: function () { // Note: using a function because it allows us to reference methods by identifier (this.duplicate) instead of as a string ("duplicate")
             return {
                 'click': this.duplicate
             };

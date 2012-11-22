@@ -2,6 +2,7 @@
 define(function (require) {
     'use strict';
 
+    var $ = require('jquery');
     var getApp = require('app');
     QUnit.module('app', {
         setup: function () {
@@ -22,8 +23,15 @@ define(function (require) {
     });
 
     QUnit.test('bootstrap', function () {
+        // given
+        // ToDo: mock CardsView so we won't have to include its template here
+        var document = $('<div>' +
+            '<script type="template/text" id="cards-template"><ul></ul></script>' +
+            '<script type="template/text" id="cards-item-template"><li></li></script>' +
+            '</div>');
+
         // when
-        this.app.bootstrap();
+        this.app.bootstrap(document);
 
         // then
         QUnit.equal(this.app.view.collection.get(11).get('title'), 'Meet Rob', 'app.view.collection.get(11).title');
