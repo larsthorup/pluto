@@ -1,11 +1,9 @@
 /*global define*/
 define(function (require) {
     'use strict';
-    var $ = require('jquery');
-    var Backbone = require('backbone');
-    var _ = require('lodash');
+    var BaseView = require('views/base');
 
-    var CardView = Backbone.View.extend({
+    var CardView = BaseView.extend({
 
         events: function () { // Note: using a function because it allows us to reference methods by identifier (this.duplicate) instead of as a string ("duplicate")
             return {
@@ -15,7 +13,7 @@ define(function (require) {
 
         initialize: function () {
             this.document = this.options.document;
-            this.template = _.template($('#card-template', this.document).html());
+            this.template = this.makeTemplate('card-template');
             this.model.on('change', this.render, this);
         },
 

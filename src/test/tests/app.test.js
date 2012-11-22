@@ -26,6 +26,7 @@ define(function (require) {
         // given
         // ToDo: mock CardsView so we won't have to include its template here
         var document = $('<div>' +
+            '<script type="template/text" id="card-template"><ul></ul></script>' +
             '<script type="template/text" id="cards-template"><ul></ul></script>' +
             '<script type="template/text" id="cards-item-template"><li></li></script>' +
             '</div>');

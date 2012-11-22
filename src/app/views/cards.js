@@ -2,11 +2,10 @@
 define(function (require) {
     'use strict';
     var $ = require('jquery');
-    var Backbone = require('backbone');
-    var _ = require('lodash');
+    var BaseView = require('views/base');
     var CardView = require('views/card');
 
-    var CardsView = Backbone.View.extend({
+    var CardsView = BaseView.extend({
 
         events: function () {
             return {
@@ -41,16 +40,8 @@ define(function (require) {
             var cardHtml = cardView.render();
             // ToDo: use template to pinpoint position to insert?
             this.$cards.append(cardHtml.el);
-        },
-
-        // ToDo: move this function to some utility class, or base View class
-        makeTemplate: function (id) {
-            var html = $('#' + id + '', this.document).html();
-            if (!html) {
-                throw new Error('assertion: template with id "' + id + '" not found');
-            }
-            return _.template(html);
         }
+
     });
     return CardsView;
 });
