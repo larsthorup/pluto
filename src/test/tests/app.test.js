@@ -26,6 +26,8 @@ define(function (require) {
         this.app.bootstrap();
 
         // then
-        QUnit.equal(this.app.view.model.get('title'), 'Meet Rob', 'app.view.model.title');
+        QUnit.equal(this.app.view.collection.get(11).get('title'), 'Meet Rob', 'app.view.collection.get(11).title');
+        QUnit.equal(this.app.view.collection.get(12).get('title'), 'Buy lunch', 'app.view.collection.get(12).title');
+        QUnit.equal(this.app.view.collection.length, 2);
     });
 });

@@ -27,11 +27,14 @@ require.config({
         // Backbone.LayoutManager depends on Backbone.
         'plugins/backbone.layoutmanager': ['backbone']
     }
-
 });
 
+var requireResoueceTrace = false;
+
 // Note: enable to debug issues in module loading
-require.onResourceLoad = function (context, map/*, depArray*/) {
-    'use strict';
-    window.console.log('Loaded ' + map.url);
-};
+if (requireResoueceTrace) {
+    require.onResourceLoad = function (context, map/*, depArray*/) {
+        'use strict';
+        window.console.log('Loaded ' + map.url);
+    };
+}
