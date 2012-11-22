@@ -1,5 +1,4 @@
-// ToDo: consider using domReady require.js plugin to inject document object
-/*global define,document*/
+/*global define*/
 define(function (require) {
     'use strict';
     var $ = require('jquery');
@@ -10,29 +9,42 @@ define(function (require) {
 
     // Provide a global location to place configuration settings and module
     // creation.
-    var app = {
-        // The root path to run the application.
-        root: '/'
+    var app = null;
+    var getApp = function () {
+        if (!app) { // Note: singleton pattern
+            app = new App();
+        }
+        return app;
     };
 
-    var model = new Card();
-    app.view = new CardView({
-        document: document,
-        el: $('#main', document),
-        model: model
-    });
-    // ToDo: load data from server
-    model.set('title', 'Meet Rob');
+    var App = function () {
+        this.root = '/';
+    };
+    App.prototype = {
+        bootstrap: function (document) {
+            var model = new Card();
+            this.view = new CardView({
+                document: document,
+                el: $('#main', document),
+                model: model
+            });
+            // ToDo: load data from server
+            model.set('title', 'Meet Rob');
 
-//    var collection = new CardCollection();
-//    var cardsView = new CardsView({
-//        document: document,
-//        el: $('#main', document),
-//        collection: collection
-//    });
-    // cardsView.render();
-    // app.view = cardsView;
-    // collection.add(model);
+            //    var collection = new CardCollection();
+            //    var cardsView = new CardsView({
+            //        document: document,
+            //        el: $('#main', document),
+            //        collection: collection
+            //    });
+            // cardsView.render();
+            // app.view = cardsView;
+            // collection.add(model);
+        },
+        reset: function () {
+            app = null;
+        }
+    };
 
-    return app;
+    return getApp;
 });

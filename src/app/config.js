@@ -1,4 +1,4 @@
-/*global require*/
+/*global require,window*/
 // Set the require.js configuration for your application.
 require.config({
 
@@ -29,3 +29,9 @@ require.config({
     }
 
 });
+
+// Note: enable to debug issues in module loading
+require.onResourceLoad = function (context, map/*, depArray*/) {
+    'use strict';
+    window.console.log('Loaded ' + map.url);
+};

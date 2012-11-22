@@ -2,10 +2,13 @@
 // ToDo: consider using domReady require.js plugin to inject document object
 define(function (require) {
     'use strict';
-    var $ = require('$');
+    var $ = require('jquery');
     var Backbone = require('backbone');
-    var app = require('app');
     var Router = require('router');
+    var getApp = require('app');
+
+    var app = getApp();
+    app.bootstrap(document);
 
     // Define your master router on the application namespace and trigger all
     // navigation from this instance.
@@ -36,5 +39,4 @@ define(function (require) {
             Backbone.history.navigate(href.attr, true);
         }
     });
-
 });

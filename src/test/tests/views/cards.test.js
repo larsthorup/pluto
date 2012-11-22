@@ -5,7 +5,7 @@ define(function (require) {
     var Card = require('models/card');
     var CardsView = require('views/cards');
 
-    QUnit.module('view/cards', {
+    QUnit.module('view.cards', {
         setup: function () {
             // given
             // ToDo: mock CardView so we won't have to include its template here
