@@ -19,6 +19,10 @@ run all tests
 
     file://(path-to)/src/test/index.html
 
+run app
+
+    http://localhost:8080/
+
 
 From the command line
 ---------------------
@@ -38,3 +42,7 @@ run all tests
 produce test coverage statistics (in output\coverage\out\coverage.html)
 
     grunt coverage
+
+start server
+
+    grunt server watch

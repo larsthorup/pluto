@@ -19,12 +19,16 @@ define(function (require) {
         this.root = '/';
     };
     App.prototype = {
-        bootstrap: function (document) {
-
+        bootstrap: function (document, router) {
+            this.document = document;
+            this.router = router;
+            this.router.on('route:index', this.goCardsView, this);
+        },
+        goCardsView: function () {
             var collection = new CardCollection();
             var cardsView = new CardsView({
-                document: document,
-                el: $('#main', document),
+                document: this.document,
+                el: $('#main', this.document),
                 collection: collection
             });
             cardsView.render();

@@ -7,8 +7,6 @@ define(function (require) {
     var Router = Backbone.Router.extend({
         routes: {
             '': 'index'
-        },
-        index: function () {
         }
     });
 

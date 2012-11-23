@@ -4,6 +4,10 @@ module.exports = function (grunt) {
 
     // Project configuration.
     grunt.initConfig({
+        server: {
+            port: 8080,
+            base: 'src'
+        },
         requirejs: {
             name: 'main',
             dir: 'output/bundle',

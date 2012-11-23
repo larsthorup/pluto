@@ -7,12 +7,9 @@ define(function (require) {
     var Router = require('router');
     var getApp = require('app');
 
+    var router = new Router();
     var app = getApp();
-    app.bootstrap(document);
-
-    // Define your master router on the application namespace and trigger all
-    // navigation from this instance.
-    app.router = new Router();
+    app.bootstrap(document, router);
 
     // Trigger the initial route and enable HTML5 History API support, set the
     // root folder to '/' by default.  Change in app.js.

@@ -3,7 +3,9 @@ define(function (require) {
     'use strict';
 
     var $ = require('jquery');
+    var Router = require('router');
     var getApp = require('app');
+
     QUnit.module('app', {
         setup: function () {
             // given
@@ -22,7 +24,7 @@ define(function (require) {
         QUnit.equal(app, this.app, 'new App() returns a singleton');
     });
 
-    QUnit.test('bootstrap', function () {
+    QUnit.test('route:index-goCardsView', function () {
         // given
         // ToDo: mock CardsView so we won't have to include its template here
         var document = $('<div>' +
@@ -30,9 +32,11 @@ define(function (require) {
             '<script type="template/text" id="cards-template"><ul></ul></script>' +
             '<script type="template/text" id="cards-item-template"><li></li></script>' +
             '</div>');
+        var router = new Router();
+        this.app.bootstrap(document, router);
 
         // when
-        this.app.bootstrap(document);
+        this.app.router.trigger('route:index');
 
         // then
         QUnit.equal(this.app.view.collection.get(11).get('title'), 'Meet Rob', 'app.view.collection.get(11).title');
