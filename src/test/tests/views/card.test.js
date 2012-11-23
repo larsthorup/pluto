@@ -8,13 +8,13 @@ define(function (require) {
     QUnit.module('view.card', {
         setup: function () {
             // given
-            var document = $('<div><div id="view"></div><script type="template/text" id="card-template"><span><%=title%></span></script></div>');
+            this.document = $('<div><div id="view"></div><script type="template/text" id="card-template"><span><%=title%></span></script></div>');
             this.model = new Card({title: 'Meet Rob'});
             this.model.on = sinon.spy();
             this.model.duplicate = sinon.spy();
             this.cardView = new CardView({
-                document: document,
-                el: $('#view', document),
+                document: this.document,
+                el: $('#view', this.document),
                 model: this.model
             });
             this.cardView.initialize();
@@ -37,9 +37,9 @@ define(function (require) {
         QUnit.equal(this.cardView.$el.html(), '<span>Meet Rob</span>', 'cardView.html');
     });
 
-    QUnit.test('duplicate', function () {
+    QUnit.test('click-duplicate', function () {
         // when
-        this.cardView.duplicate();
+        $('#view', this.document).click();
 
         // then
         QUnit.ok(this.model.duplicate.calledOnce, 'model.duplicate');
