@@ -1,4 +1,7 @@
 /*global define*/
+/**
+ * @module views/base
+ */
 define(function (require) {
     'use strict';
 
@@ -6,8 +9,17 @@ define(function (require) {
     var _ = require('lodash');
     var Backbone = require('backbone');
 
+    /**
+     * Common functionality for all views
+     * @class
+     */
     var BaseView = Backbone.View.extend({
 
+        /**
+         * create an Underscore template object from the source in this.document
+         * @param id element id of the script tag containing the template
+         * @return {*}
+         */
         makeTemplate: function (id) {
             var html = $('#' + id + '', this.document).html();
             if (!html) {

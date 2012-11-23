@@ -5,6 +5,9 @@ define(function (require) {
     var BaseView = require('views/base');
     var CardView = require('views/card');
 
+    /**
+     * @extends BaseView
+     */
     var CardsView = BaseView.extend({
 
         events: function () {
