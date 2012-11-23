@@ -34,6 +34,7 @@ window.config = function () {
         'tests/models/card.test',
         'tests/collections/cards.test',
         'tests/views/base.test',
+        'tests/views/session.test',
         'tests/views/card.test',
         'tests/views/cards.test',
         'tests/app.test'

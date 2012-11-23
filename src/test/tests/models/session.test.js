@@ -8,7 +8,7 @@ define(function (require) {
     QUnit.test('defaults', function () {
         // when
         var session = new Session();
-        
+
         // then
         QUnit.equal(session.get('userId'), null, 'session.userId');
     });
