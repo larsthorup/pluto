@@ -30,6 +30,7 @@ window.config = function () {
 
     var testModules = [
         'tests/util.test',
+        'tests/models/session.test',
         'tests/models/card.test',
         'tests/collections/cards.test',
         'tests/views/base.test',
