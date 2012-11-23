@@ -3,13 +3,23 @@ define(function (require) {
     'use strict';
     var Session = require('models/session');
 
-    QUnit.module('model.session');
+    QUnit.module('model.session', {
+        setup: function () {
+            // given
+            this.session = new Session();
+        }
+    });
 
     QUnit.test('defaults', function () {
+        // then
+        QUnit.equal(this.session.get('userId'), null, 'session.userId');
+    });
+
+    QUnit.test('login', function () {
         // when
-        var session = new Session();
+        this.session.login('joe');
 
         // then
-        QUnit.equal(session.get('userId'), null, 'session.userId');
+        QUnit.equal(this.session.get('userId'), 'joe', 'session.userId');
     });
 });

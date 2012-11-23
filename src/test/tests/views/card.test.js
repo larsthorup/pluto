@@ -9,13 +9,13 @@ define(function (require) {
         setup: function () {
             // given
             this.document = $('<div><div id="view"></div><script type="template/text" id="card-template"><span><%=title%></span></script></div>');
-            this.model = new Card({title: 'Meet Rob'});
-            this.model.on = sinon.spy();
-            this.model.duplicate = sinon.spy();
+            this.card = new Card({title: 'Meet Rob'});
+            this.card.on = sinon.spy();
+            this.card.duplicate = sinon.spy();
             this.cardView = new CardView({
                 document: this.document,
                 el: $('#view', this.document),
-                model: this.model
+                model: this.card
             });
             this.cardView.initialize();
         },
@@ -26,7 +26,7 @@ define(function (require) {
 
     QUnit.test('initialize', function () {
         // then
-        QUnit.ok(this.model.on.calledWith('change', this.cardView.render, this.cardView), 'model.on'); // Note: white box tests that we will re-render the view when model is updated
+        QUnit.ok(this.card.on.calledWith('change', this.cardView.render, this.cardView), 'card.on'); // Note: white box tests that we will re-render the view when model is updated
     });
 
     QUnit.test('render', function () {
@@ -42,7 +42,7 @@ define(function (require) {
         $('#view', this.document).click();
 
         // then
-        QUnit.ok(this.model.duplicate.calledOnce, 'model.duplicate');
+        QUnit.ok(this.card.duplicate.calledOnce, 'card.duplicate');
     });
 });
 

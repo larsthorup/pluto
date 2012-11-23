@@ -1,11 +1,32 @@
 /*global define*/
 define(function (require) {
     'use strict';
-    var Backbone = require('backbone');
+    var $ = require('jquery');
+    var BaseView = require('views/base');
     // var Session = require('models/session');
 
-    var SessionView = Backbone.View.extend({
+    var SessionView = BaseView.extend({
+        events: function () {
+            return {
+                'click .login': this.login
+            };
+        },
 
+        initialize: function () {
+            this.document = this.options.document;
+            this.template = this.makeTemplate('session-template');
+            this.model = this.options.model;
+        },
+
+        render: function () {
+            this.$el.html(this.template(this.model.toJSON()));
+            return this;
+        },
+
+        login: function () {
+            var userId = $('.user', this.$el).val();
+            this.model.login(userId);
+        }
     });
 
     return SessionView;
