@@ -2,8 +2,10 @@
 define(function (require) {
     'use strict';
     var $ = require('jquery');
+    var Session = require('models/session');
     var Card = require('models/card');
     var CardCollection = require('collections/cards');
+    var SessionView = require('views/session');
     var CardsView = require('views/cards');
 
     var app = null;
@@ -19,29 +21,45 @@ define(function (require) {
         this.root = '/';
     };
     App.prototype = {
+        destroy: function () { // Note: singleton pattern, for testability
+            app = null;
+        },
+
         bootstrap: function (document, router) {
             this.document = document;
             this.router = router;
+
             this.router.on('route:index', this.goCardsView, this);
+            this.router.on('route:login', this.goLogin, this);
         },
+
         goCardsView: function () {
-            var collection = new CardCollection();
+            var cards = new CardCollection();
             var cardsView = new CardsView({
                 document: this.document,
                 el: $('#main', this.document),
-                collection: collection
+                collection: cards
             });
             cardsView.render();
             this.view = cardsView;
 
             // ToDo: load data from server
-            collection.add([
+            cards.add([
                 new Card({id: 11, title: 'Meet Rob'}),
                 new Card({id: 12, title: 'Buy lunch'})
             ]);
         },
-        reset: function () {
-            app = null;
+
+        goLogin: function () {
+            var session = new Session();
+            var sessionView = new SessionView({
+                app: this,
+                document: this.document,
+                el: $('#main', this.document), // ToDo: DRY
+                model: session
+            });
+            sessionView.render();
+            this.view = sessionView;
         }
     };
 

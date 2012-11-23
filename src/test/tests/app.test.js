@@ -12,7 +12,7 @@ define(function (require) {
             this.app = getApp();
         },
         teardown: function () {
-            this.app.reset();
+            this.app.destroy();
         }
     });
 
@@ -42,5 +42,21 @@ define(function (require) {
         QUnit.equal(this.app.view.collection.get(11).get('title'), 'Meet Rob', 'app.view.collection.get(11).title');
         QUnit.equal(this.app.view.collection.get(12).get('title'), 'Buy lunch', 'app.view.collection.get(12).title');
         QUnit.equal(this.app.view.collection.length, 2);
+    });
+
+    QUnit.test('route:login-goLogin', function () {
+        // given
+        // ToDo: mock CardsView so we won't have to include its template here
+        var document = $('<div>' +
+            '<script type="template/text" id="session-template"><input/></script>' +
+            '</div>');
+        var router = new Router();
+        this.app.bootstrap(document, router);
+
+        // when
+        this.app.router.trigger('route:login');
+
+        // then
+        QUnit.equal(this.app.view.model.get('userId'), null, 'app.view.model.userId');
     });
 });

@@ -7,6 +7,10 @@ define(function (require) {
 
     QUnit.module('views.session', {
         setup: function () {
+            this.app = {
+                router: {}
+            };
+            this.app.router.navigate = sinon.spy();
             this.document = $('<div>' +
                 '<div id="view"></div>' +
                 '<script type="text/template" id="session-template">' +
@@ -17,6 +21,7 @@ define(function (require) {
             this.session = new Session();
             this.session.login = sinon.spy();
             this.sessionView = new SessionView({
+                app: this.app,
                 document: this.document,
                 el: $('#view', this.document),
                 model: this.session
@@ -50,6 +55,7 @@ define(function (require) {
 
         // then
         QUnit.ok(this.session.login.calledWith('lars'));
+        QUnit.ok(this.app.router.navigate.calledWith(''));
     });
 
 });

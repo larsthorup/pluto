@@ -13,6 +13,7 @@ define(function (require) {
         },
 
         initialize: function () {
+            this.app = this.options.app;
             this.document = this.options.document;
             this.template = this.makeTemplate('session-template');
             this.model = this.options.model;
@@ -26,6 +27,7 @@ define(function (require) {
         login: function () {
             var userId = $('.user', this.$el).val();
             this.model.login(userId);
+            this.app.router.navigate('', {trigger: true});
         }
     });
 
