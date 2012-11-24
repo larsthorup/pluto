@@ -30,34 +30,51 @@ define(function (require) {
 
             this.$main = $('#main', this.document);
 
+            this.applicationKey = '4c5b4d16e6e53d893674f9452ac277bf';
+            this.session = new Session();
+            this.cards = new CardCollection();
+
             this.router.on('route:index', this.goCardsView, this);
             this.router.on('route:login', this.goLogin, this);
         },
 
         goCardsView: function () {
-            var cards = new CardCollection();
             var cardsView = CardsViewFactory.create({
                 document: this.document,
                 el: this.$main,
-                collection: cards
+                collection: this.cards
             });
             cardsView.render();
             this.view = cardsView;
 
-            // ToDo: load data from server
-            cards.add([
-                new Card({id: 11, title: 'Meet Rob'}),
-                new Card({id: 12, title: 'Buy lunch'})
-            ]);
+            // ToDo: refactor to use sync()
+            var trelloApiVersion = 1;
+            var listId = '509070d37b1e65530d005067'; // ToDo: get from user
+            var url = 'https://api.trello.com/' + trelloApiVersion + '/lists/' + listId;
+            var data = {
+                key: this.applicationKey,
+                token: this.session.get('userId'),
+                cards: 'open'
+            };
+            // ToDo: handle error
+            // ToDo: show "loading..."
+            $.ajax(url, { data: data, dataType: 'json', success: $.proxy(function (list) {
+                // ToDo: use underscore
+                var cardList = [];
+                for (var i = 0; i < list.cards.length; i += 1) {
+                    var card = list.cards[i];
+                    cardList.push(new Card({id: card.id, title: card.name}));
+                }
+                this.cards.add(cardList);
+            }, this)});
         },
 
         goLogin: function () {
-            var session = new Session();
             var sessionView = SessionViewFactory.create({
                 app: this,
                 document: this.document,
                 el: this.$main,
-                model: session
+                model: this.session
             });
             sessionView.render();
             this.view = sessionView;

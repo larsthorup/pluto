@@ -1,7 +1,9 @@
-/*global define,QUnit,sinon*/
+/*global define,QUnit,sinon,window*/
 define(function (require) {
     'use strict';
 
+    var $ = require('jquery');
+    require('mockjax');
     var Router = require('router');
     var getApp = require('app');
     var CardsViewFactory = require('views/cards');
@@ -31,15 +33,36 @@ define(function (require) {
         QUnit.equal(app, this.app, 'new App() returns a singleton');
     });
 
-    QUnit.test('route:index-goCardsView', function () {
+    QUnit.asyncTest('route:index-goCardsView', function () {
         // given
         this.app.bootstrap(this.document, this.router);
+        this.app.session.login('lars');
+        $.mockjax({
+            log: null,
+            url: 'https://api.trello.com/1/lists/509070d37b1e65530d005067',
+            data: {
+                key: '4c5b4d16e6e53d893674f9452ac277bf',
+                token: 'lars',
+                cards: 'open'
+            },
+            responseTime: 1,
+            responseText: {
+                cards: [{id: 42, name: 'play!'}]
+            }
+        });
 
         // when
         this.app.router.trigger('route:index');
 
-        // then
-        QUnit.ok(CardsViewFactory.mock.render.calledOnce, 'CardsView.render.calledOnce');
+        // ToDo: use callback instead of timeout
+        window.setTimeout($.proxy(function () {
+            // then
+            QUnit.ok(CardsViewFactory.mock.render.calledOnce, 'CardsView.render.calledOnce');
+            // ToDo: mock model
+            QUnit.equal(this.app.cards.length, 1);
+            QUnit.equal(this.app.cards.get(42).get('title'), 'play!');
+            QUnit.start();
+        }, this), 10);
     });
 
     QUnit.test('route:login-goLogin', function () {

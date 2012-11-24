@@ -31,7 +31,6 @@ define(function (require) {
         var $ = require('jquery');
         QUnit.asyncTest('sync', function () {
             var trelloApiVersion = 1;
-            // var boardId = '4f8de470affc47647b1308b7';
             var listId = '509070d37b1e65530d005067';
             var url = 'https://api.trello.com/' + trelloApiVersion + '/lists/' + listId;
             var applicationKey = '4c5b4d16e6e53d893674f9452ac277bf';

@@ -3,6 +3,7 @@ window.config = function () {
     'use strict';
     // Note: defer Qunit until RequireJS resolved all modules
     QUnit.config.autostart = false;
+    QUnit.config.testTimeout = 1000;
     require.config({
         baseUrl: '../app',
         paths: {
@@ -14,6 +15,7 @@ window.config = function () {
             jquery: '../assets/js/libs/jquery',
             lodash: '../assets/js/libs/lodash',
             backbone: '../assets/js/libs/backbone',
+            mockjax: '../test/vendor/jquery.mockjax',
             tests: '../test/tests' // Note: base directory is app/, which is why ../test is necessary
         },
         shim: {
@@ -22,6 +24,8 @@ window.config = function () {
                 deps: ['lodash', 'jquery'],
                 exports: 'Backbone'
             },
+
+            mockjax: ['jquery'],
 
             // Backbone.LayoutManager depends on Backbone.
             'plugins/backbone.layoutmanager': ['backbone']
