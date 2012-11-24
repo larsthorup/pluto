@@ -4,16 +4,20 @@ define(function (require) {
     var $ = require('jquery');
     var Card = require('models/card');
     var CardsViewFactory = require('views/cards');
+    var CardViewFactory = require('views/card');
 
     QUnit.module('view.cards', {
         setup: function () {
+            // ToDo: DRY
+            CardViewFactory.mockWith(function () {
+                var fakeRender = function () { return {el: null}; };
+                return sinon.spy(fakeRender);
+            });
             // given
-            // ToDo: mock CardView so we won't have to include its template here
             var document = $('<div>' +
                 '<div id="view"></div>' +
                 '<script type="template/text" id="cards-template"><ul class="items"></ul></script>' +
                 '<script type="template/text" id="cards-item-template"><li></li></script>' +
-                '<script type="template/text" id="card-template"><%=title%></script>' +
                 '</div>');
             this.collection = {};
             this.collection.on = sinon.spy();
@@ -23,6 +27,9 @@ define(function (require) {
                 el: $('#view', document)
             });
             this.cardsView.initialize();
+        },
+        teardown: function () {
+            CardViewFactory.restore();
         }
     });
 
@@ -48,7 +55,8 @@ define(function (require) {
         this.cardsView.addOne(card);
 
         // then
-        QUnit.equal(this.cardsView.$el.html(), '<ul class="items"><li>Buy cheese</li></ul>', 'cardsView.html');
+        QUnit.ok(CardViewFactory.mock.render.calledOnce, 'CardView.render.calledOnce');
+        QUnit.equal(this.cardsView.$el.html(), '<ul class="items"></ul>', 'cardsView.html');
     });
 
     QUnit.test('addOne-failsBeforeRender', function () {
