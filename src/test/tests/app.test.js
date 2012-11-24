@@ -3,11 +3,10 @@ define(function (require) {
     'use strict';
 
     var $ = require('jquery');
-    var _ = require('lodash');
     var Router = require('router');
     var getApp = require('app');
-    var BaseView = require('views/base');
     var CardsViewFactory = require('views/cards');
+    var SessionViewFactory = require('views/session');
 
     QUnit.module('app', {
         setup: function () {
@@ -16,21 +15,13 @@ define(function (require) {
             this.document = $(dummyHtml);
             this.app = getApp();
             this.router = new Router();
-            // ToDo: DRY
-            // Note: mock CardsView so we won't have to include its template here
-            CardsViewFactory.mock = {
-                render: sinon.spy()
-            };
-            sinon.stub(CardsViewFactory, 'create', function () {
-                return CardsViewFactory.mock;
-            });
-            // ToDo: getting rid of this
-            sinon.stub(BaseView.prototype, 'makeTemplate', function () { return _.template(dummyHtml); });
+            // Note: mock views so we won't have to include their templates here
+            CardsViewFactory.mockWith(sinon.spy);
+            SessionViewFactory.mockWith(sinon.spy);
         },
         teardown: function () {
-            // ToDo: getting rid of this
-            BaseView.prototype.makeTemplate.restore();
-            CardsViewFactory.create.restore();
+            SessionViewFactory.restore();
+            CardsViewFactory.restore();
             this.app.destroy();
         }
     });
@@ -62,6 +53,6 @@ define(function (require) {
         this.app.router.trigger('route:login');
 
         // then
-        QUnit.equal(this.app.view.model.get('userId'), null, 'app.view.model.userId');
+        QUnit.ok(SessionViewFactory.mock.render.calledOnce, 'SessionView.render.calledOnce');
     });
 });

@@ -5,7 +5,7 @@ define(function (require) {
     var Session = require('models/session');
     var Card = require('models/card');
     var CardCollection = require('collections/cards');
-    var SessionView = require('views/session');
+    var SessionViewFactory = require('views/session');
     var CardsViewFactory = require('views/cards');
 
     var app = null;
@@ -53,7 +53,7 @@ define(function (require) {
 
         goLogin: function () {
             var session = new Session();
-            var sessionView = new SessionView({
+            var sessionView = SessionViewFactory.create({
                 app: this,
                 document: this.document,
                 el: this.$main,

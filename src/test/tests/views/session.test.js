@@ -3,7 +3,7 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var Session = require('models/session');
-    var SessionView = require('views/session');
+    var SessionViewFactory = require('views/session');
 
     QUnit.module('views.session', {
         setup: function () {
@@ -20,7 +20,7 @@ define(function (require) {
             '</div>');
             this.session = new Session();
             this.session.login = sinon.spy();
-            this.sessionView = new SessionView({
+            this.sessionView = SessionViewFactory.create({
                 app: this.app,
                 document: this.document,
                 el: $('#view', this.document),

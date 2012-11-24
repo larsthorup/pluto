@@ -49,6 +49,18 @@ define(function (require) {
     var CardsViewFactory = {
         create: function (options) {
             return new CardsView(options);
+        },
+        mockWith: function (spy) {
+            CardsViewFactory.mock = {
+                render: spy()
+            };
+            CardsViewFactory._create = CardsViewFactory.create;
+            CardsViewFactory.create = function () {
+                return CardsViewFactory.mock;
+            };
+        },
+        restore: function () {
+            CardsViewFactory.create = CardsViewFactory._create;
         }
     };
     return CardsViewFactory;

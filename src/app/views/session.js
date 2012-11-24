@@ -3,7 +3,6 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var BaseView = require('views/base');
-    // var Session = require('models/session');
 
     var SessionView = BaseView.extend({
         events: function () {
@@ -31,5 +30,24 @@ define(function (require) {
         }
     });
 
-    return SessionView;
+    // ToDo: DRY
+    var SessionViewFactory = {
+        create: function (options) {
+            return new SessionView(options);
+        },
+        mockWith: function (spy) {
+            SessionViewFactory.mock = {
+                render: spy()
+            };
+            SessionViewFactory._create = SessionViewFactory.create;
+            SessionViewFactory.create = function () {
+                return SessionViewFactory.mock;
+            };
+        },
+        restore: function () {
+            SessionViewFactory.create = SessionViewFactory._create;
+        }
+    };
+
+    return SessionViewFactory;
 });
