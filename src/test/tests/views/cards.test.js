@@ -3,7 +3,7 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var Card = require('models/card');
-    var CardsView = require('views/cards');
+    var CardsViewFactory = require('views/cards');
 
     QUnit.module('view.cards', {
         setup: function () {
@@ -17,7 +17,7 @@ define(function (require) {
                 '</div>');
             this.collection = {};
             this.collection.on = sinon.spy();
-            this.cardsView = new CardsView({
+            this.cardsView = CardsViewFactory.create({
                 document: document,
                 collection: this.collection,
                 el: $('#view', document)

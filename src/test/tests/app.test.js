@@ -7,20 +7,30 @@ define(function (require) {
     var Router = require('router');
     var getApp = require('app');
     var BaseView = require('views/base');
+    var CardsViewFactory = require('views/cards');
 
     QUnit.module('app', {
         setup: function () {
             // given
-            var dummyHtml = '<div></div>';
+            var dummyHtml = '<div></div>'; // ToDo: get rid of this
             this.document = $(dummyHtml);
             this.app = getApp();
             this.router = new Router();
-            // ToDo: find a more elegant way to stub. Use a factory?
+            // ToDo: DRY
             // Note: mock CardsView so we won't have to include its template here
+            CardsViewFactory.mock = {
+                render: sinon.spy()
+            };
+            sinon.stub(CardsViewFactory, 'create', function () {
+                return CardsViewFactory.mock;
+            });
+            // ToDo: getting rid of this
             sinon.stub(BaseView.prototype, 'makeTemplate', function () { return _.template(dummyHtml); });
         },
         teardown: function () {
+            // ToDo: getting rid of this
             BaseView.prototype.makeTemplate.restore();
+            CardsViewFactory.create.restore();
             this.app.destroy();
         }
     });
@@ -41,9 +51,7 @@ define(function (require) {
         this.app.router.trigger('route:index');
 
         // then
-        QUnit.equal(this.app.view.collection.get(11).get('title'), 'Meet Rob', 'app.view.collection.get(11).title');
-        QUnit.equal(this.app.view.collection.get(12).get('title'), 'Buy lunch', 'app.view.collection.get(12).title');
-        QUnit.equal(this.app.view.collection.length, 2);
+        QUnit.ok(CardsViewFactory.mock.render.calledOnce, 'CardsView.render.calledOnce');
     });
 
     QUnit.test('route:login-goLogin', function () {

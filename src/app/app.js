@@ -6,7 +6,7 @@ define(function (require) {
     var Card = require('models/card');
     var CardCollection = require('collections/cards');
     var SessionView = require('views/session');
-    var CardsView = require('views/cards');
+    var CardsViewFactory = require('views/cards');
 
     var app = null;
     var getApp = function () {
@@ -36,7 +36,7 @@ define(function (require) {
 
         goCardsView: function () {
             var cards = new CardCollection();
-            var cardsView = new CardsView({
+            var cardsView = CardsViewFactory.create({
                 document: this.document,
                 el: this.$main,
                 collection: cards

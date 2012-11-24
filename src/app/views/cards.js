@@ -46,5 +46,10 @@ define(function (require) {
         }
 
     });
-    return CardsView;
+    var CardsViewFactory = {
+        create: function (options) {
+            return new CardsView(options);
+        }
+    };
+    return CardsViewFactory;
 });
