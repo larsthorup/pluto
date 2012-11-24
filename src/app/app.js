@@ -16,18 +16,19 @@ define(function (require) {
         return app;
     };
 
-    // Note: Provide a global location to place configuration settings and module creation.
     var App = function () {
         this.root = '/';
     };
     App.prototype = {
-        destroy: function () { // Note: singleton pattern, for testability
+        destroy: function () { // Note: singleton pattern, this part included for testability
             app = null;
         },
 
         bootstrap: function (document, router) {
             this.document = document;
             this.router = router;
+
+            this.$main = $('#main', this.document);
 
             this.router.on('route:index', this.goCardsView, this);
             this.router.on('route:login', this.goLogin, this);
@@ -37,7 +38,7 @@ define(function (require) {
             var cards = new CardCollection();
             var cardsView = new CardsView({
                 document: this.document,
-                el: $('#main', this.document),
+                el: this.$main,
                 collection: cards
             });
             cardsView.render();
@@ -55,7 +56,7 @@ define(function (require) {
             var sessionView = new SessionView({
                 app: this,
                 document: this.document,
-                el: $('#main', this.document), // ToDo: DRY
+                el: this.$main,
                 model: session
             });
             sessionView.render();
