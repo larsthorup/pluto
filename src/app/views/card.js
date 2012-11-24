@@ -2,6 +2,7 @@
 define(function (require) {
     'use strict';
     var BaseView = require('views/base');
+    var ViewFactoryFactory = require('views/factory');
 
     var CardView = BaseView.extend({
 
@@ -27,5 +28,6 @@ define(function (require) {
         }
 
     });
-    return CardView;
+    var CardViewFactory = ViewFactoryFactory.create(CardView);
+    return CardViewFactory;
 });

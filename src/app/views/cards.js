@@ -3,7 +3,8 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var BaseView = require('views/base');
-    var CardView = require('views/card');
+    var ViewFactoryFactory = require('views/factory');
+    var CardViewFactory = require('views/card');
 
     /**
      * @extends BaseView
@@ -35,7 +36,7 @@ define(function (require) {
             if (!this.$cards) {
                 throw new Error('CardsView assertion failed: must call render() before calling addOne()');
             }
-            var cardView = new CardView({
+            var cardView = CardViewFactory.create({
                 document: this.document,
                 el: this.itemTemplate(),
                 model: card
@@ -46,22 +47,6 @@ define(function (require) {
         }
 
     });
-    var CardsViewFactory = {
-        create: function (options) {
-            return new CardsView(options);
-        },
-        mockWith: function (spy) {
-            CardsViewFactory.mock = {
-                render: spy()
-            };
-            CardsViewFactory._create = CardsViewFactory.create;
-            CardsViewFactory.create = function () {
-                return CardsViewFactory.mock;
-            };
-        },
-        restore: function () {
-            CardsViewFactory.create = CardsViewFactory._create;
-        }
-    };
+    var CardsViewFactory = ViewFactoryFactory.create(CardsView);
     return CardsViewFactory;
 });

@@ -2,7 +2,6 @@
 define(function (require) {
     'use strict';
 
-    var $ = require('jquery');
     var Router = require('router');
     var getApp = require('app');
     var CardsViewFactory = require('views/cards');
@@ -10,19 +9,17 @@ define(function (require) {
 
     QUnit.module('app', {
         setup: function () {
-            // given
-            var dummyHtml = '<div></div>'; // ToDo: get rid of this
-            this.document = $(dummyHtml);
-            this.app = getApp();
-            this.router = new Router();
             // Note: mock views so we won't have to include their templates here
             CardsViewFactory.mockWith(sinon.spy);
             SessionViewFactory.mockWith(sinon.spy);
+            // given
+            this.app = getApp();
+            this.router = new Router();
         },
         teardown: function () {
+            this.app.destroy();
             SessionViewFactory.restore();
             CardsViewFactory.restore();
-            this.app.destroy();
         }
     });
 

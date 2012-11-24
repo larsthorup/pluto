@@ -29,12 +29,6 @@ define(function (require) {
         }
     });
 
-    /*
-    QUnit.test('initialize', function () {
-
-    });
-    */
-
     QUnit.test('render', function () {
         // when
         this.sessionView.render();

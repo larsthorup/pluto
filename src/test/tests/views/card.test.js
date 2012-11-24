@@ -3,7 +3,7 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var Card = require('models/card');
-    var CardView = require('views/card');
+    var CardViewFactory = require('views/card');
 
     QUnit.module('view.card', {
         setup: function () {
@@ -12,7 +12,7 @@ define(function (require) {
             this.card = new Card({title: 'Meet Rob'});
             this.card.on = sinon.spy();
             this.card.duplicate = sinon.spy();
-            this.cardView = new CardView({
+            this.cardView = CardViewFactory.create({
                 document: this.document,
                 el: $('#view', this.document),
                 model: this.card
