@@ -8,11 +8,7 @@ define(function (require) {
 
     QUnit.module('view.cards', {
         setup: function () {
-            // ToDo: DRY
-            CardViewFactory.mockWith(function () {
-                var fakeRender = function () { return {el: null}; };
-                return sinon.spy(fakeRender);
-            });
+            CardViewFactory.mockWith(sinon.spy, { render: function () { return {el: null}; } });
             // given
             var document = $('<div>' +
                 '<div id="view"></div>' +

@@ -8,9 +8,15 @@ define(function () {
                 create: function (options) {
                     return new View(options);
                 },
-                mockWith: function (spy) {
+                /**
+                 * mock the create() method of the factory. use restore() to revert
+                 * @param spy function that will create a spy, typically sinon.spy
+                 * @param @optional fakes dictionary of fake implementations of view methods
+                 */
+                mockWith: function (spy, fakes) {
+                    fakes = fakes || {};
                     ViewFactory.mock = {
-                        render: spy()
+                        render: spy(fakes.render || function () {})
                     };
                     ViewFactory._create = ViewFactory.create;
                     ViewFactory.create = function () {
