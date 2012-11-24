@@ -1,17 +1,26 @@
-/*global define,QUnit*/
+/*global define,QUnit,sinon*/
 define(function (require) {
     'use strict';
 
     var $ = require('jquery');
+    var _ = require('lodash');
     var Router = require('router');
     var getApp = require('app');
+    var BaseView = require('views/base');
 
     QUnit.module('app', {
         setup: function () {
             // given
+            var dummyHtml = '<div></div>';
+            this.document = $(dummyHtml);
             this.app = getApp();
+            this.router = new Router();
+            // ToDo: find a more elegant way to stub. Use a factory?
+            // Note: mock CardsView so we won't have to include its template here
+            sinon.stub(BaseView.prototype, 'makeTemplate', function () { return _.template(dummyHtml); });
         },
         teardown: function () {
+            BaseView.prototype.makeTemplate.restore();
             this.app.destroy();
         }
     });
@@ -26,14 +35,7 @@ define(function (require) {
 
     QUnit.test('route:index-goCardsView', function () {
         // given
-        // ToDo: mock CardsView so we won't have to include its template here
-        var document = $('<div>' +
-            '<script type="template/text" id="card-template"><ul></ul></script>' +
-            '<script type="template/text" id="cards-template"><ul></ul></script>' +
-            '<script type="template/text" id="cards-item-template"><li></li></script>' +
-            '</div>');
-        var router = new Router();
-        this.app.bootstrap(document, router);
+        this.app.bootstrap(this.document, this.router);
 
         // when
         this.app.router.trigger('route:index');
@@ -46,12 +48,7 @@ define(function (require) {
 
     QUnit.test('route:login-goLogin', function () {
         // given
-        // ToDo: mock CardsView so we won't have to include its template here
-        var document = $('<div>' +
-            '<script type="template/text" id="session-template"><input/></script>' +
-            '</div>');
-        var router = new Router();
-        this.app.bootstrap(document, router);
+        this.app.bootstrap(this.document, this.router);
 
         // when
         this.app.router.trigger('route:login');
