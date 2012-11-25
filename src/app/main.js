@@ -11,6 +11,16 @@ define(function (require) {
     var app = getApp();
     app.bootstrap(document, router);
 
+    // ToDo: make event tracing work
+//    var traceEvents = true;
+//    if (traceEvents) {
+//        var originalTrigger = Backbone.Events.trigger;
+//        Backbone.Events.trigger = function () {
+//            window.console.log(arguments);
+//            originalTrigger.apply(this, Array.prototype.slice.call(arguments));
+//        };
+//    }
+
     // Trigger the initial route and enable HTML5 History API support, set the
     // root folder to '/' by default.  Change in app.js.
     Backbone.history.start({ pushState: false, root: app.root });

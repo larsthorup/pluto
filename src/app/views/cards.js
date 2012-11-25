@@ -21,6 +21,7 @@ define(function (require) {
             this.document = this.options.document;
             this.collection = this.options.collection;
             this.collection.on('add', this.addOne, this);
+            this.collection.on('reset', this.addAll, this);
             this.template = this.makeTemplate('cards-template');
             this.itemTemplate = this.makeTemplate('cards-item-template');
         },
@@ -44,6 +45,11 @@ define(function (require) {
             var cardHtml = cardView.render();
             // ToDo: use template to pinpoint position to insert?
             this.$cards.append(cardHtml.el);
+        },
+
+        addAll: function () {
+            this.$cards.html('');
+            this.collection.each(this.addOne, this);
         }
 
     });

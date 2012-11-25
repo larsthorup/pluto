@@ -62,4 +62,21 @@ define(function (require) {
         // when + then
         QUnit.throws(function () { this.cardsView.addOne(card); }, /assertion/, 'assertion');
     });
+
+    QUnit.test('addAll', function () {
+        // given
+        this.cardsView.render();
+        // ToDo: better mock of collection, or use real collection
+        this.collection.each = function (fn, obj) {
+            fn.call(obj, new Card({title: 'Buy cheese'}));
+            fn.call(obj, new Card({title: 'Buy water'}));
+        };
+
+        // when
+        this.cardsView.addAll();
+
+        // then
+        QUnit.equal(CardViewFactory.mock.render.callCount, 2, 'CardView.render.calledOnce');
+        // ToDo: assert that it is only called once
+    });
 });

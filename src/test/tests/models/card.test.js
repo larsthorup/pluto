@@ -16,6 +16,20 @@ define(function (require) {
         QUnit.equal(title, 'Buy milk', 'title');
     });
 
+    QUnit.test('parse', function () {
+        // given
+        var response = {
+            id: 43,
+            name: 'sing?'
+        };
+
+        // when
+        var item = Card.prototype.parse(response);
+
+        // then
+        QUnit.deepEqual(item, {id: 43, title: 'sing?'}, 'parse()');
+    });
+
     QUnit.test('duplicate', function () {
         // given
         var card = new Card({title: 'Mono'});

@@ -9,6 +9,13 @@ define(function (require) {
             title: ''
         },
 
+        parse: function (response) {
+            return {
+                id: response.id,
+                title: response.name
+            };
+        },
+
         duplicate: function () {
             var title = this.get('title');
             this.set('title', title + title);

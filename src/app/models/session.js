@@ -3,6 +3,7 @@ define(function (require) {
     'use strict';
 
     var Backbone = require('backbone');
+    var trello = require('persistence/trello');
 
     var Session = Backbone.Model.extend({
         defaults: {
@@ -10,6 +11,8 @@ define(function (require) {
         },
 
         login: function (userId) {
+            // ToDo: error handling
+            trello.login(userId);
             this.set('userId', userId);
         }
     });

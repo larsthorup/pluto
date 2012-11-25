@@ -3,7 +3,6 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var Session = require('models/session');
-    var Card = require('models/card');
     var CardCollection = require('collections/cards');
     var SessionViewFactory = require('views/session');
     var CardsViewFactory = require('views/cards');
@@ -30,9 +29,9 @@ define(function (require) {
 
             this.$main = $('#main', this.document);
 
-            this.applicationKey = '4c5b4d16e6e53d893674f9452ac277bf';
+            var listId = '509070d37b1e65530d005067'; // ToDo: get from user
             this.session = new Session();
-            this.cards = new CardCollection();
+            this.cards = new CardCollection(null, {listId: listId});
 
             this.router.on('route:index', this.goCardsView, this);
             this.router.on('route:login', this.goLogin, this);
@@ -47,26 +46,9 @@ define(function (require) {
             cardsView.render();
             this.view = cardsView;
 
-            // ToDo: refactor to use sync()
-            var trelloApiVersion = 1;
-            var listId = '509070d37b1e65530d005067'; // ToDo: get from user
-            var url = 'https://api.trello.com/' + trelloApiVersion + '/lists/' + listId;
-            var data = {
-                key: this.applicationKey,
-                token: this.session.get('userId'),
-                cards: 'open'
-            };
-            // ToDo: handle error
             // ToDo: show "loading..."
-            $.ajax(url, { data: data, dataType: 'json', success: $.proxy(function (list) {
-                // ToDo: use underscore
-                var cardList = [];
-                for (var i = 0; i < list.cards.length; i += 1) {
-                    var card = list.cards[i];
-                    cardList.push(new Card({id: card.id, title: card.name}));
-                }
-                this.cards.add(cardList);
-            }, this)});
+            // ToDo: show error
+            this.cards.fetch();
         },
 
         goLogin: function () {
