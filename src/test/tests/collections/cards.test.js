@@ -2,6 +2,7 @@
 define(function (require) {
     'use strict';
     var $ = require('jquery');
+    var Backbone = require('backbone');
     require('mockjax');
     var trello = require('persistence/trello');
     var Card = require('models/card');
@@ -26,8 +27,23 @@ define(function (require) {
         // then
         QUnit.equal(this.cards.length, 1, 'cards.length');
         var card = this.cards.get(42);
-        QUnit.ok(card instanceof Card, 'card instanceof Cards');
+        QUnit.ok(card instanceof Card, 'card instanceof Card');
         QUnit.equal(card.get('title'), 'Grow tomatoes', 'card.title');
+    });
+
+    QUnit.test('mock model', function () {
+        // given
+        var MockCard = Backbone.Model.extend({
+        });
+        this.cards.model = MockCard;
+
+        // when
+        this.cards.create({id: 17});
+
+        // then
+        QUnit.equal(this.cards.length, 1, 'cards.length');
+        var card = this.cards.get(17);
+        QUnit.ok(card instanceof MockCard, 'card instanceof MockCard');
     });
 
     QUnit.test('parse', function () {

@@ -2,11 +2,11 @@
 define(function () {
     'use strict';
 
-    var ViewFactoryFactory = {
-        create: function (View) {
+    var ModelFactoryFactory = {
+        create: function (Model) {
             var Factory = {
-                create: function (options) {
-                    return new View(options);
+                create: function (attributes) {
+                    return new Model(attributes);
                 },
                 /**
                  * mock the create() method of the factory. use restore() to revert
@@ -15,8 +15,9 @@ define(function () {
                  */
                 mockWith: function (spy, fakes) {
                     fakes = fakes || {};
+                    // ToDo: make generic over available methods to facilitate sharing common implementation
                     Factory.mock = {
-                        render: spy(fakes.render || function () {})
+                        fetch: spy(fakes.fetch || function () {})
                     };
                     Factory._create = Factory.create;
                     Factory.create = function () {
@@ -30,5 +31,5 @@ define(function () {
             return Factory;
         }
     };
-    return ViewFactoryFactory;
+    return ModelFactoryFactory;
 });
