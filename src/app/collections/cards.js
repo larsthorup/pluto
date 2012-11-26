@@ -4,6 +4,7 @@ define(function (require) {
     var Backbone = require('backbone');
     var trello = require('persistence/trello');
     var Card = require('models/card');
+    var CollectionFactoryFactory = require('collections/factory');
 
     var CardCollection = Backbone.Collection.extend({
 
@@ -33,5 +34,6 @@ define(function (require) {
         sync: trello.sync
     });
 
-    return CardCollection;
+    var CardCollectionFactory = CollectionFactoryFactory.create(CardCollection);
+    return CardCollectionFactory;
 });

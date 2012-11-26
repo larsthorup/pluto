@@ -5,12 +5,12 @@ define(function (require) {
     require('mockjax');
     var trello = require('persistence/trello');
     var Card = require('models/card');
-    var Cards = require('collections/cards');
+    var CardCollectionFactory = require('collections/cards');
 
     QUnit.module('collection.cards', {
         setup: function () {
             // given
-            this.cards = new Cards(null, {listId: 'abc'});
+            this.cards = CardCollectionFactory.create(null, {listId: 'abc'});
         }
     });
 
@@ -37,7 +37,7 @@ define(function (require) {
         };
 
         // when
-        var itemArray = Cards.prototype.parse(response);
+        var itemArray = this.cards.parse(response);
 
         // then
         QUnit.deepEqual(itemArray, [{id: 43, name: 'sing?'}], 'parse()');

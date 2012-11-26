@@ -3,7 +3,7 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var Session = require('models/session');
-    var CardCollection = require('collections/cards');
+    var CardCollectionFactory = require('collections/cards');
     var SessionViewFactory = require('views/session');
     var CardsViewFactory = require('views/cards');
 
@@ -37,7 +37,7 @@ define(function (require) {
 
         goCardsView: function () {
             var listId = '509070d37b1e65530d005067'; // ToDo: get from user
-            var cards = new CardCollection(null, {listId: listId});
+            var cards = CardCollectionFactory.create(null, {listId: listId});
             this.cards = cards;
             var cardsView = CardsViewFactory.create({
                 document: this.document,
