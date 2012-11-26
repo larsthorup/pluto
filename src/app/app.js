@@ -29,26 +29,27 @@ define(function (require) {
 
             this.$main = $('#main', this.document);
 
-            var listId = '509070d37b1e65530d005067'; // ToDo: get from user
             this.session = new Session();
-            this.cards = new CardCollection(null, {listId: listId});
 
             this.router.on('route:index', this.goCardsView, this);
             this.router.on('route:login', this.goLogin, this);
         },
 
         goCardsView: function () {
+            var listId = '509070d37b1e65530d005067'; // ToDo: get from user
+            var cards = new CardCollection(null, {listId: listId});
+            this.cards = cards;
             var cardsView = CardsViewFactory.create({
                 document: this.document,
                 el: this.$main,
-                collection: this.cards
+                collection: cards
             });
             cardsView.render();
             this.view = cardsView;
 
             // ToDo: show "loading..."
             // ToDo: show error
-            this.cards.fetch();
+            cards.fetch();
         },
 
         goLogin: function () {

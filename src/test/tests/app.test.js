@@ -14,12 +14,15 @@ define(function (require) {
             // Note: mock views so we won't have to include their templates here
             CardsViewFactory.mockWith(sinon.spy);
             SessionViewFactory.mockWith(sinon.spy);
+            //CardCollectionFactory.mockWith(sinon.spy);
+
             // given
             this.app = getApp();
             this.router = new Router();
         },
         teardown: function () {
             this.app.destroy();
+            //CardCollectionFactory.restore();
             SessionViewFactory.restore();
             CardsViewFactory.restore();
         }
@@ -33,7 +36,21 @@ define(function (require) {
         QUnit.equal(app, this.app, 'new App() returns a singleton');
     });
 
-    QUnit.asyncTest('route:index-goCardsView', function () {
+    /*
+    QUnit.test('route:index-goCardsView', function () {
+        // given
+        this.app.bootstrap(this.document, this.router);
+
+        // when
+        this.app.router.trigger('route:index');
+
+        // then
+        QUnit.ok(this.app.view.render.calledOnce, 'app.view.render.calledOnce');
+        QUnit.ok(this.app.view.collection.fetch.calledOnce, 'app.view.collection.fetch.calledOnce')
+    });
+    */
+
+    QUnit.asyncTest('obsolete:route:index-goCardsView', function () {
         // given
         this.app.bootstrap(this.document, this.router);
         this.app.session.login('lars');
@@ -54,11 +71,12 @@ define(function (require) {
         // when
         this.app.router.trigger('route:index');
 
+        // then
         // ToDo: use callback instead of timeout
         window.setTimeout($.proxy(function () {
             // then
             QUnit.ok(CardsViewFactory.mock.render.calledOnce, 'CardsView.render.calledOnce');
-            // ToDo: mock model
+            // ToDo: mock collection
             QUnit.equal(this.app.cards.length, 1);
             QUnit.equal(this.app.cards.get(42).get('title'), 'play!');
             QUnit.start();
