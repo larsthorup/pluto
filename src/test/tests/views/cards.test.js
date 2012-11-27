@@ -5,27 +5,35 @@ define(function (require) {
     var Card = require('models/card');
     var CardsViewFactory = require('views/cards');
     var CardViewFactory = require('views/card');
+    var CardsCollectionFactory = require('collections/cards');
 
     QUnit.module('view.cards', {
         setup: function () {
+            // ToDo: implement default return value in the mock instead of here
             CardViewFactory.mockWith(sinon.spy, { render: function () { return {el: null}; } });
+            CardsCollectionFactory.mockWith(sinon.spy);
             // given
-            var document = $('<div>' +
+            this.document = $('<div>' +
                 '<div id="view"></div>' +
                 '<script type="template/text" id="cards-template"><ul class="items"></ul></script>' +
                 '<script type="template/text" id="cards-item-template"><li></li></script>' +
                 '</div>');
-            this.collection = {};
-            this.collection.on = sinon.spy();
+            this.collection = CardsCollectionFactory.create();
+            // ToDo: better mock of collection, or use real collection
+            this.collection.each = function (fn, obj) {
+                fn.call(obj, new Card({title: 'Buy cheese'}));
+                fn.call(obj, new Card({title: 'Buy water'}));
+            };
             this.cardsView = CardsViewFactory.create({
-                document: document,
+                document: this.document,
                 collection: this.collection,
-                el: $('#view', document)
+                el: $('#view', this.document)
             });
             this.cardsView.initialize();
         },
         teardown: function () {
             CardViewFactory.restore();
+            CardsCollectionFactory.restore();
         }
     });
 
@@ -66,11 +74,6 @@ define(function (require) {
     QUnit.test('addAll', function () {
         // given
         this.cardsView.render();
-        // ToDo: better mock of collection, or use real collection
-        this.collection.each = function (fn, obj) {
-            fn.call(obj, new Card({title: 'Buy cheese'}));
-            fn.call(obj, new Card({title: 'Buy water'}));
-        };
 
         // when
         this.cardsView.addAll();

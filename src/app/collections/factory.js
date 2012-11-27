@@ -17,6 +17,7 @@ define(function () {
                     fakes = fakes || {};
                     // ToDo: make generic over available methods to facilitate sharing common implementation
                     Factory.mock = {
+                        on: spy(fakes.spy || function () {}),
                         fetch: spy(fakes.fetch || function () {})
                     };
                     Factory._create = Factory.create;
