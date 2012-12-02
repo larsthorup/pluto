@@ -1,6 +1,7 @@
 /*global define, QUnit*/
 define(function (require) {
     'use strict';
+    var _ = require('lodash');
     var $ = require('jquery');
     var Backbone = require('backbone');
     require('mockjax');
@@ -80,7 +81,7 @@ define(function (require) {
         var fetchPromise = this.cards.fetch();
 
         // then
-        fetchPromise.done($.proxy(function () {
+        fetchPromise.done(_.bind(function () {
             QUnit.equal(this.cards.length, 1, 'cards.length');
             QUnit.deepEqual(this.cards.toJSON(), [{id: 42, title: 'play!'}], 'cards');
             QUnit.start();
