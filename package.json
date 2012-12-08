@@ -8,7 +8,8 @@
         "phantomjs": "0.2.x",
         "grunt-junit": "0.1.x",
         "grunt-qunit-cov": ">=0.2.4",
-        "grunt-requirejs": "0.2.x"
+        "grunt-requirejs": "0.2.x",
+        "connect": "2.7.x"
     },
     "engine": "node 1.1.x"
 }

@@ -43,6 +43,10 @@ produce test coverage statistics (in output\coverage\out\coverage.html)
 
     grunt coverage
 
-start server
+serve source application
 
-    grunt server watch
+    grunt serve:src watch
+
+serve bundled application
+
+    grunt serve:bundle watch
