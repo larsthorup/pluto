@@ -2,6 +2,7 @@
 define(function (require) {
     'use strict';
     var $ = require('jquery');
+    var _ = require('lodash');
     var Session = require('models/session');
     var CardCollectionFactory = require('collections/cards');
     var SessionViewFactory = require('views/session');
@@ -48,8 +49,13 @@ define(function (require) {
             this.view = cardsView;
 
             // ToDo: show "loading..."
-            // ToDo: show error
-            cards.fetch();
+            var fetchPromise = cards.fetch();
+            // ToDo: turn off "loading..."
+            fetchPromise.fail(_.bind(function () {
+                // ToDo: show error
+                // ToDo: DRY
+                this.router.navigate('login', {trigger: true});
+            }, this));
         },
 
         goLogin: function () {

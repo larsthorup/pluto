@@ -2,6 +2,7 @@
 define(function (require) {
     'use strict';
 
+    var $ = require('jquery');
     require('mockjax');
     var Router = require('router');
     var getApp = require('app');
@@ -14,7 +15,7 @@ define(function (require) {
             // Note: mock views so we won't have to include their templates here
             CardsViewFactory.mockWith(sinon.spy);
             SessionViewFactory.mockWith(sinon.spy);
-            CardCollectionFactory.mockWith(sinon.spy);
+            CardCollectionFactory.mockWith(sinon.spy, {fetch: function () { return $.Deferred(); }});
 
             // given
             this.app = getApp();
@@ -57,5 +58,22 @@ define(function (require) {
 
         // then
         QUnit.ok(SessionViewFactory.mock.render.calledOnce, 'SessionView.render.calledOnce');
+    });
+
+    QUnit.test('goCardsView-redirectsToLoginIfFetchFails', function () {
+        // given
+        this.app.bootstrap(this.document, this.router);
+        this.app.router.navigate = sinon.spy();
+        CardCollectionFactory.mock.fetch = function () {
+            var deferred = $.Deferred();
+            deferred.reject(); // Note: simulate that fetch fails
+            return deferred;
+        };
+
+        // when
+        this.app.goCardsView();
+
+        // then
+        QUnit.ok(this.app.router.navigate.calledWith('login'));
     });
 });

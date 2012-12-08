@@ -31,7 +31,7 @@ module.exports = function (grunt) {
         watch: {
             scripts: {
                 files: 'src/**/*.*',
-                tasks: 'lint qunit:src'
+                tasks: 'lint coverage'
             }
         },
         qunit: {
