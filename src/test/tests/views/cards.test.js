@@ -10,7 +10,7 @@ define(function (require) {
     QUnit.module('view.cards', {
         setup: function () {
             // ToDo: implement default return value in the mock instead of here
-            CardViewFactory.mockWith(sinon.spy, { render: function () { return {el: null}; } });
+            CardViewFactory.mockWith(sinon.spy, { render: function () { return {el: $('<div></div>')}; } });
             // given
             this.document = $('<div>' +
                 '<div id="view"></div>' +
@@ -48,8 +48,7 @@ define(function (require) {
 
         // then
         QUnit.ok(CardViewFactory.mock.render.calledOnce, 'CardView.render.calledOnce');
-        // ToDo: make card.render return something so we can test it was inserted
-        QUnit.equal(this.cardsView.$el.html(), '<ul class="items"></ul>', 'cardsView.html');
+        QUnit.equal(this.cardsView.$el.html(), '<ul class="items"><div></div></ul>', 'cardsView.html');
     });
 
     QUnit.test('addOne-failsBeforeRender', function () {
@@ -69,6 +68,7 @@ define(function (require) {
 
         // then
         QUnit.equal(CardViewFactory.mock.render.callCount, 2, 'CardView.render.callCount');
+        QUnit.equal(this.cardsView.$el.html(), '<ul class="items"><div></div><div></div></ul>', 'cardsView.html');
     });
 
     QUnit.test('collection.add', function () {
