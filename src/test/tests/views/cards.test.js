@@ -11,19 +11,13 @@ define(function (require) {
         setup: function () {
             // ToDo: implement default return value in the mock instead of here
             CardViewFactory.mockWith(sinon.spy, { render: function () { return {el: null}; } });
-            CardsCollectionFactory.mockWith(sinon.spy);
             // given
             this.document = $('<div>' +
                 '<div id="view"></div>' +
                 '<script type="template/text" id="cards-template"><ul class="items"></ul></script>' +
                 '<script type="template/text" id="cards-item-template"><li></li></script>' +
                 '</div>');
-            this.collection = CardsCollectionFactory.create();
-            // ToDo: better mock of collection, or use real collection
-            this.collection.each = function (fn, obj) {
-                fn.call(obj, new Card({title: 'Buy cheese'}));
-                fn.call(obj, new Card({title: 'Buy water'}));
-            };
+            this.collection = CardsCollectionFactory.create([new Card({title: 'Buy cheese'}), new Card({title: 'Buy water'})]);
             this.cardsView = CardsViewFactory.create({
                 document: this.document,
                 collection: this.collection,
@@ -33,13 +27,7 @@ define(function (require) {
         },
         teardown: function () {
             CardViewFactory.restore();
-            CardsCollectionFactory.restore();
         }
-    });
-
-    QUnit.test('initialize', function () {
-        // then
-        QUnit.ok(this.collection.on.calledWith('add', this.cardsView.addOne, this.cardsView), 'collection.on'); // Note: white box tests that we will re-render the view when collection grows
     });
 
     QUnit.test('render', function () {
@@ -60,6 +48,7 @@ define(function (require) {
 
         // then
         QUnit.ok(CardViewFactory.mock.render.calledOnce, 'CardView.render.calledOnce');
+        // ToDo: make card.render return something so we can test it was inserted
         QUnit.equal(this.cardsView.$el.html(), '<ul class="items"></ul>', 'cardsView.html');
     });
 
@@ -79,7 +68,17 @@ define(function (require) {
         this.cardsView.addAll();
 
         // then
-        QUnit.equal(CardViewFactory.mock.render.callCount, 2, 'CardView.render.calledOnce');
-        // ToDo: assert that it is only called once
+        QUnit.equal(CardViewFactory.mock.render.callCount, 2, 'CardView.render.callCount');
+    });
+
+    QUnit.test('collection.add', function () {
+        // given
+        this.cardsView.render();
+
+        // when
+        this.collection.add(new Card({title: 'Buy tomatoes'}));
+
+        // then
+        QUnit.ok(CardViewFactory.mock.render.callCount, 'CardView.render.calledOnce');
     });
 });
