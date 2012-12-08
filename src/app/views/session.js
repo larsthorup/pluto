@@ -3,6 +3,7 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var _ = require('lodash');
+    var keycode = require('utility/keycode');
     var BaseView = require('views/base');
     var ViewFactoryFactory = require('views/factory');
 
@@ -24,7 +25,7 @@ define(function (require) {
         render: function () {
             this.$el.html(this.template(this.model.toJSON()));
             this.$el.keypress(_.bind(function (e) {
-                if (e.which === 13) {
+                if (e.which === keycode.ENTER) {
                     this.login();
                 }
             }, this));
