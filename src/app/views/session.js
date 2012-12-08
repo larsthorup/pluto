@@ -2,6 +2,7 @@
 define(function (require) {
     'use strict';
     var $ = require('jquery');
+    var _ = require('lodash');
     var BaseView = require('views/base');
     var ViewFactoryFactory = require('views/factory');
 
@@ -16,11 +17,17 @@ define(function (require) {
             this.app = this.options.app;
             this.document = this.options.document;
             this.template = this.makeTemplate('session-template');
+            // ToDo: use an event broker instead of a direct collection reference?
             this.model = this.options.model;
         },
 
         render: function () {
             this.$el.html(this.template(this.model.toJSON()));
+            this.$el.keypress(_.bind(function (e) {
+                if (e.which === 13) {
+                    this.login();
+                }
+            }, this));
             return this;
         },
 

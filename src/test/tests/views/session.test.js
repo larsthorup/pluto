@@ -39,13 +39,26 @@ define(function (require) {
     });
 
 
-    QUnit.test('login', function () {
+    QUnit.test('login-click', function () {
         // given
         this.sessionView.render();
 
         // when
         $('.user', this.document).val('lars');
         $('.login', this.document).click();
+
+        // then
+        QUnit.ok(this.session.login.calledWith('lars'));
+        QUnit.ok(this.app.router.navigate.calledWith(''));
+    });
+
+    QUnit.test('user-enter', function () {
+        // given
+        this.sessionView.render();
+
+        // when
+        $('.user', this.document).val('lars');
+        $('.user', this.document).trigger($.Event('keypress', {which: 13}));
 
         // then
         QUnit.ok(this.session.login.calledWith('lars'));

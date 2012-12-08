@@ -15,6 +15,7 @@ define(function (require) {
         initialize: function () {
             this.document = this.options.document;
             this.template = this.makeTemplate('card-template');
+            // ToDo: use an event broker instead of a direct collection reference?
             this.model.on('change', this.render, this);
         },
 

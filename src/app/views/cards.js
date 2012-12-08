@@ -19,9 +19,12 @@ define(function (require) {
 
         initialize: function () {
             this.document = this.options.document;
+            // ToDo: use an event broker instead of a direct collection reference?
             this.collection = this.options.collection;
+            // ToDo: Use symbolic event ids instead of strings
             this.collection.on('add', this.addOne, this);
             this.collection.on('reset', this.addAll, this);
+            // ToDo: Use symbolic template ids instead of strings
             this.template = this.makeTemplate('cards-template');
             this.itemTemplate = this.makeTemplate('cards-item-template');
         },
