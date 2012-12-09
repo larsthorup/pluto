@@ -13,14 +13,13 @@ require.config({
 
         // Libraries.
         jquery: '../assets/js/libs/jquery',
-        lodash: '../assets/js/libs/lodash',
+        underscore: '../assets/js/libs/lodash',
         backbone: '../assets/js/libs/backbone'
     },
 
     shim: {
-        // Backbone library depends on lodash and jQuery.
         backbone: {
-            deps: ['lodash', 'jquery'],
+            deps: ['underscore', 'jquery'],
             exports: 'Backbone'
         },
 
@@ -29,10 +28,10 @@ require.config({
     }
 });
 
-var requireResoueceTrace = false;
+var requireResourceTrace = true;
 
 // Note: enable to debug issues in module loading
-if (requireResoueceTrace) {
+if (requireResourceTrace) {
     require.onResourceLoad = function (context, map/*, depArray*/) {
         'use strict';
         window.console.log('Loaded ' + map.url);

@@ -12,8 +12,14 @@ module.exports = function (grunt) {
             baseUrl: 'app',
             paths: {
                 jquery: '../assets/js/libs/jquery',
-                lodash: '../assets/js/libs/lodash',
+                underscore: '../assets/js/libs/lodash',
                 backbone: '../assets/js/libs/backbone'
+            },
+            shim: {
+                backbone: {
+                    deps: ['underscore', 'jquery'],
+                    exports: 'Backbone'
+                }
             }
         },
         'qunit-cov': {

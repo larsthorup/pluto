@@ -13,15 +13,14 @@ window.config = function () {
             vendor: '../assets/vendor',
             // Libraries.
             jquery: '../assets/js/libs/jquery',
-            lodash: '../assets/js/libs/lodash',
+            underscore: '../assets/js/libs/lodash',
             backbone: '../assets/js/libs/backbone',
             mockjax: '../test/vendor/jquery.mockjax',
             tests: '../test/tests' // Note: base directory is app/, which is why ../test is necessary
         },
         shim: {
-            // Backbone library depends on lodash and jQuery.
             backbone: {
-                deps: ['lodash', 'jquery'],
+                deps: ['underscore', 'jquery'],
                 exports: 'Backbone'
             },
 

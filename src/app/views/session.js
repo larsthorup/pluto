@@ -2,7 +2,7 @@
 define(function (require) {
     'use strict';
     var $ = require('jquery');
-    var _ = require('lodash');
+    var _ = require('underscore');
     var keycode = require('utility/keycode');
     var BaseView = require('views/base');
     var ViewFactoryFactory = require('views/factory');

@@ -2,7 +2,7 @@
 define(function (require) {
     'use strict';
     var $ = require('jquery');
-    var _ = require('lodash');
+    var _ = require('underscore');
     var Session = require('models/session');
     var CardCollectionFactory = require('collections/cards');
     var SessionViewFactory = require('views/session');
