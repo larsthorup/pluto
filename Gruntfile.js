@@ -5,9 +5,23 @@ module.exports = function (grunt) {
 
     // Project configuration.
     grunt.initConfig({
+        clean: {
+            folder: 'output'
+        },
+        copy: {
+            bundle: {
+                files: {
+                    'output/bundle/index.html': 'output/optimized/index.html',
+                    'output/bundle/assets/css/index.css': 'output/optimized/assets/css/index.css',
+                    'output/bundle/assets/js/libs/require.js': 'output/optimized/assets/js/libs/require.js',
+                    'output/bundle/app/config.js': 'output/optimized/app/config.js',
+                    'output/bundle/app/main.js': 'output/optimized/app/main.js'
+                }
+            }
+        },
         requirejs: {
             name: 'main',
-            dir: 'output/bundle',
+            dir: 'output/optimized',
             appDir: 'src',
             baseUrl: 'app',
             paths: {
@@ -79,10 +93,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-junit');
     grunt.loadNpmTasks('grunt-qunit-cov');
     grunt.loadNpmTasks('grunt-requirejs');
+    grunt.loadNpmTasks('grunt-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     // default and alias tasks
     grunt.registerTask('test:bundle', 'qunit:bundle');
-    grunt.registerTask('bundle', 'requirejs');
+    grunt.registerTask('bundle', 'requirejs copy:bundle');
     grunt.registerTask('coverage', 'qunit-cov');
     grunt.registerTask('test', 'junit:env qunit:src');
     grunt.registerTask('default', 'lint test');
@@ -94,4 +110,5 @@ module.exports = function (grunt) {
         // Note: using connect['static'], as jshint complains about connect.static, because static is a reserved word
         connect(connect['static']('output/bundle')).listen(8081);
     });
+    grunt.registerTask('all', 'clean lint test coverage bundle');
 };

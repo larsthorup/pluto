@@ -9,7 +9,9 @@
         "grunt-junit": "0.1.x",
         "grunt-qunit-cov": ">=0.2.4",
         "grunt-requirejs": "0.2.x",
-        "connect": "2.7.x"
+        "connect": "2.7.x",
+        "grunt-contrib-copy": "0.3.x",
+        "grunt-clean": "0.3.x"
     },
     "engine": "node 1.1.x"
 }
