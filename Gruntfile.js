@@ -104,7 +104,7 @@ module.exports = function (grunt) {
 
 
     // serve
-    var serve = function (path, port) {
+    var serve = function(path, port) {
         // Note: using connect['static'], as jshint complains about connect.static, because static is a reserved word
         connect(connect['static'](path)).listen(port);
     };

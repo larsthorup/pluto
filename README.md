@@ -1,6 +1,8 @@
 Pluto
 =====
 
+[![Build Status](https://travis-ci.org/larsthorup/pluto.png)](https://travis-ci.org/larsthorup/pluto)
+
 Backbone sandbox
 
 Prerequisites:
