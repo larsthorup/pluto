@@ -7,7 +7,7 @@ module.exports = function (grunt) {
     // convenience
     grunt.registerTask('default', 'lint test');
     grunt.registerTask('all', 'clean lint test coverage bundle');
-    grunt.registerTask('ci', 'lint');
+    grunt.registerTask('ci', 'lint qunit:src');
 
 
     // clean
