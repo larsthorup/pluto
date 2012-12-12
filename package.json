@@ -14,5 +14,7 @@
         "grunt-clean": "0.3.x"
     },
     "engine": "node 1.1.x",
-    "scripts": "grunt --config Gruntfile.js ci"
+    "scripts": {
+        "test": "grunt --config Gruntfile.js ci"
+    }
 }
