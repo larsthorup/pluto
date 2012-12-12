@@ -22,6 +22,6 @@ define(function (require) {
 
         // then
         QUnit.equal(this.session.get('userId'), 'joe', 'session.userId');
-        QUnit.equal(trello.token, 'xjoe', 'trello.token');
+        QUnit.equal(trello.token, 'joe', 'trello.token');
     });
 });
