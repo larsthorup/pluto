@@ -3,16 +3,21 @@ define(function (require) {
     'use strict';
 
     var Backbone = require('backbone');
-    var trello = require('persistence/trello');
 
     var Session = Backbone.Model.extend({
+        // ToDo: standardize model constructor with Backbone conventions
+        constructor: function (trello) {
+            Backbone.Model.apply(this);
+            this.trello = trello;
+        },
+
         defaults: {
             userId: null
         },
 
         login: function (userId) {
             // ToDo: error handling
-            trello.login(userId);
+            this.trello.login(userId);
             this.set('userId', userId);
         }
     });

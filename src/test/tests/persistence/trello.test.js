@@ -2,11 +2,12 @@
 define(function (require) {
     'use strict';
     var Backbone = require('backbone');
-    var trello = require('persistence/trello');
+    var Trello = require('persistence/trello');
 
     QUnit.module('persistence.trello', {
         setup: function () {
             sinon.stub(Backbone, 'sync');
+            this.trello = new Trello(Backbone);
         },
         teardown: function () {
             Backbone.sync.restore();
@@ -15,29 +16,29 @@ define(function (require) {
 
     QUnit.test('login', function () {
         // when
-        trello.login('samson');
+        this.trello.login('samson');
 
         // then
-        QUnit.equal(trello.token, 'samson', 'trello.token');
+        QUnit.equal(this.trello.token, 'samson', 'trello.token');
     });
 
     QUnit.test('sync', function () {
         // given
-        trello.login('zeus');
+        this.trello.login('zeus');
 
         // when
-        trello.sync('GET', 42, {data: {cards: 'open'}});
+        this.trello.sync('GET', 42, {data: {cards: 'open'}});
 
         // then
-        QUnit.deepEqual(Backbone.sync.args[0], ['GET', 42, {data: {cards: 'open', key: trello.appKey, token: 'zeus'}}], 'Backbone.sync.args');
+        QUnit.deepEqual(Backbone.sync.args[0], ['GET', 42, {data: {cards: 'open', key: this.trello.appKey, token: 'zeus'}}], 'Backbone.sync.args');
     });
 
     QUnit.test('sync-failsWhenNotLoggedIn', function () {
         // given
-        trello.logout();
+        this.trello.logout();
 
         // when + then
-        QUnit.throws(function () { trello.sync(); }, /Assertion/, 'exception');
+        QUnit.throws(function () { this.trello.sync(); }, /Assertion/, 'exception');
     });
 
 });

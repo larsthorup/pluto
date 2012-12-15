@@ -2,6 +2,8 @@
 define(function (require) {
     'use strict';
     var $ = require('jquery');
+    var Backbone = require('backbone');
+    var Trello = require('persistence/trello');
     var Session = require('models/session');
     var SessionViewFactory = require('views/session');
 
@@ -18,7 +20,8 @@ define(function (require) {
                 '  <a class="login">Sign In</a>' +
                 '</script>' +
             '</div>');
-            this.session = new Session();
+            this.trello = new Trello(Backbone);
+            this.session = new Session(this.trello);
             this.session.login = sinon.spy();
             this.sessionView = SessionViewFactory.create({
                 app: this.app,

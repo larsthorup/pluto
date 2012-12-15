@@ -1,13 +1,15 @@
 /*global define,QUnit*/
 define(function (require) {
     'use strict';
-    var trello = require('persistence/trello');
+    var Backbone = require('backbone');
+    var Trello = require('persistence/trello');
     var Session = require('models/session');
 
     QUnit.module('model.session', {
         setup: function () {
             // given
-            this.session = new Session();
+            this.trello = new Trello(Backbone);
+            this.session = new Session(this.trello);
         }
     });
 
@@ -22,6 +24,6 @@ define(function (require) {
 
         // then
         QUnit.equal(this.session.get('userId'), 'joe', 'session.userId');
-        QUnit.equal(trello.token, 'joe', 'trello.token');
+        QUnit.equal(this.trello.token, 'joe', 'trello.token');
     });
 });

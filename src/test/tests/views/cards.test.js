@@ -2,6 +2,8 @@
 define(function (require) {
     'use strict';
     var $ = require('jquery');
+    var Backbone = require('backbone');
+    var Trello = require('persistence/trello');
     var Card = require('models/card');
     var CardsViewFactory = require('views/cards');
     var CardViewFactory = require('views/card');
@@ -17,7 +19,8 @@ define(function (require) {
                 '<script type="template/text" id="cards-template"><ul class="items"></ul></script>' +
                 '<script type="template/text" id="cards-item-template"><li></li></script>' +
                 '</div>');
-            this.collection = CardsCollectionFactory.create([new Card({title: 'Buy cheese'}), new Card({title: 'Buy water'})]);
+            this.trello = new Trello(Backbone);
+            this.collection = CardsCollectionFactory.create([new Card({title: 'Buy cheese'}), new Card({title: 'Buy water'})], {trello: this.trello});
             this.cardsView = CardsViewFactory.create({
                 document: this.document,
                 collection: this.collection,

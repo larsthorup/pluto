@@ -3,6 +3,8 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var _ = require('underscore');
+    var Backbone = require('backbone');
+    var Trello = require('persistence/trello');
     var Session = require('models/session');
     var CardCollectionFactory = require('collections/cards');
     var SessionViewFactory = require('views/session');
@@ -30,7 +32,8 @@ define(function (require) {
 
             this.$main = $('#main', this.document);
 
-            this.session = new Session();
+            this.trello = new Trello(Backbone);
+            this.session = new Session(this.trello);
 
             this.router.on('route:index', this.goCardsView, this);
             this.router.on('route:login', this.goLogin, this);
@@ -38,7 +41,7 @@ define(function (require) {
 
         goCardsView: function () {
             var listId = '509070d37b1e65530d005067'; // ToDo: get from user
-            var cards = CardCollectionFactory.create(null, {listId: listId});
+            var cards = CardCollectionFactory.create(null, {listId: listId, trello: this.trello});
             this.cards = cards;
             var cardsView = CardsViewFactory.create({
                 document: this.document,

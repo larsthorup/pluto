@@ -5,14 +5,15 @@ define(function (require) {
     var $ = require('jquery');
     var Backbone = require('backbone');
     require('mockjax');
-    var trello = require('persistence/trello');
+    var Trello = require('persistence/trello');
     var Card = require('models/card');
     var CardCollectionFactory = require('collections/cards');
 
     QUnit.module('collection.cards', {
         setup: function () {
             // given
-            this.cards = CardCollectionFactory.create(null, {listId: 'abc'});
+            this.trello = new Trello(Backbone);
+            this.cards = CardCollectionFactory.create(null, {listId: 'abc', trello: this.trello});
         }
     });
 
@@ -62,12 +63,12 @@ define(function (require) {
 
     QUnit.asyncTest('fetch', function () {
         // given
-        trello.login('lars');
+        this.trello.login('lars');
         $.mockjax({
             log: null,
             url: 'https://api.trello.com/1/lists/abc',
             data: {
-                key: trello.appKey,
+                key: this.trello.appKey,
                 token: 'lars',
                 cards: 'open'
             },

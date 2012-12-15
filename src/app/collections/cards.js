@@ -2,16 +2,20 @@
 define(function (require) {
     'use strict';
     var Backbone = require('backbone');
-    var trello = require('persistence/trello');
     var Card = require('models/card');
     var CollectionFactoryFactory = require('collections/factory');
 
     var CardCollection = Backbone.Collection.extend({
 
+        constructor: function (models, options) {
+            Backbone.Collection.apply(this, arguments);
+            this.trello = options.trello;
+        },
+
         model: Card,
 
         url: function () {
-            return trello.url + '/lists/' + this.id;
+            return this.trello.url + '/lists/' + this.id;
         },
 
         initialize: function (models, options) {
@@ -31,7 +35,9 @@ define(function (require) {
             return Backbone.Collection.prototype.fetch.call(this, options);
         },
 
-        sync: trello.sync
+        sync: function (method, model, options) {
+            return this.trello.sync(method, model, options);
+        }
     });
 
     var CardCollectionFactory = CollectionFactoryFactory.create(CardCollection);
