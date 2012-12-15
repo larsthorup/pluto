@@ -2,14 +2,19 @@
 define(function (require) {
     'use strict';
     var $ = require('jquery');
+    var Backbone = require('backbone');
     var BaseView = require('views/base');
     var ViewFactoryFactory = require('views/factory');
-    var CardViewFactory = require('views/card');
 
     /**
      * @extends BaseView
      */
     var CardsView = BaseView.extend({
+
+        constructor: function (options) {
+            Backbone.View.apply(this, arguments);
+            this.CardView = options.CardView;
+        },
 
         events: function () {
             return {
@@ -25,6 +30,7 @@ define(function (require) {
             this.collection.on('add', this.addOne, this);
             this.collection.on('reset', this.addAll, this);
             // ToDo: Use symbolic template ids instead of strings
+            // ToDO: inject templates
             this.template = this.makeTemplate('cards-template');
             this.itemTemplate = this.makeTemplate('cards-item-template');
         },
@@ -40,7 +46,7 @@ define(function (require) {
             if (!this.$cards) {
                 throw new Error('CardsView assertion failed: must call render() before calling addOne()');
             }
-            var cardView = CardViewFactory.create({
+            var cardView = new this.CardView({
                 document: this.document,
                 el: this.itemTemplate(),
                 model: card

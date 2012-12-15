@@ -8,6 +8,7 @@ define(function (require) {
     var Session = require('models/session');
     var CardCollectionFactory = require('collections/cards');
     var SessionViewFactory = require('views/session');
+    var CardView = require('views/card');
     var CardsViewFactory = require('views/cards');
 
     var app = null;
@@ -46,7 +47,8 @@ define(function (require) {
             var cardsView = CardsViewFactory.create({
                 document: this.document,
                 el: this.$main,
-                collection: cards
+                collection: cards,
+                CardView: CardView
             });
             cardsView.render();
             this.view = cardsView;

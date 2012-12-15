@@ -1,4 +1,4 @@
-/*global define,QUnit,sinon*/
+/*global define,QUnit*/
 define(function (require) {
     'use strict';
     var $ = require('jquery');
@@ -6,13 +6,19 @@ define(function (require) {
     var Trello = require('persistence/trello');
     var Card = require('models/card');
     var CardsViewFactory = require('views/cards');
-    var CardViewFactory = require('views/card');
     var CardsCollectionFactory = require('collections/cards');
 
     QUnit.module('view.cards', {
         setup: function () {
             // ToDo: implement default return value in the mock instead of here
-            CardViewFactory.mockWith(sinon.spy, { render: function () { return {el: $('<div></div>')}; } });
+            var CardView = function (options) {
+                this.model = options.model;
+            };
+            CardView.prototype = {
+                render: function () {
+                    return {el: $('<div>' + this.model.get('title') + '</div>')};
+                }
+            };
             // given
             this.document = $('<div>' +
                 '<div id="view"></div>' +
@@ -24,12 +30,9 @@ define(function (require) {
             this.cardsView = CardsViewFactory.create({
                 document: this.document,
                 collection: this.collection,
-                el: $('#view', this.document)
+                el: $('#view', this.document),
+                CardView: CardView
             });
-            this.cardsView.initialize();
-        },
-        teardown: function () {
-            CardViewFactory.restore();
         }
     });
 
@@ -50,8 +53,7 @@ define(function (require) {
         this.cardsView.addOne(card);
 
         // then
-        QUnit.ok(CardViewFactory.mock.render.calledOnce, 'CardView.render.calledOnce');
-        QUnit.equal(this.cardsView.$el.html(), '<ul class="items"><div></div></ul>', 'cardsView.html');
+        QUnit.equal(this.cardsView.$el.html(), '<ul class="items"><div>Buy cheese</div></ul>', 'cardsView.html');
     });
 
     QUnit.test('addOne-failsBeforeRender', function () {
@@ -70,8 +72,7 @@ define(function (require) {
         this.cardsView.addAll();
 
         // then
-        QUnit.equal(CardViewFactory.mock.render.callCount, 2, 'CardView.render.callCount');
-        QUnit.equal(this.cardsView.$el.html(), '<ul class="items"><div></div><div></div></ul>', 'cardsView.html');
+        QUnit.equal(this.cardsView.$el.html(), '<ul class="items"><div>Buy cheese</div><div>Buy water</div></ul>', 'cardsView.html');
     });
 
     QUnit.test('collection.add', function () {
@@ -82,6 +83,6 @@ define(function (require) {
         this.collection.add(new Card({title: 'Buy tomatoes'}));
 
         // then
-        QUnit.ok(CardViewFactory.mock.render.callCount, 'CardView.render.calledOnce');
+        QUnit.equal(this.cardsView.$el.html(), '<ul class="items"><div>Buy tomatoes</div></ul>', 'cardsView.html');
     });
 });

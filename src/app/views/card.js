@@ -2,7 +2,6 @@
 define(function (require) {
     'use strict';
     var BaseView = require('views/base');
-    var ViewFactoryFactory = require('views/factory');
 
     var CardView = BaseView.extend({
 
@@ -14,6 +13,7 @@ define(function (require) {
 
         initialize: function () {
             this.document = this.options.document;
+            // ToDo: inject template
             this.template = this.makeTemplate('card-template');
             // ToDo: use an event broker instead of a direct collection reference?
             this.model.on('change', this.render, this);
@@ -29,6 +29,5 @@ define(function (require) {
         }
 
     });
-    var CardViewFactory = ViewFactoryFactory.create(CardView);
-    return CardViewFactory;
+    return CardView;
 });
