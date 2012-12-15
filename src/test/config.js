@@ -7,11 +7,6 @@ window.config = function () {
     require.config({
         baseUrl: '../app',
         paths: {
-            // JavaScript folders.
-            libs: '../assets/js/libs',
-            plugins: '../assets/js/plugins',
-            vendor: '../assets/vendor',
-            // Libraries.
             jquery: '../assets/js/libs/jquery',
             underscore: '../assets/js/libs/lodash',
             backbone: '../assets/js/libs/backbone',
@@ -24,10 +19,7 @@ window.config = function () {
                 exports: 'Backbone'
             },
 
-            mockjax: ['jquery'],
-
-            // Backbone.LayoutManager depends on Backbone.
-            'plugins/backbone.layoutmanager': ['backbone']
+            mockjax: ['jquery']
         }
     });
 
