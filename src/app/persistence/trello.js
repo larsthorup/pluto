@@ -2,6 +2,7 @@
 define(function () {
     'use strict';
     var apiVersion = 1;
+    // ToDo: require Backbone instead of injecting it, as we won't be faking it???
     var Trello = function (Backbone) {
         this.Backbone = Backbone;
         this.appKey = '4c5b4d16e6e53d893674f9452ac277bf';

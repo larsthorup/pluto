@@ -21,7 +21,7 @@ define(function (require) {
                 '</script>' +
             '</div>');
             this.trello = new Trello(Backbone);
-            this.session = new Session(this.trello);
+            this.session = new Session(null, {trello: this.trello});
             this.session.login = sinon.spy();
             this.sessionView = SessionViewFactory.create({
                 app: this.app,

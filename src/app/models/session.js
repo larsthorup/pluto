@@ -6,9 +6,9 @@ define(function (require) {
 
     var Session = Backbone.Model.extend({
         // ToDo: standardize model constructor with Backbone conventions
-        constructor: function (trello) {
+        constructor: function (attributes, options) {
             Backbone.Model.apply(this);
-            this.trello = trello;
+            this.trello = options.trello;
         },
 
         defaults: {

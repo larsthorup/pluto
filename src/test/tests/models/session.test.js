@@ -9,7 +9,7 @@ define(function (require) {
         setup: function () {
             // given
             this.trello = new Trello(Backbone);
-            this.session = new Session(this.trello);
+            this.session = new Session(null, {trello: this.trello});
         }
     });
 

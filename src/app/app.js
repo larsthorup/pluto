@@ -33,7 +33,7 @@ define(function (require) {
             this.$main = $('#main', this.document);
 
             this.trello = new Trello(Backbone);
-            this.session = new Session(this.trello);
+            this.session = new Session(null, {trello: this.trello});
 
             this.router.on('route:index', this.goCardsView, this);
             this.router.on('route:login', this.goLogin, this);
