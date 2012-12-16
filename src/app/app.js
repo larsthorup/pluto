@@ -48,7 +48,9 @@ define(function (require) {
                 document: this.document,
                 el: this.$main,
                 collection: cards,
-                CardView: CardView
+                dep: {
+                    CardView: CardView
+                }
             });
             cardsView.render();
             this.view = cardsView;

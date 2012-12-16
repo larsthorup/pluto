@@ -31,7 +31,9 @@ define(function (require) {
                 document: this.document,
                 collection: this.collection,
                 el: $('#view', this.document),
-                CardView: CardView
+                dep: {
+                    CardView: CardView
+                }
             });
         }
     });

@@ -13,7 +13,7 @@ define(function (require) {
 
         constructor: function (options) {
             Backbone.View.apply(this, arguments);
-            this.CardView = options.CardView;
+            this.CardView = options.dep.CardView;
         },
 
         events: function () {
