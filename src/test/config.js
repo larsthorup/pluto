@@ -25,6 +25,7 @@ window.config = function () {
 
     var testModules = [
         'tests/util.test',
+        'tests/templateRepo.test',
         'tests/persistence/trello.test',
         'tests/models/session.test',
         'tests/models/card.test',
