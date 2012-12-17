@@ -2,6 +2,8 @@
 define(function (require) {
     'use strict';
     var _ = require('underscore');
+//    var sessionTemplate = require('tpl!views/session.html');
+//    return sessionTemplate;
 
     var TemplateRepo = function () {
 
