@@ -6,7 +6,7 @@ define(function (require) {
     var TemplateRepoStub = require('stubs/templateRepo');
     var Trello = require('persistence/trello');
     var Session = require('models/session');
-    var SessionViewFactory = require('views/session');
+    var SessionView = require('views/session');
 
     QUnit.module('view.session', {
         setup: function () {
@@ -21,7 +21,7 @@ define(function (require) {
             this.trello = new Trello(Backbone);
             this.session = new Session(null, {trello: this.trello});
             this.session.login = sinon.spy();
-            this.sessionView = SessionViewFactory.create({
+            this.sessionView = new SessionView({
                 app: this.app,
                 el: $('#view', this.document),
                 model: this.session,

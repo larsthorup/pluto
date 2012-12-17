@@ -9,14 +9,13 @@ define(function (require) {
     var Trello = require('persistence/trello');
     var Session = require('models/session');
     var CardsViewFactory = require('views/cards');
-    var SessionViewFactory = require('views/session');
+    var SessionViewStub = require('stubs/views/session');
     var CardCollectionFactory = require('collections/cards');
 
     QUnit.module('app', {
         setup: function () {
             // ToDo: use hand crafted stubs
             CardsViewFactory.mockWith(sinon.spy);
-            SessionViewFactory.mockWith(sinon.spy);
             CardCollectionFactory.mockWith(sinon.spy, {fetch: function () { return $.Deferred(); }});
 
             // given
@@ -24,7 +23,7 @@ define(function (require) {
                 Trello: Trello,
                 Session: Session,
                 CardsViewFactory: CardsViewFactory,
-                SessionViewFactory: SessionViewFactory,
+                SessionView: SessionViewStub,
                 CardCollectionFactory: CardCollectionFactory
             });
             this.router = new Router();
@@ -32,7 +31,6 @@ define(function (require) {
         teardown: function () {
             this.app.destroy();
             CardCollectionFactory.restore();
-            SessionViewFactory.restore();
             CardsViewFactory.restore();
         }
     });
@@ -65,7 +63,8 @@ define(function (require) {
         this.app.router.trigger('route:login');
 
         // then
-        QUnit.ok(SessionViewFactory.mock.render.calledOnce, 'SessionView.render.calledOnce');
+        QUnit.ok(this.app.view instanceof SessionViewStub, 'app.view instanceof SessionView');
+        QUnit.ok(this.app.view.render.calledOnce, 'app.view.render.calledOnce');
     });
 
     QUnit.test('goCardsView-redirectsToLoginIfFetchFails', function () {

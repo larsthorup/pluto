@@ -18,7 +18,7 @@ define(function (require) {
         this.Trello = dep.Trello;
         this.Session = dep.Session;
         this.CardCollectionFactory = dep.CardCollectionFactory;
-        this.SessionViewFactory = dep.SessionViewFactory;
+        this.SessionView = dep.SessionView;
         this.CardView = dep.CardView;
         this.CardsViewFactory = dep.CardsViewFactory;
         this.root = '/';
@@ -66,7 +66,7 @@ define(function (require) {
         },
 
         goLogin: function () {
-            var sessionView = this.SessionViewFactory.create({
+            var sessionView = new this.SessionView({
                 app: this,
                 el: this.$main,
                 model: this.session,

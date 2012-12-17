@@ -5,7 +5,6 @@ define(function (require) {
     var _ = require('underscore');
     var Backbone = require('backbone');
     var keycode = require('utility/keycode');
-    var ViewFactoryFactory = require('views/factory');
 
     var SessionView = Backbone.View.extend({
         events: function () {
@@ -39,6 +38,5 @@ define(function (require) {
         }
     });
 
-    var SessionViewFactory = ViewFactoryFactory.create(SessionView);
-    return SessionViewFactory;
+    return SessionView;
 });
