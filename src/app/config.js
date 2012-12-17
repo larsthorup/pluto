@@ -5,8 +5,8 @@ require.config({
     paths: {
         jquery: '../assets/js/libs/jquery',
         underscore: '../assets/js/libs/lodash',
-        backbone: '../assets/js/libs/backbone'
-        // ToDo: move tpl.js to plugins folder
+        backbone: '../assets/js/libs/backbone',
+        tpl: '../assets/js/plugins/tpl'
     },
 
     shim: {

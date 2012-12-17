@@ -21,18 +21,7 @@ module.exports = function (grunt) {
     var lintConfig = {
         all: [
             'Gruntfile.js',
-            // ToDo: figure out how to avoid explicitly including all files in the root folder, and still exclude tpl.js
-            'src/app/collections/*.js',
-            'src/app/models/*.js',
-            'src/app/persistence/*.js',
-            'src/app/utility/*.js',
-            'src/app/views/*.js',
-            'src/app/app.js',
-            'src/app/config.js',
-            'src/app/main.js',
-            'src/app/requireTemplateRepo.js',
-            'src/app/router.js',
-            'src/app/templateRepo.js',
+            'src/app/**/*.js',
             'src/test/*.js',
             'src/test/tests/**/*.js'
         ]
@@ -89,7 +78,8 @@ module.exports = function (grunt) {
         paths: {
             jquery: '../assets/js/libs/jquery',
             underscore: '../assets/js/libs/lodash',
-            backbone: '../assets/js/libs/backbone'
+            backbone: '../assets/js/libs/backbone',
+            tpl: '../assets/js/plugins/tpl'
         },
         shim: {
             backbone: {
