@@ -40,9 +40,11 @@ define(function (require) {
                 throw new Error('CardsView assertion failed: must call render() before calling addOne()');
             }
             var cardView = new this.CardView({
-                document: this.document,
                 el: this.itemTemplate(),
-                model: card
+                model: card,
+                dep: {
+                    templateRepo: this.templateRepo
+                }
             });
             var cardHtml = cardView.render();
             // ToDo: use template to pinpoint position to insert?

@@ -46,7 +46,6 @@ define(function (require) {
             var cards = CardCollectionFactory.create(null, {listId: listId, trello: this.trello});
             this.cards = cards;
             var cardsView = CardsViewFactory.create({
-                document: this.document,
                 el: this.$main,
                 collection: cards,
                 dep: {

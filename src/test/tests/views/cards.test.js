@@ -31,7 +31,6 @@ define(function (require) {
             this.trello = new Trello(Backbone);
             this.collection = CardsCollectionFactory.create([new Card({title: 'Buy cheese'}), new Card({title: 'Buy water'})], {trello: this.trello});
             this.cardsView = CardsViewFactory.create({
-                document: this.document,
                 collection: this.collection,
                 el: $('#view', this.document),
                 dep: {

@@ -12,9 +12,8 @@ define(function (require) {
         },
 
         initialize: function () {
-            this.document = this.options.document;
-            // ToDo: inject template
-            this.template = this.makeTemplate('card-template');
+            this.templateRepo = this.options.dep.templateRepo;
+            this.template = this.templateRepo.get('card-template');
             // ToDo: use an event broker instead of a direct collection reference?
             this.model.on('change', this.render, this);
         },

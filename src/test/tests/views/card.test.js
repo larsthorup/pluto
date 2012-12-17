@@ -2,6 +2,7 @@
 define(function (require) {
     'use strict';
     var $ = require('jquery');
+    var TemplateRepo = require('templateRepo');
     var Card = require('models/card');
     var CardView = require('views/card');
 
@@ -9,13 +10,16 @@ define(function (require) {
         setup: function () {
             // given
             this.document = $('<div><div id="view"></div><script type="template/text" id="card-template"><span><%=title%></span></script></div>');
+            this.templateRepo = new TemplateRepo(this.document);
             this.card = new Card({title: 'Meet Rob'});
             this.card.on = sinon.spy();
             this.card.duplicate = sinon.spy();
             this.cardView = new CardView({
-                document: this.document,
                 el: $('#view', this.document),
-                model: this.card
+                model: this.card,
+                dep: {
+                    templateRepo: this.templateRepo
+                }
             });
             this.cardView.initialize();
         },

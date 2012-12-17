@@ -16,7 +16,7 @@ require.config({
     }
 });
 
-var requireResourceTrace = true;
+var requireResourceTrace = false;
 
 // Note: enable to debug issues in module loading
 if (requireResourceTrace) {
