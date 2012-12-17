@@ -4,24 +4,24 @@ define(function (require) {
     var $ = require('jquery');
     var _ = require('underscore');
     var Backbone = require('backbone');
-    var Trello = require('persistence/trello');
-    var Session = require('models/session');
-    var CardCollectionFactory = require('collections/cards');
-    var SessionViewFactory = require('views/session');
-    var CardView = require('views/card');
-    var CardsViewFactory = require('views/cards');
 
     var app = null;
-    var getApp = function (templateRepo) {
+    var getApp = function (dep) {
         if (!app) { // Note: singleton pattern
-            app = new App(templateRepo);
+            app = new App(dep);
         }
         return app;
     };
 
-    var App = function (templateRepo) {
+    var App = function (dep) {
+        this.templateRepo = dep.templateRepo;
+        this.Trello = dep.Trello;
+        this.Session = dep.Session;
+        this.CardCollectionFactory = dep.CardCollectionFactory;
+        this.SessionViewFactory = dep.SessionViewFactory;
+        this.CardView = dep.CardView;
+        this.CardsViewFactory = dep.CardsViewFactory;
         this.root = '/';
-        this.templateRepo = templateRepo;
     };
     App.prototype = {
         destroy: function () { // Note: singleton pattern, this part included for testability
@@ -33,8 +33,8 @@ define(function (require) {
             this.router = router;
             this.$main = $('#main', this.document);
 
-            this.trello = new Trello(Backbone);
-            this.session = new Session(null, {trello: this.trello});
+            this.trello = new this.Trello(Backbone);
+            this.session = new this.Session(null, {trello: this.trello});
 
             this.router.on('route:index', this.goCardsView, this);
             this.router.on('route:login', this.goLogin, this);
@@ -42,13 +42,13 @@ define(function (require) {
 
         goCardsView: function () {
             var listId = '509070d37b1e65530d005067'; // ToDo: get from user
-            var cards = CardCollectionFactory.create(null, {listId: listId, trello: this.trello});
+            var cards = this.CardCollectionFactory.create(null, {listId: listId, trello: this.trello});
             this.cards = cards;
-            var cardsView = CardsViewFactory.create({
+            var cardsView = this.CardsViewFactory.create({
                 el: this.$main,
                 collection: cards,
                 dep: {
-                    CardView: CardView,
+                    CardView: this.CardView,
                     templateRepo: this.templateRepo
                 }
             });
@@ -66,7 +66,7 @@ define(function (require) {
         },
 
         goLogin: function () {
-            var sessionView = SessionViewFactory.create({
+            var sessionView = this.SessionViewFactory.create({
                 app: this,
                 el: this.$main,
                 model: this.session,

@@ -6,19 +6,27 @@ define(function (require) {
     require('mockjax');
     var Router = require('router');
     var getApp = require('app');
+    var Trello = require('persistence/trello');
+    var Session = require('models/session');
     var CardsViewFactory = require('views/cards');
     var SessionViewFactory = require('views/session');
     var CardCollectionFactory = require('collections/cards');
 
     QUnit.module('app', {
         setup: function () {
-            // Note: mock views so we won't have to include their templates here
+            // ToDo: use hand crafted stubs
             CardsViewFactory.mockWith(sinon.spy);
             SessionViewFactory.mockWith(sinon.spy);
             CardCollectionFactory.mockWith(sinon.spy, {fetch: function () { return $.Deferred(); }});
 
             // given
-            this.app = getApp();
+            this.app = getApp({
+                Trello: Trello,
+                Session: Session,
+                CardsViewFactory: CardsViewFactory,
+                SessionViewFactory: SessionViewFactory,
+                CardCollectionFactory: CardCollectionFactory
+            });
             this.router = new Router();
         },
         teardown: function () {

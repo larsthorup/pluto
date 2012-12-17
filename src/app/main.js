@@ -7,10 +7,24 @@ define(function (require) {
     var Router = require('router');
     var TemplateRepo = require('templateRepo');
     var getApp = require('app');
+    var Trello = require('persistence/trello');
+    var Session = require('models/session');
+    var CardCollectionFactory = require('collections/cards');
+    var SessionViewFactory = require('views/session');
+    var CardView = require('views/card');
+    var CardsViewFactory = require('views/cards');
 
     var router = new Router();
     var templateRepo = new TemplateRepo();
-    var app = getApp(templateRepo);
+    var app = getApp({
+        templateRepo: templateRepo,
+        Trello: Trello,
+        Session: Session,
+        CardCollectionFactory: CardCollectionFactory,
+        SessionViewFactory: SessionViewFactory,
+        CardView: CardView,
+        CardsViewFactory: CardsViewFactory
+    });
     app.bootstrap(document, router);
 
     // ToDo: make event tracing work
