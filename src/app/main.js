@@ -5,10 +5,12 @@ define(function (require) {
     var $ = require('jquery');
     var Backbone = require('backbone');
     var Router = require('router');
+    var RequireTemplateRepo = require('requireTemplateRepo');
     var getApp = require('app');
 
     var router = new Router();
-    var app = getApp();
+    var requireTemplateRepo = new RequireTemplateRepo();
+    var app = getApp(requireTemplateRepo);
     app.bootstrap(document, router);
 
     // ToDo: make event tracing work

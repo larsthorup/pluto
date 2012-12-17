@@ -21,7 +21,18 @@ module.exports = function (grunt) {
     var lintConfig = {
         all: [
             'Gruntfile.js',
-            'src/app/**/*.js',
+            // ToDo: figure out how to avoid explicitly including all files in the root folder, and still exclude tpl.js
+            'src/app/collections/*.js',
+            'src/app/models/*.js',
+            'src/app/persistence/*.js',
+            'src/app/utility/*.js',
+            'src/app/views/*.js',
+            'src/app/app.js',
+            'src/app/config.js',
+            'src/app/main.js',
+            'src/app/requireTemplateRepo.js',
+            'src/app/router.js',
+            'src/app/templateRepo.js',
             'src/test/*.js',
             'src/test/tests/**/*.js'
         ]

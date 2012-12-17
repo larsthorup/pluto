@@ -29,12 +29,7 @@
   <script data-main="app/config" src="assets/js/libs/require.js"></script>
 
   <!-- View templates -->
-  <!-- ToDo: how can templates be shared with unit tests? Do we want to? -->
   <!-- ToDo: how to test the templates (like html escaping)? -->
-  <script type="text/template" id="session-template">
-      <input class="user"/>
-      <a class="login">Sign In</a>
-  </script>
   <!-- ToDo: use a 'data' variable to avoid having _.template() use the slow with statement -->
   <script type="text/template" id="card-template">
       <%-title%>

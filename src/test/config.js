@@ -27,7 +27,7 @@ window.config = function () {
 
     var testModules = [
         'tests/util.test',
-        'tests/requireTemplateRepo.test',
+        // 'tests/requireTemplateRepo.test',
         'tests/templateRepo.test',
         'tests/persistence/trello.test',
         'tests/models/session.test',
@@ -43,3 +43,13 @@ window.config = function () {
     require(testModules, QUnit.start);
 
 };
+
+var requireResourceTrace = false;
+
+// Note: enable to debug issues in module loading
+if (requireResourceTrace) {
+    require.onResourceLoad = function (context, map/*, depArray*/) {
+        'use strict';
+        window.console.log('Loaded ' + map.url);
+    };
+}

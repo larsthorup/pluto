@@ -13,15 +13,16 @@ define(function (require) {
     var CardsViewFactory = require('views/cards');
 
     var app = null;
-    var getApp = function () {
+    var getApp = function (requireTemplateRepo) {
         if (!app) { // Note: singleton pattern
-            app = new App();
+            app = new App(requireTemplateRepo);
         }
         return app;
     };
 
-    var App = function () {
+    var App = function (requireTemplateRepo) {
         this.root = '/';
+        this.requireTemplateRepo = requireTemplateRepo;
     };
     App.prototype = {
         destroy: function () { // Note: singleton pattern, this part included for testability
@@ -72,7 +73,7 @@ define(function (require) {
                 el: this.$main,
                 model: this.session,
                 dep: {
-                    templateRepo: this.templateRepo
+                    templateRepo: this.requireTemplateRepo
                 }
             });
             sessionView.render();
