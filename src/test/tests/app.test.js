@@ -6,8 +6,8 @@ define(function (require) {
     require('mockjax');
     var Router = require('router');
     var getApp = require('app');
-    var Trello = require('persistence/trello');
-    var Session = require('models/session');
+    var TrelloStub = require('stubs/persistence/trello');
+    var SessionStub = require('stubs/models/session');
     var CardsViewFactory = require('views/cards');
     var SessionViewStub = require('stubs/views/session');
     var CardCollectionFactory = require('collections/cards');
@@ -20,8 +20,8 @@ define(function (require) {
 
             // given
             this.app = getApp({
-                Trello: Trello,
-                Session: Session,
+                Trello: TrelloStub,
+                Session: SessionStub,
                 CardsViewFactory: CardsViewFactory,
                 SessionView: SessionViewStub,
                 CardCollectionFactory: CardCollectionFactory
