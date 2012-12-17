@@ -10,8 +10,10 @@ window.config = function () {
             jquery: '../assets/js/libs/jquery',
             underscore: '../assets/js/libs/lodash',
             backbone: '../assets/js/libs/backbone',
+            // Note: base directory is app/, which is why ../test is necessary
             mockjax: '../test/vendor/jquery.mockjax',
-            tests: '../test/tests' // Note: base directory is app/, which is why ../test is necessary
+            tests: '../test/tests',
+            stubs: '../test/stubs'
         },
         shim: {
             backbone: {

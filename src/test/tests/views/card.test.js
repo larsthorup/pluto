@@ -2,15 +2,17 @@
 define(function (require) {
     'use strict';
     var $ = require('jquery');
-    var TemplateRepo = require('templateRepo');
+    var TemplateRepoStub = require('stubs/templateRepo');
     var Card = require('models/card');
     var CardView = require('views/card');
 
     QUnit.module('view.card', {
         setup: function () {
             // given
-            this.document = $('<div><div id="view"></div><script type="template/text" id="card-template"><span><%=title%></span></script></div>');
-            this.templateRepo = new TemplateRepo(this.document);
+            var templateRepo = new TemplateRepoStub({
+                'card-template': '<span><%=title%></span>'
+            });
+            this.document = $('<div><div id="view"></div></div>');
             this.card = new Card({title: 'Meet Rob'});
             this.card.on = sinon.spy();
             this.card.duplicate = sinon.spy();
@@ -18,7 +20,7 @@ define(function (require) {
                 el: $('#view', this.document),
                 model: this.card,
                 dep: {
-                    templateRepo: this.templateRepo
+                    templateRepo: templateRepo
                 }
             });
             this.cardView.initialize();

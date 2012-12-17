@@ -3,7 +3,7 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var Backbone = require('backbone');
-    var TemplateRepo = require('templateRepo');
+    var TemplateRepoStub = require('stubs/templateRepo');
     var Trello = require('persistence/trello');
     var Session = require('models/session');
     var SessionViewFactory = require('views/session');
@@ -14,14 +14,10 @@ define(function (require) {
                 router: {}
             };
             this.app.router.navigate = sinon.spy();
-            this.document = $('<div>' +
-                '<div id="view"></div>' +
-                '<script type="text/template" id="session-template">' +
-                '  <input class="user"/>' +
-                '  <a class="login">Sign In</a>' +
-                '</script>' +
-            '</div>');
-            var templateRepo = new TemplateRepo(this.document);
+            var templateRepo = new TemplateRepoStub({
+                'session-template': '<input class="user"/><a class="login">Sign In</a>'
+            });
+            this.document = $('<div><div id="view"></div></div>');
             this.trello = new Trello(Backbone);
             this.session = new Session(null, {trello: this.trello});
             this.session.login = sinon.spy();
