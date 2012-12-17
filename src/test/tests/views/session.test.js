@@ -3,6 +3,7 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var Backbone = require('backbone');
+    var TemplateRepo = require('requireTemplateRepo');
     var TemplateRepoStub = require('stubs/templateRepo');
     var Trello = require('persistence/trello');
     var Session = require('models/session');
@@ -66,6 +67,18 @@ define(function (require) {
         // then
         QUnit.ok(this.session.login.calledWith('lars'));
         QUnit.ok(this.app.router.navigate.calledWith(''));
+    });
+
+    QUnit.test('template', function () {
+        // given
+        var templateRepo = new TemplateRepo();
+
+        // when
+        var $html = $(templateRepo.get('session-template')());
+
+        // then
+        QUnit.ok($('.login', $html).length > 0, '.login');
+        QUnit.ok($('input.user', $html).length > 0, 'input.user');
     });
 
 });
