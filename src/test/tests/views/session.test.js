@@ -3,6 +3,7 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var Backbone = require('backbone');
+    var TemplateRepo = require('templateRepo');
     var Trello = require('persistence/trello');
     var Session = require('models/session');
     var SessionViewFactory = require('views/session');
@@ -20,14 +21,17 @@ define(function (require) {
                 '  <a class="login">Sign In</a>' +
                 '</script>' +
             '</div>');
+            var templateRepo = new TemplateRepo(this.document);
             this.trello = new Trello(Backbone);
             this.session = new Session(null, {trello: this.trello});
             this.session.login = sinon.spy();
             this.sessionView = SessionViewFactory.create({
                 app: this.app,
-                document: this.document,
                 el: $('#view', this.document),
-                model: this.session
+                model: this.session,
+                dep: {
+                    templateRepo: templateRepo
+                }
             });
         }
     });

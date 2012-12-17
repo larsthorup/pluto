@@ -1,9 +1,9 @@
 /*global define*/
 define(function (require) {
     'use strict';
-    var BaseView = require('views/base');
+    var Backbone = require('backbone');
 
-    var CardView = BaseView.extend({
+    var CardView = Backbone.View.extend({
 
         events: function () { // Note: using a function because it allows us to reference methods by identifier (this.duplicate) instead of as a string ("duplicate")
             return {

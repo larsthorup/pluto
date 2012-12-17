@@ -3,11 +3,11 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var _ = require('underscore');
+    var Backbone = require('backbone');
     var keycode = require('utility/keycode');
-    var BaseView = require('views/base');
     var ViewFactoryFactory = require('views/factory');
 
-    var SessionView = BaseView.extend({
+    var SessionView = Backbone.View.extend({
         events: function () {
             return {
                 'click .login': this.login
@@ -16,8 +16,8 @@ define(function (require) {
 
         initialize: function () {
             this.app = this.options.app;
-            this.document = this.options.document;
-            this.template = this.makeTemplate('session-template');
+            this.templateRepo = this.options.dep.templateRepo;
+            this.template = this.templateRepo.get('session-template');
             // ToDo: use an event broker instead of a direct collection reference?
             this.model = this.options.model;
         },

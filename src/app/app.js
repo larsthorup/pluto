@@ -69,9 +69,11 @@ define(function (require) {
         goLogin: function () {
             var sessionView = SessionViewFactory.create({
                 app: this,
-                document: this.document,
                 el: this.$main,
-                model: this.session
+                model: this.session,
+                dep: {
+                    templateRepo: this.templateRepo
+                }
             });
             sessionView.render();
             this.view = sessionView;
