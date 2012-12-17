@@ -37,10 +37,10 @@ module.exports = function (grunt) {
     // test
     var qunitConfig = {
         src: ['src/test/index.html'],
+        serve: ['http://localhost:8080/test/index.html'],
         bundle: ['output/bundle/test/index.html']
     };
     grunt.loadNpmTasks('grunt-junit');
-    grunt.registerTask('test', 'junit:env qunit:src');
 
 
     // watch
@@ -111,7 +111,7 @@ module.exports = function (grunt) {
     };
     grunt.registerTask('serve:src', 'HTTP serve src on port 8080', function () { serve('src', 8080); });
     grunt.registerTask('serve:bundle', 'HTTP serve bundle on port 8081', function () { serve('output/bundle', 8081); });
-
+    grunt.registerTask('test', 'junit:env serve:src qunit:serve');
 
     // grunt
     grunt.initConfig({

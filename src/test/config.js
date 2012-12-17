@@ -10,6 +10,7 @@ window.config = function () {
             jquery: '../assets/js/libs/jquery',
             underscore: '../assets/js/libs/lodash',
             backbone: '../assets/js/libs/backbone',
+            tpl: '../assets/js/plugins/tpl',
             // Note: base directory is app/, which is why ../test is necessary
             mockjax: '../test/vendor/jquery.mockjax',
             tests: '../test/tests',
@@ -27,7 +28,6 @@ window.config = function () {
 
     var testModules = [
         'tests/util.test',
-        // 'tests/requireTemplateRepo.test',
         'tests/templateRepo.test',
         'tests/persistence/trello.test',
         'tests/models/session.test',
@@ -38,6 +38,10 @@ window.config = function () {
         'tests/views/cards.test',
         'tests/app.test'
     ];
+    if (window.location.protocol !== 'file:') {
+        // Note: the tpl plugin for require.js uses XHR to load files which does not work when running the tests from a file: url
+        testModules.push('tests/requireTemplateRepo.test');
+    }
 
     // Note
     require(testModules, QUnit.start);

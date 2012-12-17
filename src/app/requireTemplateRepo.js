@@ -10,8 +10,10 @@ define(function (require) {
     };
     TemplateRepo.prototype = {
         get: function (id) {
-            return this.template[id];
-            // throw new Error('assertion: template with id "' + id + '" not found');
+            if (id in this.template) {
+                return this.template[id];
+            }
+            throw new Error('assertion: template with id "' + id + '" not found');
         }
     };
 
