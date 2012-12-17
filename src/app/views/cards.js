@@ -3,18 +3,9 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var Backbone = require('backbone');
-    var BaseView = require('views/base');
     var ViewFactoryFactory = require('views/factory');
 
-    /**
-     * @extends BaseView
-     */
-    var CardsView = BaseView.extend({
-
-        constructor: function (options) {
-            Backbone.View.apply(this, arguments);
-            this.CardView = options.dep.CardView;
-        },
+    var CardsView = Backbone.View.extend({
 
         events: function () {
             return {
@@ -23,6 +14,9 @@ define(function (require) {
         },
 
         initialize: function () {
+            this.CardView = this.options.dep.CardView;
+            this.templateRepo = this.options.dep.templateRepo;
+            // ToDo: is document used anymore??
             this.document = this.options.document;
             // ToDo: use an event broker instead of a direct collection reference?
             this.collection = this.options.collection;
@@ -30,9 +24,8 @@ define(function (require) {
             this.collection.on('add', this.addOne, this);
             this.collection.on('reset', this.addAll, this);
             // ToDo: Use symbolic template ids instead of strings
-            // ToDO: inject templates
-            this.template = this.makeTemplate('cards-template');
-            this.itemTemplate = this.makeTemplate('cards-item-template');
+            this.template = this.templateRepo.get('cards-template');
+            this.itemTemplate = this.templateRepo.get('cards-item-template');
         },
 
         render: function () {

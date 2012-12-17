@@ -4,6 +4,7 @@ define(function (require) {
     var $ = require('jquery');
     var _ = require('underscore');
     var Backbone = require('backbone');
+    var TemplateRepo = require('templateRepo');
     var Trello = require('persistence/trello');
     var Session = require('models/session');
     var CardCollectionFactory = require('collections/cards');
@@ -30,7 +31,7 @@ define(function (require) {
         bootstrap: function (document, router) {
             this.document = document;
             this.router = router;
-
+            this.templateRepo = new TemplateRepo(this.document);
             this.$main = $('#main', this.document);
 
             this.trello = new Trello(Backbone);
@@ -49,7 +50,8 @@ define(function (require) {
                 el: this.$main,
                 collection: cards,
                 dep: {
-                    CardView: CardView
+                    CardView: CardView,
+                    templateRepo: this.templateRepo
                 }
             });
             cardsView.render();

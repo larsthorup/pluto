@@ -21,7 +21,6 @@ define(function (require) {
         QUnit.equal(templateInstantiation, '<span>Lemon</span>', 'templateInstantiation');
     });
 
-    // ToDo: can we use promises instead of QUnit.throws?
     QUnit.test('get-failsWhenMissing', function () {
         // when + then
         QUnit.throws(function () { this.templateRepo.get('missing'); }, /assertion: template with id "missing" not found/, 'exception message');
