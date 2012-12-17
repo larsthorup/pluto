@@ -1,19 +1,19 @@
 /*global define*/
 define(function (require) {
     'use strict';
-    var $ = require('jquery');
-    var _ = require('underscore');
+    var sessionTemplate = require('tpl!views/session.html');
 
-    var TemplateRepo = function (document) {
-        this.document = document;
+    var TemplateRepo = function () {
+        this.template = {
+            'session-template': sessionTemplate
+        };
     };
     TemplateRepo.prototype = {
         get: function (id) {
-            var html = $('#' + id + '', this.document).html();
-            if (!html) {
-                throw new Error('assertion: template with id "' + id + '" not found');
+            if (id in this.template) {
+                return this.template[id];
             }
-            return _.template(html);
+            throw new Error('assertion: template with id "' + id + '" not found');
         }
     };
 
