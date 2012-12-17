@@ -22,8 +22,8 @@ define(function (require) {
             };
             // given
             var templateRepo = new TemplateRepoStub({
-                'cards-template': '<ul class="items"></ul>',
-                'cards-item-template': '<li></li>'
+                'cards': '<ul class="items"></ul>',
+                'cardsItem': '<li></li>'
             });
             this.document = $('<div><div id="view"></div></div>');
             this.trello = new Trello(Backbone);

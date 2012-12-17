@@ -17,7 +17,7 @@ define(function (require) {
         initialize: function () {
             this.app = this.options.app;
             this.templateRepo = this.options.dep.templateRepo;
-            this.template = this.templateRepo.get('session-template');
+            this.template = this.templateRepo.get('session');
             // ToDo: use an event broker instead of a direct collection reference?
             this.model = this.options.model;
         },

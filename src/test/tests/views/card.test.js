@@ -10,7 +10,7 @@ define(function (require) {
         setup: function () {
             // given
             var templateRepo = new TemplateRepoStub({
-                'card-template': '<span><%=title%></span>'
+                'card': '<span><%=title%></span>'
             });
             this.document = $('<div><div id="view"></div></div>');
             this.card = new Card({title: 'Meet Rob'});

@@ -8,14 +8,14 @@ define(function (require) {
     var Session = require('models/session');
     var SessionViewFactory = require('views/session');
 
-    QUnit.module('views.session', {
+    QUnit.module('view.session', {
         setup: function () {
             this.app = {
                 router: {}
             };
             this.app.router.navigate = sinon.spy();
             var templateRepo = new TemplateRepoStub({
-                'session-template': '<input class="user"/><a class="login">Sign In</a>'
+                'session': '<input class="user"/><a class="login">Sign In</a>'
             });
             this.document = $('<div><div id="view"></div></div>');
             this.trello = new Trello(Backbone);

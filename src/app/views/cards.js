@@ -24,8 +24,8 @@ define(function (require) {
             this.collection.on('add', this.addOne, this);
             this.collection.on('reset', this.addAll, this);
             // ToDo: Use symbolic template ids instead of strings
-            this.template = this.templateRepo.get('cards-template');
-            this.itemTemplate = this.templateRepo.get('cards-item-template');
+            this.template = this.templateRepo.get('cards');
+            this.itemTemplate = this.templateRepo.get('cardsItem');
         },
 
         render: function () {

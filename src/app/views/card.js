@@ -13,12 +13,13 @@ define(function (require) {
 
         initialize: function () {
             this.templateRepo = this.options.dep.templateRepo;
-            this.template = this.templateRepo.get('card-template');
+            this.template = this.templateRepo.get('card');
             // ToDo: use an event broker instead of a direct collection reference?
             this.model.on('change', this.render, this);
         },
 
         render: function () {
+            // ToDo: use a 'data' variable to avoid having _.template() use the slow with statement
             this.$el.html(this.template(this.model.toJSON()));
             return this;
         },

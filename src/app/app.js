@@ -4,7 +4,6 @@ define(function (require) {
     var $ = require('jquery');
     var _ = require('underscore');
     var Backbone = require('backbone');
-    var TemplateRepo = require('templateRepo');
     var Trello = require('persistence/trello');
     var Session = require('models/session');
     var CardCollectionFactory = require('collections/cards');
@@ -13,16 +12,16 @@ define(function (require) {
     var CardsViewFactory = require('views/cards');
 
     var app = null;
-    var getApp = function (requireTemplateRepo) {
+    var getApp = function (templateRepo) {
         if (!app) { // Note: singleton pattern
-            app = new App(requireTemplateRepo);
+            app = new App(templateRepo);
         }
         return app;
     };
 
-    var App = function (requireTemplateRepo) {
+    var App = function (templateRepo) {
         this.root = '/';
-        this.requireTemplateRepo = requireTemplateRepo;
+        this.templateRepo = templateRepo;
     };
     App.prototype = {
         destroy: function () { // Note: singleton pattern, this part included for testability
@@ -32,7 +31,6 @@ define(function (require) {
         bootstrap: function (document, router) {
             this.document = document;
             this.router = router;
-            this.templateRepo = new TemplateRepo(this.document);
             this.$main = $('#main', this.document);
 
             this.trello = new Trello(Backbone);
@@ -73,7 +71,7 @@ define(function (require) {
                 el: this.$main,
                 model: this.session,
                 dep: {
-                    templateRepo: this.requireTemplateRepo
+                    templateRepo: this.templateRepo
                 }
             });
             sessionView.render();

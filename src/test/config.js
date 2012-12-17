@@ -28,7 +28,6 @@ window.config = function () {
 
     var testModules = [
         'tests/util.test',
-        'tests/templateRepo.test',
         'tests/persistence/trello.test',
         'tests/models/session.test',
         'tests/models/card.test',
@@ -40,7 +39,8 @@ window.config = function () {
     ];
     if (window.location.protocol !== 'file:') {
         // Note: the tpl plugin for require.js uses XHR to load files which does not work when running the tests from a file: url
-        testModules.push('tests/requireTemplateRepo.test');
+        testModules.push('tests/templateRepo.test');
+        testModules.push('tests/views/session.html.test');
     }
 
     // Note
