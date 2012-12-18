@@ -17,7 +17,7 @@ define(function (require) {
         this.templateRepo = dep.templateRepo;
         this.Trello = dep.Trello;
         this.Session = dep.Session;
-        this.CardCollectionFactory = dep.CardCollectionFactory;
+        this.CardCollection = dep.CardCollection;
         this.SessionView = dep.SessionView;
         this.CardView = dep.CardView;
         this.CardsView = dep.CardsView;
@@ -42,7 +42,7 @@ define(function (require) {
 
         goCardsView: function () {
             var listId = '509070d37b1e65530d005067'; // ToDo: get from user
-            var cards = this.CardCollectionFactory.create(null, {listId: listId, trello: this.trello});
+            var cards = new this.CardCollection(null, {listId: listId, dep: {trello: this.trello}});
             this.cards = cards;
             var cardsView = new this.CardsView({
                 el: this.$main,

@@ -9,7 +9,7 @@ define(function (require) {
     var getApp = require('app');
     var Trello = require('persistence/trello');
     var Session = require('models/session');
-    var CardCollectionFactory = require('collections/cards');
+    var CardCollection = require('collections/cards');
     var SessionView = require('views/session');
     var CardView = require('views/card');
     var CardsView = require('views/cards');
@@ -20,7 +20,7 @@ define(function (require) {
         templateRepo: templateRepo,
         Trello: Trello,
         Session: Session,
-        CardCollectionFactory: CardCollectionFactory,
+        CardCollection: CardCollection,
         SessionView: SessionView,
         CardView: CardView,
         CardsView: CardsView

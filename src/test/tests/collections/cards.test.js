@@ -7,13 +7,13 @@ define(function (require) {
     require('mockjax');
     var Trello = require('persistence/trello');
     var Card = require('models/card');
-    var CardCollectionFactory = require('collections/cards');
+    var CardCollection = require('collections/cards');
 
     QUnit.module('collection.cards', {
         setup: function () {
             // given
             this.trello = new Trello(Backbone);
-            this.cards = CardCollectionFactory.create(null, {listId: 'abc', trello: this.trello});
+            this.cards = new CardCollection(null, {listId: 'abc', dep: {trello: this.trello}});
         }
     });
 

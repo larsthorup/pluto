@@ -3,13 +3,12 @@ define(function (require) {
     'use strict';
     var Backbone = require('backbone');
     var Card = require('models/card');
-    var CollectionFactoryFactory = require('collections/factory');
 
     var CardCollection = Backbone.Collection.extend({
 
         constructor: function (models, options) {
             Backbone.Collection.apply(this, arguments);
-            this.trello = options.trello;
+            this.trello = options.dep.trello;
         },
 
         model: Card,
@@ -40,6 +39,5 @@ define(function (require) {
         }
     });
 
-    var CardCollectionFactory = CollectionFactoryFactory.create(CardCollection);
-    return CardCollectionFactory;
+    return CardCollection;
 });
