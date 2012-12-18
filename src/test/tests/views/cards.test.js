@@ -6,7 +6,7 @@ define(function (require) {
     var TemplateRepoStub = require('stubs/templateRepo');
     var Trello = require('persistence/trello');
     var Card = require('models/card');
-    var CardsViewFactory = require('views/cards');
+    var CardsView = require('views/cards');
     var CardsCollectionFactory = require('collections/cards');
 
     QUnit.module('view.cards', {
@@ -28,7 +28,7 @@ define(function (require) {
             this.document = $('<div><div id="view"></div></div>');
             this.trello = new Trello(Backbone);
             this.collection = CardsCollectionFactory.create([new Card({title: 'Buy cheese'}), new Card({title: 'Buy water'})], {trello: this.trello});
-            this.cardsView = CardsViewFactory.create({
+            this.cardsView = new CardsView({
                 collection: this.collection,
                 el: $('#view', this.document),
                 dep: {

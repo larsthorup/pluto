@@ -3,7 +3,6 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var Backbone = require('backbone');
-    var ViewFactoryFactory = require('views/factory');
 
     var CardsView = Backbone.View.extend({
 
@@ -57,6 +56,5 @@ define(function (require) {
         }
 
     });
-    var CardsViewFactory = ViewFactoryFactory.create(CardsView);
-    return CardsViewFactory;
+    return CardsView;
 });

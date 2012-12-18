@@ -8,21 +8,20 @@ define(function (require) {
     var getApp = require('app');
     var TrelloStub = require('stubs/persistence/trello');
     var SessionStub = require('stubs/models/session');
-    var CardsViewFactory = require('views/cards');
+    var CardsViewStub = require('stubs/views/cards');
     var SessionViewStub = require('stubs/views/session');
     var CardCollectionFactory = require('collections/cards');
 
     QUnit.module('app', {
         setup: function () {
             // ToDo: use hand crafted stubs
-            CardsViewFactory.mockWith(sinon.spy);
             CardCollectionFactory.mockWith(sinon.spy, {fetch: function () { return $.Deferred(); }});
 
             // given
             this.app = getApp({
                 Trello: TrelloStub,
                 Session: SessionStub,
-                CardsViewFactory: CardsViewFactory,
+                CardsView: CardsViewStub,
                 SessionView: SessionViewStub,
                 CardCollectionFactory: CardCollectionFactory
             });
@@ -31,7 +30,6 @@ define(function (require) {
         teardown: function () {
             this.app.destroy();
             CardCollectionFactory.restore();
-            CardsViewFactory.restore();
         }
     });
 

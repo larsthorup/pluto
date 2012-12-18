@@ -20,7 +20,7 @@ define(function (require) {
         this.CardCollectionFactory = dep.CardCollectionFactory;
         this.SessionView = dep.SessionView;
         this.CardView = dep.CardView;
-        this.CardsViewFactory = dep.CardsViewFactory;
+        this.CardsView = dep.CardsView;
         this.root = '/';
     };
     App.prototype = {
@@ -44,7 +44,7 @@ define(function (require) {
             var listId = '509070d37b1e65530d005067'; // ToDo: get from user
             var cards = this.CardCollectionFactory.create(null, {listId: listId, trello: this.trello});
             this.cards = cards;
-            var cardsView = this.CardsViewFactory.create({
+            var cardsView = new this.CardsView({
                 el: this.$main,
                 collection: cards,
                 dep: {

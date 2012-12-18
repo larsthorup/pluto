@@ -12,7 +12,7 @@ define(function (require) {
     var CardCollectionFactory = require('collections/cards');
     var SessionView = require('views/session');
     var CardView = require('views/card');
-    var CardsViewFactory = require('views/cards');
+    var CardsView = require('views/cards');
 
     var router = new Router();
     var templateRepo = new TemplateRepo();
@@ -23,7 +23,7 @@ define(function (require) {
         CardCollectionFactory: CardCollectionFactory,
         SessionView: SessionView,
         CardView: CardView,
-        CardsViewFactory: CardsViewFactory
+        CardsView: CardsView
     });
     app.bootstrap(document, router);
 
