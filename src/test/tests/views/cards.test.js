@@ -36,11 +36,11 @@ define(function (require) {
                 }
             });
             this.cardsView = new CardsView({
-                collection: this.collection,
                 el: $('#view', this.document),
                 dep: {
                     CardView: CardView,
-                    templateRepo: templateRepo
+                    templateRepo: templateRepo,
+                    cards: this.collection
                 }
             });
         }

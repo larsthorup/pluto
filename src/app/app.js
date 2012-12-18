@@ -42,27 +42,25 @@ define(function (require) {
 
         goCardsView: function () {
             var listId = '509070d37b1e65530d005067'; // ToDo: get from user
-            var cards = new this.CardCollection(null, {
+            this.cards = new this.CardCollection(null, {
                 listId: listId,
                 dep: {
                     trello: this.trello,
                     Card: this.Card
                 }
             });
-            this.cards = cards;
-            var cardsView = new this.CardsView({
+            this.view = new this.CardsView({
                 el: this.$main,
-                collection: cards,
                 dep: {
                     CardView: this.CardView,
-                    templateRepo: this.templateRepo
+                    templateRepo: this.templateRepo,
+                    cards: this.cards
                 }
             });
-            cardsView.render();
-            this.view = cardsView;
+            this.view.render();
 
             // ToDo: show "loading..."
-            var fetchPromise = cards.fetch();
+            var fetchPromise = this.cards.fetch();
             // ToDo: turn off "loading..."
             fetchPromise.fail(_.bind(function () {
                 // ToDo: show error
@@ -72,7 +70,7 @@ define(function (require) {
         },
 
         goLogin: function () {
-            var sessionView = new this.SessionView({
+            this.view = new this.SessionView({
                 el: this.$main,
                 dep: {
                     templateRepo: this.templateRepo,
@@ -80,8 +78,7 @@ define(function (require) {
                     session: this.session
                 }
             });
-            sessionView.render();
-            this.view = sessionView;
+            this.view.render();
         }
     };
 
