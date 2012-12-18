@@ -12,7 +12,7 @@ window.config = function () {
             backbone: '../assets/js/libs/backbone',
             tpl: '../assets/js/plugins/tpl',
             // Note: base directory is app/, which is why ../test is necessary
-            mockjax: '../test/vendor/jquery.mockjax',
+            mockjax: '../test/libs/jquery.mockjax',
             tests: '../test/tests',
             stubs: '../test/stubs'
         },
