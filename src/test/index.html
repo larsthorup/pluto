@@ -9,16 +9,14 @@
 <body>
     <div id="qunit"></div>
 
+    <!-- ToDo: figure out how to shim load these -->
     <script src="libs/qunit.js"></script>
     <script src="libs/sinon.js"></script>
 
-    <!-- ToDo: do we need to include this explicitly?? -->
-    <script src="../libs/jquery.js"></script>
-    <script src="../libs/lodash.js"></script>
-    <script src="../libs/backbone.js"></script>
+    <!-- Note: config.js is included manually (not using data-main attribute) because otherwise grunt test will not work -->
     <script src="../libs/require.js"></script>
-
     <script src="config.js"></script>
+
     <script>
         config();
     </script>

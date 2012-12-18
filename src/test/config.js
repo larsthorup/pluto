@@ -1,11 +1,9 @@
 /*global window,require,QUnit*/
 window.config = function () {
     'use strict';
-    // Note: defer Qunit until RequireJS resolved all modules
-    QUnit.config.autostart = false;
-    QUnit.config.testTimeout = 1000;
     require.config({
         baseUrl: '../app',
+
         paths: {
             jquery: '../libs/jquery',
             underscore: '../libs/lodash',
@@ -26,6 +24,7 @@ window.config = function () {
         }
     });
 
+    // Note: this needs to be in config.js, not in a separate main.js, otherwise grunt test will not work correctly...
     var testModules = [
         'tests/util.test',
         'tests/persistence/trello.test',
@@ -43,9 +42,10 @@ window.config = function () {
         testModules.push('tests/views/session.html.test');
     }
 
-    // Note
+    // Note: defer Qunit until RequireJS resolved all modules
+    QUnit.config.autostart = false;
+    QUnit.config.testTimeout = 1000;
     require(testModules, QUnit.start);
-
 };
 
 var requireResourceTrace = false;
