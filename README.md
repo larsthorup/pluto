@@ -37,7 +37,7 @@ perform static analysis
 
     grunt lint
 
-run all tests
+run all tests (results in output\testresults)
 
     grunt test
 
@@ -48,6 +48,10 @@ produce test coverage statistics (in output\coverage\out\coverage.html)
 serve source application
 
     grunt serve:src watch
+
+compress and minify (in output\bundle)
+
+    grunt bundle
 
 serve bundled application
 

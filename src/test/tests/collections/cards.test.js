@@ -1,24 +1,23 @@
 /*global define, QUnit*/
 define(function (require) {
     'use strict';
-    var _ = require('underscore');
-    var $ = require('jquery');
-    var Backbone = require('backbone');
-    require('mockjax');
-    // ToDo: use stubs
-    var Trello = require('persistence/trello');
-    var Card = require('models/card');
+
+    // modules under test
     var CardCollection = require('collections/cards');
+
+    // stubs
+    var TrelloStub = require('stubs/persistence/trello');
+    var CardStub = require('stubs/models/card');
 
     QUnit.module('collection.cards', {
         setup: function () {
             // given
-            this.trello = new Trello();
+            this.trello = new TrelloStub();
             this.cards = new CardCollection(null, {
                 listId: 'abc',
                 dep: {
                     trello: this.trello,
-                    Card: Card
+                    Card: CardStub
                 }
             });
         }
@@ -31,28 +30,13 @@ define(function (require) {
 
     QUnit.test('model', function () {
         // when
-        this.cards.create({id: 42, title: 'Grow tomatoes'});
+        this.cards.create({id: 42, headline: 'Grow tomatoes'});
 
         // then
         QUnit.equal(this.cards.length, 1, 'cards.length');
         var card = this.cards.get(42);
-        QUnit.ok(card instanceof Card, 'card instanceof Card');
-        QUnit.equal(card.get('title'), 'Grow tomatoes', 'card.title');
-    });
-
-    QUnit.test('mock model', function () {
-        // given
-        var MockCard = Backbone.Model.extend({
-        });
-        this.cards.model = MockCard;
-
-        // when
-        this.cards.create({id: 17});
-
-        // then
-        QUnit.equal(this.cards.length, 1, 'cards.length');
-        var card = this.cards.get(17);
-        QUnit.ok(card instanceof MockCard, 'card instanceof MockCard');
+        QUnit.ok(card instanceof CardStub, 'card instanceof Card');
+        QUnit.equal(card.get('headline'), 'Grow tomatoes', 'card.title');
     });
 
     QUnit.test('parse', function () {
@@ -66,34 +50,6 @@ define(function (require) {
 
         // then
         QUnit.deepEqual(itemArray, [{id: 43, name: 'sing?'}], 'parse()');
-    });
-
-    QUnit.asyncTest('fetch', function () {
-        // given
-        this.trello.login('lars');
-        $.mockjax({
-            log: null,
-            url: 'https://api.trello.com/1/lists/abc',
-            data: {
-                key: this.trello.appKey,
-                token: 'lars',
-                cards: 'open'
-            },
-            responseTime: 1,
-            responseText: {
-                cards: [{id: 42, name: 'play!'}]
-            }
-        });
-
-        // when
-        var fetchPromise = this.cards.fetch();
-
-        // then
-        fetchPromise.done(_.bind(function () {
-            QUnit.equal(this.cards.length, 1, 'cards.length');
-            QUnit.deepEqual(this.cards.toJSON(), [{id: 42, title: 'play!'}], 'cards');
-            QUnit.start();
-        }, this));
     });
 
 });

@@ -31,6 +31,7 @@ window.config = function () {
         'tests/models/session.test',
         'tests/models/card.test',
         'tests/collections/cards.test',
+        'tests/collections/cards_trello_card.test',
         'tests/views/session.test',
         'tests/views/card.test',
         'tests/views/cards.test',
