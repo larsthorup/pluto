@@ -1,4 +1,4 @@
-/*global define,QUnit,sinon*/
+/*global define,QUnit*/
 define(function (require) {
     'use strict';
 
@@ -9,13 +9,12 @@ define(function (require) {
     var getApp = require('app');
 
     // stubs
-    // ToDo: use stub router
-    var Router = require('router');
+    var RouterStub = require('stubs/router');
+    var CardCollectionStub = require('stubs/collections/cards');
     var TrelloStub = require('stubs/persistence/trello');
     var SessionStub = require('stubs/models/session');
     var CardsViewStub = require('stubs/views/cards');
     var SessionViewStub = require('stubs/views/session');
-    var CardCollectionStub = require('stubs/collections/cards');
 
     QUnit.module('app', {
         setup: function () {
@@ -27,7 +26,7 @@ define(function (require) {
                 SessionView: SessionViewStub,
                 CardCollection: CardCollectionStub
             });
-            this.router = new Router();
+            this.router = new RouterStub();
         },
         teardown: function () {
             this.app.destroy();
@@ -69,7 +68,6 @@ define(function (require) {
     QUnit.test('goCardsView-redirectsToLoginIfFetchFails', function () {
         // given
         this.app.bootstrap(this.document, this.router);
-        this.app.router.navigate = sinon.spy();
         CardCollectionStub.fetchFailCount = 1;
 
         // when
