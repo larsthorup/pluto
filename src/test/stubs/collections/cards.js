@@ -3,18 +3,18 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
 
-    var CardsCollectionStub = function () {
+    var CardCollectionStub = function () {
     };
-    CardsCollectionStub.fetchFailCount = 0;
-    CardsCollectionStub.prototype = {
+    CardCollectionStub.fetchFailCount = 0;
+    CardCollectionStub.prototype = {
         fetch: sinon.spy(function () {
             var deferred = $.Deferred();
-            if(CardsCollectionStub.fetchFailCount > 0) {
-                CardsCollectionStub.fetchFailCount -= 1;
+            if(CardCollectionStub.fetchFailCount > 0) {
+                CardCollectionStub.fetchFailCount -= 1;
                 deferred.reject(); // Note: simulate that fetch fails
             }
             return deferred;
         })
     };
-    return CardsCollectionStub;
+    return CardCollectionStub;
 });

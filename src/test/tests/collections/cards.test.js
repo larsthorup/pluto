@@ -13,7 +13,13 @@ define(function (require) {
         setup: function () {
             // given
             this.trello = new Trello(Backbone);
-            this.cards = new CardCollection(null, {listId: 'abc', dep: {trello: this.trello}});
+            this.cards = new CardCollection(null, {
+                listId: 'abc',
+                dep: {
+                    trello: this.trello,
+                    Card: Card
+                }
+            });
         }
     });
 

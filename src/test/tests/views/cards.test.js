@@ -27,7 +27,15 @@ define(function (require) {
             });
             this.document = $('<div><div id="view"></div></div>');
             this.trello = new Trello(Backbone);
-            this.collection = new CardCollection([new Card({title: 'Buy cheese'}), new Card({title: 'Buy water'})], {dep: {trello: this.trello}});
+            this.collection = new CardCollection([
+                new Card({title: 'Buy cheese'}),
+                new Card({title: 'Buy water'})
+            ], {
+                dep: {
+                    trello: this.trello,
+                    Card: Card
+                }
+            });
             this.cardsView = new CardsView({
                 collection: this.collection,
                 el: $('#view', this.document),

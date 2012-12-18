@@ -2,16 +2,14 @@
 define(function (require) {
     'use strict';
     var Backbone = require('backbone');
-    var Card = require('models/card');
 
     var CardCollection = Backbone.Collection.extend({
 
         constructor: function (models, options) {
             Backbone.Collection.apply(this, arguments);
             this.trello = options.dep.trello;
+            this.model = options.dep.Card;
         },
-
-        model: Card,
 
         url: function () {
             return this.trello.url + '/lists/' + this.id;

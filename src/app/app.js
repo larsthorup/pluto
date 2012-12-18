@@ -17,6 +17,7 @@ define(function (require) {
         this.templateRepo = dep.templateRepo;
         this.Trello = dep.Trello;
         this.Session = dep.Session;
+        this.Card = dep.Card;
         this.CardCollection = dep.CardCollection;
         this.SessionView = dep.SessionView;
         this.CardView = dep.CardView;
@@ -42,7 +43,13 @@ define(function (require) {
 
         goCardsView: function () {
             var listId = '509070d37b1e65530d005067'; // ToDo: get from user
-            var cards = new this.CardCollection(null, {listId: listId, dep: {trello: this.trello}});
+            var cards = new this.CardCollection(null, {
+                listId: listId,
+                dep: {
+                    trello: this.trello,
+                    Card: this.Card
+                }
+            });
             this.cards = cards;
             var cardsView = new this.CardsView({
                 el: this.$main,
