@@ -73,11 +73,11 @@ define(function (require) {
 
         goLogin: function () {
             var sessionView = new this.SessionView({
-                app: this,
                 el: this.$main,
-                model: this.session,
                 dep: {
-                    templateRepo: this.templateRepo
+                    templateRepo: this.templateRepo,
+                    app: this,
+                    session: this.session
                 }
             });
             sessionView.render();

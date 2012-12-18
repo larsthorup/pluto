@@ -14,11 +14,10 @@ define(function (require) {
         },
 
         initialize: function () {
-            this.app = this.options.app;
             this.templateRepo = this.options.dep.templateRepo;
+            this.app = this.options.dep.app;
+            this.model = this.options.dep.session;
             this.template = this.templateRepo.get('session');
-            // ToDo: use an event broker instead of a direct collection reference?
-            this.model = this.options.model;
         },
 
         render: function () {

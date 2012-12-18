@@ -21,11 +21,11 @@ define(function (require) {
             this.session = new Session(null, {trello: this.trello});
             this.session.login = sinon.spy();
             this.sessionView = new SessionView({
-                app: this.app,
                 el: $('#view', this.document),
-                model: this.session,
                 dep: {
-                    templateRepo: templateRepo
+                    templateRepo: templateRepo,
+                    app: this.app,
+                    session: this.session
                 }
             });
         }
