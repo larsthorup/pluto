@@ -7,10 +7,10 @@ window.config = function () {
     require.config({
         baseUrl: '../app',
         paths: {
-            jquery: '../assets/js/libs/jquery',
-            underscore: '../assets/js/libs/lodash',
-            backbone: '../assets/js/libs/backbone',
-            tpl: '../assets/js/plugins/tpl',
+            jquery: '../libs/jquery',
+            underscore: '../libs/lodash',
+            backbone: '../libs/backbone',
+            tpl: '../libs/plugins/tpl',
             // Note: base directory is app/, which is why ../test is necessary
             mockjax: '../test/libs/jquery.mockjax',
             tests: '../test/tests',

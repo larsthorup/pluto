@@ -60,7 +60,7 @@ module.exports = function (grunt) {
             minimum: 1.0,
             baseDir: 'src',
             srcDir: 'src/app',
-            depDirs: ['src/assets', 'src/test'],
+            depDirs: ['src/libs', 'src/test'],
             outDir: 'output/coverage',
             testFiles: ['src/test/index.html']
         }
@@ -76,10 +76,10 @@ module.exports = function (grunt) {
         appDir: 'src',
         baseUrl: 'app',
         paths: {
-            jquery: '../assets/js/libs/jquery',
-            underscore: '../assets/js/libs/lodash',
-            backbone: '../assets/js/libs/backbone',
-            tpl: '../assets/js/plugins/tpl'
+            jquery: '../libs/jquery',
+            underscore: '../libs/lodash',
+            backbone: '../libs/backbone',
+            tpl: '../libs/plugins/tpl'
         },
         shim: {
             backbone: {
@@ -93,8 +93,8 @@ module.exports = function (grunt) {
         bundle: {
             files: {
                 'output/bundle/index.html': 'output/optimized/index.html',
-                'output/bundle/assets/css/index.css': 'output/optimized/assets/css/index.css',
-                'output/bundle/assets/js/libs/require.js': 'output/optimized/assets/js/libs/require.js',
+                'output/bundle/app/css/index.css': 'output/optimized/app/css/index.css',
+                'output/bundle/libs/require.js': 'output/optimized/libs/require.js',
                 'output/bundle/app/config.js': 'output/optimized/app/config.js',
                 'output/bundle/app/main.js': 'output/optimized/app/main.js'
             }
