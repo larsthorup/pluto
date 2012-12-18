@@ -1,5 +1,5 @@
-/*global define,sinon*/
-define(function() {
+/*global define*/
+define(function () {
     'use strict';
     var SessionStub = function () {
 

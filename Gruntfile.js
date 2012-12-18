@@ -22,8 +22,11 @@ module.exports = function (grunt) {
         all: [
             'Gruntfile.js',
             'src/app/**/*.js',
-            'src/test/*.js',
-            'src/test/tests/**/*.js'
+            'src/test/stubs/**/*.js',
+            'src/test/tests/**/*.js',
+            'src/test/*.js'
+            // Note: use this instead when grunt-0.4 is available
+            // '!src/test/libs'
         ]
     };
     var jsHintOptions = {

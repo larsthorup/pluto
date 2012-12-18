@@ -35,6 +35,7 @@ window.config = function () {
         'tests/views/session.test',
         'tests/views/card.test',
         'tests/views/cards.test',
+        'tests/views/cards_cards.test',
         'tests/app.test'
     ];
     if (window.location.protocol !== 'file:') {

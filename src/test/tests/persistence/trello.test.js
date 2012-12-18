@@ -1,11 +1,16 @@
 /*global define,QUnit,sinon*/
 define(function (require) {
     'use strict';
+
+    // framework
     var Backbone = require('backbone');
+
+    // module under test
     var Trello = require('persistence/trello');
 
     QUnit.module('persistence.trello', {
         setup: function () {
+            // given
             sinon.stub(Backbone, 'sync');
             this.trello = new Trello();
         },

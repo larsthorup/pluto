@@ -2,7 +2,7 @@
 define(function (require) {
     'use strict';
 
-    // modules under test
+    // module under test
     var CardCollection = require('collections/cards');
 
     // stubs

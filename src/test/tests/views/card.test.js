@@ -1,10 +1,16 @@
-/*global define,QUnit,sinon*/
+/*global define,QUnit*/
 define(function (require) {
     'use strict';
+
+    // framework
     var $ = require('jquery');
-    var TemplateRepoStub = require('stubs/templateRepo');
-    var Card = require('models/card');
+
+    // module under test
     var CardView = require('views/card');
+
+    // stubs
+    var TemplateRepoStub = require('stubs/templateRepo');
+    var CardStub = require('stubs/models/card');
 
     QUnit.module('view.card', {
         setup: function () {
@@ -13,9 +19,7 @@ define(function (require) {
                 'card': '<span><%=title%></span>'
             });
             this.document = $('<div><div id="view"></div></div>');
-            this.card = new Card({title: 'Meet Rob'});
-            this.card.on = sinon.spy();
-            this.card.duplicate = sinon.spy();
+            this.card = new CardStub({title: 'Meet Rob'});
             this.cardView = new CardView({
                 el: $('#view', this.document),
                 model: this.card,

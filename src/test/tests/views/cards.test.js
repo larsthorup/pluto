@@ -1,44 +1,42 @@
 /*global define,QUnit*/
 define(function (require) {
     'use strict';
+
+    // framework
     var $ = require('jquery');
-    var TemplateRepoStub = require('stubs/templateRepo');
-    var Trello = require('persistence/trello');
-    var Card = require('models/card');
+
+    // module under test
     var CardsView = require('views/cards');
-    var CardCollection = require('collections/cards');
+
+    // stubs
+    var TemplateRepoStub = require('stubs/templateRepo');
+    var TrelloStub = require('stubs/persistence/trello');
+    var CardStub = require('stubs/models/card');
+    var CardCollectionStub = require('stubs/collections/cards');
+    var CardViewStub = require('stubs/views/card');
 
     QUnit.module('view.cards', {
         setup: function () {
-            // ToDo: implement default return value in the mock instead of here
-            var CardView = function (options) {
-                this.model = options.model;
-            };
-            CardView.prototype = {
-                render: function () {
-                    return {el: $('<div>' + this.model.get('title') + '</div>')};
-                }
-            };
             // given
             var templateRepo = new TemplateRepoStub({
                 'cards': '<ul class="items"></ul>',
                 'cardsItem': '<li></li>'
             });
             this.document = $('<div><div id="view"></div></div>');
-            this.trello = new Trello();
-            this.collection = new CardCollection([
-                new Card({title: 'Buy cheese'}),
-                new Card({title: 'Buy water'})
+            this.trello = new TrelloStub();
+            this.collection = new CardCollectionStub([
+                new CardStub({title: 'Buy cheese'}),
+                new CardStub({title: 'Buy water'})
             ], {
                 dep: {
                     trello: this.trello,
-                    Card: Card
+                    Card: CardStub
                 }
             });
             this.cardsView = new CardsView({
                 el: $('#view', this.document),
                 dep: {
-                    CardView: CardView,
+                    CardView: CardViewStub,
                     templateRepo: templateRepo,
                     cards: this.collection
                 }
@@ -57,7 +55,7 @@ define(function (require) {
     QUnit.test('addOne', function () {
         // given
         this.cardsView.render();
-        var card = new Card({title: 'Buy cheese'});
+        var card = new CardStub({title: 'Buy cheese'});
 
         // when
         this.cardsView.addOne(card);
@@ -68,7 +66,7 @@ define(function (require) {
 
     QUnit.test('addOne-failsBeforeRender', function () {
         // given
-        var card = new Card({title: 'Buy cheese'});
+        var card = new CardStub({title: 'Buy cheese'});
 
         // when + then
         QUnit.throws(function () { this.cardsView.addOne(card); }, /assertion/, 'assertion');
@@ -83,16 +81,5 @@ define(function (require) {
 
         // then
         QUnit.equal(this.cardsView.$el.html(), '<ul class="items"><div>Buy cheese</div><div>Buy water</div></ul>', 'cardsView.html');
-    });
-
-    QUnit.test('collection.add', function () {
-        // given
-        this.cardsView.render();
-
-        // when
-        this.collection.add(new Card({title: 'Buy tomatoes'}));
-
-        // then
-        QUnit.equal(this.cardsView.$el.html(), '<ul class="items"><div>Buy tomatoes</div></ul>', 'cardsView.html');
     });
 });

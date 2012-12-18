@@ -1,14 +1,17 @@
 /*global define,QUnit*/
 define(function (require) {
     'use strict';
-    // ToDo: use stubs
-    var Trello = require('persistence/trello');
+
+    // module under test
     var Session = require('models/session');
+
+    // stubs
+    var TrelloStub = require('stubs/persistence/trello');
 
     QUnit.module('model.session', {
         setup: function () {
             // given
-            this.trello = new Trello();
+            this.trello = new TrelloStub();
             this.session = new Session(null, {trello: this.trello});
         }
     });
@@ -24,6 +27,6 @@ define(function (require) {
 
         // then
         QUnit.equal(this.session.get('userId'), 'joe', 'session.userId');
-        QUnit.equal(this.trello.token, 'joe', 'trello.token');
+        QUnit.ok(this.trello.login.calledWith('joe'), 'trello.login.calledWith');
     });
 });
