@@ -4,14 +4,6 @@ define(function (require) {
     var $ = require('jquery');
     var _ = require('underscore');
 
-    var app = null;
-    var getApp = function (dep) {
-        if (!app) { // Note: singleton pattern
-            app = new App(dep);
-        }
-        return app;
-    };
-
     var App = function (dep) {
         this.templateRepo = dep.templateRepo;
         this.Trello = dep.Trello;
@@ -24,10 +16,6 @@ define(function (require) {
         this.root = '/';
     };
     App.prototype = {
-        destroy: function () { // Note: singleton pattern, this part included for testability
-            app = null;
-        },
-
         bootstrap: function (document, router) {
             this.document = document;
             this.router = router;
@@ -82,5 +70,5 @@ define(function (require) {
         }
     };
 
-    return getApp;
+    return App;
 });

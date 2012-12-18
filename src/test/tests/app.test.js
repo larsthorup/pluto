@@ -6,7 +6,7 @@ define(function (require) {
     require('mockjax');
 
     // module under test
-    var getApp = require('app');
+    var App = require('app');
 
     // stubs
     var RouterStub = require('stubs/router');
@@ -19,7 +19,7 @@ define(function (require) {
     QUnit.module('app', {
         setup: function () {
             // given
-            this.app = getApp({
+            this.app = new App({
                 Trello: TrelloStub,
                 Session: SessionStub,
                 CardsView: CardsViewStub,
@@ -27,18 +27,7 @@ define(function (require) {
                 CardCollection: CardCollectionStub
             });
             this.router = new RouterStub();
-        },
-        teardown: function () {
-            this.app.destroy();
         }
-    });
-
-    QUnit.test('singleton', function () {
-        // when
-        var app = getApp();
-
-        // then
-        QUnit.equal(app, this.app, 'new App() returns a singleton');
     });
 
     QUnit.test('route:index-goCardsView', function () {
