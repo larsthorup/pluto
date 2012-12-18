@@ -1,12 +1,15 @@
 /*global define,QUnit*/
 define(function (require) {
     'use strict';
+
+    // framework
     var $ = require('jquery');
+
+    // module under test
     var TemplateRepo = require('templateRepo');
 
     QUnit.module('view.session.html');
 
-    // ToDo: only load RequireTemplateRepo and run this test when running through a web server (not from file system)
     QUnit.test('template', function () {
         // given
         var templateRepo = new TemplateRepo();

@@ -1,6 +1,8 @@
 /*global define,QUnit*/
 define(function (require) {
     'use strict';
+
+    // module under test
     var TemplateRepo = require('templateRepo');
 
     QUnit.module('templateRepo', {

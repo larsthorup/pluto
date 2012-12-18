@@ -49,6 +49,7 @@ define(function (require) {
         this.app.router.trigger('route:index');
 
         // then
+        QUnit.ok(this.app.view instanceof CardsViewStub, 'app.view instanceof CardsView');
         QUnit.ok(this.app.view.render.calledOnce, 'app.view.render.calledOnce');
         QUnit.ok(this.app.cards.fetch.calledOnce, 'app.cards.fetch.calledOnce');
     });

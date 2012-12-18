@@ -1,24 +1,28 @@
 /*global define,QUnit,sinon*/
 define(function (require) {
     'use strict';
+
+    // framework
     var $ = require('jquery');
-    var TemplateRepoStub = require('stubs/templateRepo');
-    var Trello = require('persistence/trello');
-    var Session = require('models/session');
+
+    // module under test
     var SessionView = require('views/session');
+
+    // stubs
+    var TemplateRepoStub = require('stubs/templateRepo');
+    var TrelloStub = require('stubs/persistence/trello');
+    var SessionStub = require('stubs/models/session');
+    var AppStub = require('stubs/app');
 
     QUnit.module('view.session', {
         setup: function () {
-            this.app = {
-                router: {}
-            };
-            this.app.router.navigate = sinon.spy();
+            this.app = new AppStub();
             var templateRepo = new TemplateRepoStub({
                 'session': '<input class="user"/><a class="login">Sign In</a>'
             });
             this.document = $('<div><div id="view"></div></div>');
-            this.trello = new Trello();
-            this.session = new Session(null, {trello: this.trello});
+            this.trello = new TrelloStub();
+            this.session = new SessionStub(null, {trello: this.trello});
             this.session.login = sinon.spy();
             this.sessionView = new SessionView({
                 el: $('#view', this.document),
@@ -67,17 +71,4 @@ define(function (require) {
         QUnit.ok(this.app.router.navigate.calledWith(''));
     });
 
-    // ToDo: only load RequireTemplateRepo and run this test when running through a web server (not from file system)
-    // var TemplateRepo = require('requireTemplateRepo');
-//    QUnit.test('template', function () {
-//        // given
-//        var templateRepo = new TemplateRepo();
-//
-//        // when
-//        var $html = $(templateRepo.get('session-template')());
-//
-//        // then
-//        QUnit.ok($('.login', $html).length > 0, '.login');
-//        QUnit.ok($('input.user', $html).length > 0, 'input.user');
-//    });
 });
