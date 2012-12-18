@@ -5,7 +5,7 @@ define(function (require) {
     var $ = require('jquery');
     var Backbone = require('backbone');
     var Router = require('router');
-    var TemplateRepo = require('templateRepo');
+    var templateRepo = require('templateRepo');
     var App = require('app');
     var Trello = require('persistence/trello');
     var Session = require('models/session');
@@ -16,7 +16,6 @@ define(function (require) {
     var CardsView = require('views/cards');
 
     var router = new Router();
-    var templateRepo = new TemplateRepo();
     var app = new App({
         templateRepo: templateRepo,
         Trello: Trello,

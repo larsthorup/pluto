@@ -6,22 +6,11 @@ define(function (require) {
     var cards = require('tpl!views/cards.html');
     var cardsItem = require('tpl!views/cardsItem.html');
 
-    var TemplateRepo = function () {
-        this.template = {
-            'session': session,
-            'card': card,
-            'cards': cards,
-            'cardsItem': cardsItem
-        };
+    var templateRepo = {
+        session: session,
+        card: card,
+        cards: cards,
+        cardsItem: cardsItem
     };
-    TemplateRepo.prototype = {
-        get: function (id) {
-            if (id in this.template) {
-                return this.template[id];
-            }
-            throw new Error('assertion: template with id "' + id + '" not found');
-        }
-    };
-
-    return TemplateRepo;
+    return templateRepo;
 });

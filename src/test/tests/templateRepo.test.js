@@ -3,23 +3,18 @@ define(function (require) {
     'use strict';
 
     // module under test
-    var TemplateRepo = require('templateRepo');
+    var templateRepo = require('templateRepo');
 
-    QUnit.module('templateRepo', {
-        setup: function () {
-            // given
-            this.templateRepo = new TemplateRepo();
-        }
-    });
+    QUnit.module('templateRepo');
 
     QUnit.test('get-failsWhenMissing', function () {
         // when + then
-        QUnit.throws(function () { this.templateRepo.get('missing'); }, /assertion: template with id "missing" not found/, 'exception message');
+        QUnit.equal(templateRepo.missing, undefined, 'missing');
     });
 
     QUnit.test('html escaping', function () {
         // when
-        var template = this.templateRepo.get('card');
+        var template = templateRepo.card;
         var html = template({title: '<div>'});
 
         // then

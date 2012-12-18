@@ -13,7 +13,7 @@ define(function (require) {
 
         initialize: function () {
             this.templateRepo = this.options.dep.templateRepo;
-            this.template = this.templateRepo.get('card');
+            this.template = this.templateRepo.card;
             // ToDo: use an event broker instead of a direct collection reference?
             this.model.on('change', this.render, this);
         },

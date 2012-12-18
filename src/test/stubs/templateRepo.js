@@ -4,13 +4,11 @@ define(function (require) {
     var _ = require('underscore');
 
     var TemplateRepoStub = function (templates) {
-        this.templates = templates;
-    };
-    TemplateRepoStub.prototype = {
-        get: function (id) {
-            return _.template(this.templates[id]);
+        for (var key in templates) {
+            if (templates.hasOwnProperty(key)) {
+                this[key] = _.template(templates[key]);
+            }
         }
     };
-
     return TemplateRepoStub;
 });

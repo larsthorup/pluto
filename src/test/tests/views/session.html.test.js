@@ -6,16 +6,13 @@ define(function (require) {
     var $ = require('jquery');
 
     // module under test
-    var TemplateRepo = require('templateRepo');
+    var templateRepo = require('templateRepo');
 
     QUnit.module('view.session.html');
 
     QUnit.test('template', function () {
-        // given
-        var templateRepo = new TemplateRepo();
-
         // when
-        var $html = $(templateRepo.get('session')());
+        var $html = $(templateRepo.session());
 
         // then
         QUnit.ok($('.login', $html).length > 0, '.login');

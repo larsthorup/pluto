@@ -17,7 +17,7 @@ define(function (require) {
             this.templateRepo = this.options.dep.templateRepo;
             this.app = this.options.dep.app;
             this.model = this.options.dep.session;
-            this.template = this.templateRepo.get('session');
+            this.template = this.templateRepo.session;
         },
 
         render: function () {
