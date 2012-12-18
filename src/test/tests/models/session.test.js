@@ -1,14 +1,14 @@
 /*global define,QUnit*/
 define(function (require) {
     'use strict';
-    var Backbone = require('backbone');
+    // ToDo: use stubs
     var Trello = require('persistence/trello');
     var Session = require('models/session');
 
     QUnit.module('model.session', {
         setup: function () {
             // given
-            this.trello = new Trello(Backbone);
+            this.trello = new Trello();
             this.session = new Session(null, {trello: this.trello});
         }
     });

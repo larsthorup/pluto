@@ -3,7 +3,6 @@ define(function (require) {
     'use strict';
     var $ = require('jquery');
     var _ = require('underscore');
-    var Backbone = require('backbone');
 
     var app = null;
     var getApp = function (dep) {
@@ -34,7 +33,7 @@ define(function (require) {
             this.router = router;
             this.$main = $('#main', this.document);
 
-            this.trello = new this.Trello(Backbone);
+            this.trello = new this.Trello();
             this.session = new this.Session(null, {trello: this.trello});
 
             this.router.on('route:index', this.goCardsView, this);

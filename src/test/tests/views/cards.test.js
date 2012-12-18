@@ -2,7 +2,6 @@
 define(function (require) {
     'use strict';
     var $ = require('jquery');
-    var Backbone = require('backbone');
     var TemplateRepoStub = require('stubs/templateRepo');
     var Trello = require('persistence/trello');
     var Card = require('models/card');
@@ -26,7 +25,7 @@ define(function (require) {
                 'cardsItem': '<li></li>'
             });
             this.document = $('<div><div id="view"></div></div>');
-            this.trello = new Trello(Backbone);
+            this.trello = new Trello();
             this.collection = new CardCollection([
                 new Card({title: 'Buy cheese'}),
                 new Card({title: 'Buy water'})

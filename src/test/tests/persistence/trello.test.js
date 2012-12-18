@@ -7,7 +7,7 @@ define(function (require) {
     QUnit.module('persistence.trello', {
         setup: function () {
             sinon.stub(Backbone, 'sync');
-            this.trello = new Trello(Backbone);
+            this.trello = new Trello();
         },
         teardown: function () {
             Backbone.sync.restore();

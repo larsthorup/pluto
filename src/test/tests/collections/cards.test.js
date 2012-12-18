@@ -5,6 +5,7 @@ define(function (require) {
     var $ = require('jquery');
     var Backbone = require('backbone');
     require('mockjax');
+    // ToDo: use stubs
     var Trello = require('persistence/trello');
     var Card = require('models/card');
     var CardCollection = require('collections/cards');
@@ -12,7 +13,7 @@ define(function (require) {
     QUnit.module('collection.cards', {
         setup: function () {
             // given
-            this.trello = new Trello(Backbone);
+            this.trello = new Trello();
             this.cards = new CardCollection(null, {
                 listId: 'abc',
                 dep: {

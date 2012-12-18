@@ -2,7 +2,6 @@
 define(function (require) {
     'use strict';
     var $ = require('jquery');
-    var Backbone = require('backbone');
     var TemplateRepoStub = require('stubs/templateRepo');
     var Trello = require('persistence/trello');
     var Session = require('models/session');
@@ -18,7 +17,7 @@ define(function (require) {
                 'session': '<input class="user"/><a class="login">Sign In</a>'
             });
             this.document = $('<div><div id="view"></div></div>');
-            this.trello = new Trello(Backbone);
+            this.trello = new Trello();
             this.session = new Session(null, {trello: this.trello});
             this.session.login = sinon.spy();
             this.sessionView = new SessionView({

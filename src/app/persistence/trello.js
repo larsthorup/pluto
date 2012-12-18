@@ -1,10 +1,10 @@
 /*global define*/
-define(function () {
+define(function (require) {
     'use strict';
+    var Backbone = require('backbone');
+
     var apiVersion = 1;
-    // ToDo: require Backbone instead of injecting it, as we won't be faking it???
-    var Trello = function (Backbone) {
-        this.Backbone = Backbone;
+    var Trello = function () {
         this.appKey = '4c5b4d16e6e53d893674f9452ac277bf';
         this.url = 'https://api.trello.com/' + apiVersion;
     };
@@ -23,7 +23,7 @@ define(function () {
             }
             options.data.key = this.appKey;
             options.data.token = this.token;
-            return this.Backbone.sync(method, model, options);
+            return Backbone.sync(method, model, options);
         }
     };
 
