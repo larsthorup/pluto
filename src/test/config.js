@@ -42,6 +42,7 @@ window.config = function () {
         // Note: the tpl plugin for require.js uses XHR to load files which does not work when running the tests from a file: url
         testModules.push('tests/templateRepo.test');
         testModules.push('tests/views/session.html.test');
+        testModules.push('tests/index.test');
     }
 
     // Note: defer Qunit until RequireJS resolved all modules
