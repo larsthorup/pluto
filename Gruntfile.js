@@ -40,7 +40,7 @@ module.exports = function (grunt) {
     // test
     var qunitConfig = {
         src: ['src/test/index.html'],
-        serve: ['http://localhost:8080/test/index.html'],
+        serve: ['http://localhost:8082/test/index.html'],
         bundle: ['output/bundle/test/index.html']
     };
     grunt.loadNpmTasks('grunt-junit');
@@ -112,9 +112,20 @@ module.exports = function (grunt) {
         // Note: using connect['static'], as jshint complains about connect.static, because static is a reserved word
         connect(connect['static'](path)).listen(port);
     };
-    grunt.registerTask('serve:src', 'HTTP serve src on port 8080', function () { serve('src', 8080); });
-    grunt.registerTask('serve:bundle', 'HTTP serve bundle on port 8081', function () { serve('output/bundle', 8081); });
-    grunt.registerTask('test', 'junit:env serve:src qunit:serve');
+    grunt.registerTask('serve:src', 'HTTP serve src on port 8080', function () {
+        serve('src', 8080);
+    });
+    grunt.registerTask('serve:bundle', 'HTTP serve bundle on port 8081', function () {
+        serve('output/bundle', 8081);
+    });
+    grunt.registerTask('serve:test', 'HTTP serve src on port 8082', function () {
+        serve('src', 8082);
+    });
+    grunt.registerTask('wait', 'keep running until terminated', function () {
+        /*var done = */
+        this.async();
+    });
+    grunt.registerTask('test', 'junit:env serve:test qunit:serve');
 
     // grunt
     grunt.initConfig({

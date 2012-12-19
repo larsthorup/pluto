@@ -47,7 +47,7 @@ produce test coverage statistics (in output\coverage\out\coverage.html)
 
 serve source application
 
-    grunt serve:src watch
+    grunt serve:src wait
 
 compress and minify (in output\bundle)
 
@@ -55,4 +55,4 @@ compress and minify (in output\bundle)
 
 serve bundled application
 
-    grunt serve:bundle watch
+    grunt serve:bundle wait
