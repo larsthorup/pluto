@@ -8,8 +8,7 @@ define(function (require) {
     // modules under test
     var CardsView = require('views/cards');
     var CardCollection = require('collections/cards');
-    // ToDo: why can't we use a CardStub??
-    var Card = require('models/card');
+    var Card = require('models/card'); // Note: Collection.add need a functioning Model.on-method
 
     // stubs
     var TemplateRepoStub = require('stubs/templateRepo');
@@ -25,10 +24,7 @@ define(function (require) {
             });
             this.document = $('<div><div id="view"></div></div>');
             this.trello = new TrelloStub();
-            this.collection = new CardCollection([
-                new Card({title: 'Buy cheese'}),
-                new Card({title: 'Buy water'})
-            ], {
+            this.collection = new CardCollection(null, {
                 dep: {
                     trello: this.trello,
                     Card: Card

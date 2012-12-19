@@ -20,7 +20,6 @@ define(function (require) {
             // ToDo: Use symbolic event ids instead of strings
             this.collection.on('add', this.addOne, this);
             this.collection.on('reset', this.addAll, this);
-            // ToDo: Use symbolic template ids instead of strings
             this.template = this.templateRepo.cards;
             this.itemTemplate = this.templateRepo.cardsItem;
         },
