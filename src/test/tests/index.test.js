@@ -20,21 +20,26 @@ define(function (require) {
         var $appUnderTest = q$('#appUnderTest');
         $appUnderTest.load(function () {
             var windowUnderTest = $appUnderTest[0].contentWindow;
-            windowUnderTest.require.onResourceLoad = function (context, map/*, depArray*/) {
+            var require = windowUnderTest.require;
+            require.onResourceLoad = function (context, map/*, depArray*/) {
                 if (map.url === 'app/main.js') { // Note: now all application modules have been loaded
-                    var $ = windowUnderTest.require('jquery');
+                    var $ = require('jquery');
                     $.getScript('/test/libs/jquery.mockjax.js', function () {
+                        var Trello = require('persistence/trello');
+                        var trello = new Trello();
 
                         // then we see the login page
                         QUnit.equal($('#header h1').text(), 'Pluto', '#header');
                         QUnit.equal($.trim($('#main label.userLabel').text()), 'User Token:', '.userLabel');
 
                         // given mocked server response
+                        var listId = '509070d37b1e65530d005067';
+                        var mockUrl = trello.url + '/lists/' + listId;
                         $.mockjax({
                             log: null,
-                            url: 'https://api.trello.com/1/lists/509070d37b1e65530d005067',
+                            url: mockUrl,
                             data: {
-                                key: '4c5b4d16e6e53d893674f9452ac277bf', // ToDo: this.trello.appKey,
+                                key: trello.appKey,
                                 token: 'lars',
                                 cards: 'open'
                             },
@@ -46,8 +51,7 @@ define(function (require) {
 
 
                         // when we enter a user token and click the login button
-                        var secretUserToken = 'lars';
-                        $('#main input.user').val(secretUserToken);
+                        $('#main input.user').val('lars');
                         $('#main a.login').trigger('click');
 
                         // ToDo figure out how to wait for page to change
