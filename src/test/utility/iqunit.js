@@ -29,7 +29,8 @@ define(function (require) {
                             // Note: using the jQuery object we can load mockjax and waitFor into the local page where it will plugin to the local jQuery object
                             var dfd1 = $.getScript('/test/libs/jquery.mockjax.js');
                             var dfd2 = $.getScript('/test/utility/jquery.waitFor.js');
-                            $.when(dfd1, dfd2).done(function () {
+                            var dfd = $.when(dfd1, dfd2);
+                            dfd.done(function () {
                                 callback(require, $);
                             });
                         }
