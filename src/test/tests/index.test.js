@@ -28,6 +28,18 @@ define(function (require) {
                         var Trello = require('persistence/trello');
                         var trello = new Trello();
 
+                        // ToDo: return a promise instead
+                        var waitFor = function (selector, callback) {
+                            var result = $(selector);
+                            if (result.length > 0) {
+                                callback(result);
+                            } else {
+                                window.setTimeout(function () {
+                                    waitFor(selector, callback);
+                                }, 50);
+                            }
+                        };
+
                         // then we see the login page
                         QUnit.equal($('#header h1').text(), 'Pluto', '#header');
                         QUnit.equal($.trim($('#main label.userLabel').text()), 'User Token:', '.userLabel');
@@ -54,17 +66,13 @@ define(function (require) {
                         $('#main input.user').val('lars');
                         $('#main a.login').trigger('click');
 
-                        // ToDo figure out how to wait for page to change
-                        window.setTimeout(function () {
-
-                            // then we see the list of cards
-                            var $cards = $('#main ul.items li');
+                        // then we see the list of cards
+                        waitFor('#main ul.items li', function ($cards) {
                             QUnit.equal($cards.length, 1, 'li.length');
                             QUnit.equal($cards.first().text(), 'play!', 'li.text');
 
                             QUnit.start();
-                        }, 2000);
-
+                        });
                     });
                 }
             };
