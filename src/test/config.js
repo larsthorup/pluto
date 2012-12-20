@@ -11,6 +11,7 @@ window.config = function () {
             tpl: '../libs/plugins/tpl',
             // Note: base directory is app/, which is why ../test is necessary
             mockjax: '../test/libs/jquery.mockjax',
+            waitFor: '../test/utility/jquery.waitFor',
             iqunit: '../test/utility/iqunit',
             tests: '../test/tests',
             stubs: '../test/stubs'
@@ -43,6 +44,8 @@ window.config = function () {
         // Note: the tpl plugin for require.js uses XHR to load files which does not work when running the tests from a file: url
         testModules.push('tests/templateRepo.test');
         testModules.push('tests/views/session.html.test');
+        // ToDo: move these slow tests to a separate suite
+        testModules.push('../test/utility/jquery.waitFor.test');
         testModules.push('tests/index.test');
     }
 

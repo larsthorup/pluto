@@ -3,7 +3,7 @@
     'use strict';
 
     $.fn.waitFor = function (timeout) {
-        // ToDo: default timeout if not set
+        timeout = timeout || 100; // Note: default timeout
         var dfd = $.Deferred();
         var selector = this.selector;
         var waitForDeferred = function (dfd, timeout) {
