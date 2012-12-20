@@ -25,20 +25,31 @@ define(function (require) {
                 if (map.url === 'app/main.js') { // Note: now all application modules have been loaded
                     var $ = require('jquery');
                     $.getScript('/test/libs/jquery.mockjax.js', function () {
+
+                        var waitFor = function (selector, timeout) {
+                            var waitForDeferred = function (selector, dfd, timeout) {
+                                var result = $(selector);
+                                if (result.length > 0) {
+                                    dfd.resolve(result);
+                                } else {
+                                    var waitTime = 50;
+                                    if (timeout < waitTime) {
+                                        dfd.reject();
+                                    } else {
+                                        window.setTimeout(function () {
+                                            waitForDeferred(selector, dfd, timeout - waitTime);
+                                        }, waitTime);
+                                    }
+                                }
+                            };
+                            var dfd = $.Deferred();
+                            waitForDeferred(selector, dfd, timeout);
+                            return dfd.promise();
+                        };
+
+                        // given
                         var Trello = require('persistence/trello');
                         var trello = new Trello();
-
-                        // ToDo: return a promise instead
-                        var waitFor = function (selector, callback) {
-                            var result = $(selector);
-                            if (result.length > 0) {
-                                callback(result);
-                            } else {
-                                window.setTimeout(function () {
-                                    waitFor(selector, callback);
-                                }, 50);
-                            }
-                        };
 
                         // then we see the login page
                         QUnit.equal($('#header h1').text(), 'Pluto', '#header');
@@ -67,7 +78,8 @@ define(function (require) {
                         $('#main a.login').trigger('click');
 
                         // then we see the list of cards
-                        waitFor('#main ul.items li', function ($cards) {
+                        var promise = waitFor('#main ul.items li', 100);
+                        promise.done(function ($cards) {
                             QUnit.equal($cards.length, 1, 'li.length');
                             QUnit.equal($cards.first().text(), 'play!', 'li.text');
 
