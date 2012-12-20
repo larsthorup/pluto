@@ -11,6 +11,7 @@ window.config = function () {
             tpl: '../libs/plugins/tpl',
             // Note: base directory is app/, which is why ../test is necessary
             mockjax: '../test/libs/jquery.mockjax',
+            iqunit: '../test/utility/iqunit',
             tests: '../test/tests',
             stubs: '../test/stubs'
         },

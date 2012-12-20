@@ -1,7 +1,7 @@
-/*global define,QUnit,window*/
+/*global define,QUnit*/
 define(function (require) {
     'use strict';
-    var q$ = require('jquery');
+    var IQUnit = require('iqunit');
 
     QUnit.module('index', {
         setup: function () {
@@ -13,61 +13,15 @@ define(function (require) {
         }
     });
 
-    // Note: Interactive QUnit
-    var IQUnit = {
-        // ToDo: create waitFor as a jQuery plugin
-        // http://stackoverflow.com/questions/5525071/how-to-wait-until-an-element-exists
-        waitFor: function (jQuery, selector, timeout) {
-            var waitForDeferred = function (jQuery, selector, dfd, timeout) {
-                var result = jQuery(selector);
-                if (result.length > 0) {
-                    dfd.resolve(result);
-                } else {
-                    var waitTime = 50;
-                    if (timeout < waitTime) {
-                        dfd.reject();
-                    } else {
-                        window.setTimeout(function () {
-                            waitForDeferred(jQuery, selector, dfd, timeout - waitTime);
-                        }, waitTime);
-                    }
-                }
-            };
-            var dfd = jQuery.Deferred();
-            waitForDeferred(jQuery, selector, dfd, timeout);
-            return dfd.promise();
-        },
 
-        asyncTest: function (testName/*, expected*/, pageUrl, callback) {
-            return QUnit.asyncTest(testName/*, expected*/, function () {
-                // Note: first we load the referenced page into an iframe in QUnit's HTML fixture so we can interact with it
-                q$('#qunit-fixture').html('<iframe id="appUnderTest" src="' + pageUrl + '"></iframe>');
-                var $appUnderTest = q$('#appUnderTest');
-                $appUnderTest.load(function () {
-                    // Note: we can get a reference to the local page's require object as soon as the iframe is loaded
-                    var windowUnderTest = $appUnderTest[0].contentWindow;
-                    var require = windowUnderTest.require;
-                    // Note: we know that all dependent modules have been loaded when the outermost dependency, app/main.js, has been loaded
-                    require.onResourceLoad = function (context, map/*, depArray*/) {
-                        if (map.url === 'app/main.js') {
-                            // Note: so then we can get a reference to the jQuery object on the local page
-                            var $ = require('jquery');
-                            // Note: using the jQuery object we can load mockjax into the local page
-                            $.getScript('/test/libs/jquery.mockjax.js', function () {
-                                callback(require, $);
-                            });
-                        }
-                    };
-                });
-            });
-        }
-    };
-
+    // ToDo: move to a separate suite so we can still run unit tests fast
     // ToDo: create an AppDriver to make this test more readable
     IQUnit.asyncTest('login-then-view', '/#login', function (require, $) {
         // then first we see the login page
-        QUnit.equal($('#header h1').text(), 'Pluto', '#header');
-        QUnit.equal($.trim($('#main label.userLabel').text()), 'User Token:', '.userLabel');
+        var $main = $('#main');
+        var $header = $('#header');
+        QUnit.equal($('h1', $header).text(), 'Pluto', 'h1');
+        QUnit.equal($.trim($('label.userLabel', $main).text()), 'User Token:', '.userLabel');
 
         // given mocked server response
         var Trello = require('persistence/trello');
@@ -89,12 +43,11 @@ define(function (require) {
         });
 
         // when we enter a user token and click the login button
-        $('#main input.user').val('lars');
-        $('#main a.login').trigger('click');
+        $('input.user', $main).val('lars');
+        $('a.login', $main).trigger('click');
 
         // then we see the list of cards
-        var promise = IQUnit.waitFor($, '#main ul.items li', 100);
-        promise.done(function ($cards) {
+        $('ul.items li', $main).waitFor(100).done(function ($cards) {
             QUnit.equal($cards.length, 1, 'li.length');
             QUnit.equal($cards.first().text(), 'play!', 'li.text');
 
