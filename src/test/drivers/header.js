@@ -4,11 +4,11 @@ define(function (require) {
 
     var HeaderDriver = function (selector, $) {
         this.$ = $;
-        this.$selector = this.$(selector);
+        this.$elem = this.$(selector);
     };
     HeaderDriver.prototype = {
         text: function () {
-            return this.$('h1', this.$selector).text();
+            return this.$('h1', this.$elem).text();
         }
     };
     return HeaderDriver;

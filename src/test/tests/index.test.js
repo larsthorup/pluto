@@ -56,6 +56,11 @@ define(function (require) {
         // then the app has started
         QUnit.equal(app.header.text(), 'Pluto', 'header');
         QUnit.start();
+
+        app.loginPage().done(function (loginPage) {
+            // then we see the login page
+            QUnit.equal(loginPage.user.label, 'User Token:', 'loginPage.user.label');
+        });
     });
 
 //    IQUnit.asyncTest('login-then-view', '/#login', function (require, $, app) {
@@ -63,9 +68,14 @@ define(function (require) {
 //        QUnit.equal(app.header.text(), 'Pluto', 'header');
 //
 //        // given mocked server response
-//        app.server.user('lars').list('509070d37b1e65530d005067').cards('open', [{id: 42, name: 'play!'}]);
+//        app.server.mock({user: 'lars',
+//            lists: [{
+//                id: '509070d37b1e65530d005067',
+//                openCards: [{id: 42, name: 'play!'}]
+//            }]
+//        });
 //
-//        app.loginPage().then(function (loginPage) {
+//        app.loginPage().done(function (loginPage) {
 //            // then we see the login page
 //            QUnit.equal(loginPage.user.label(), 'User Token:', '.userLabel');
 //
@@ -73,7 +83,7 @@ define(function (require) {
 //            loginPage.user.input('lars');
 //            loginPage.login.click();
 //            return app.cardsPage();
-//        }).then(function (cardsPage) {
+//        }).done(function (cardsPage) {
 //
 //            // then we see the list of cards
 //            var cards = cardsPage.cards;

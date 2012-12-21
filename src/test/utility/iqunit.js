@@ -26,6 +26,7 @@ define(function (require) {
                 }
             });
         },
+        // ToDo: refactor all this setup to IQUnit.setup so app is available for the setup code (e.g. setting up mock server response)
         asyncTest: function (testName/*, expected*/, pageUrl, callback) {
 
             // Note: IQUnit.asyncTest is just a more fancy version of QUnit.asyncTest
