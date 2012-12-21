@@ -2,21 +2,18 @@
 define(function (require) {
     'use strict';
     var IQUnit = require('iqunit');
+    var AppDriver = require('drivers/app');
 
-    QUnit.module('index', {
-        setup: function () {
-            this.testTimeoutBefore = QUnit.config.testTimeout;
-            QUnit.config.testTimeout = 5000;
-        },
-        teardown: function () {
-            QUnit.config.testTimeout = this.testTimeoutBefore;
-        }
-    });
+    // ToDo: move to test/config.js
+    IQUnit.config.testTimeout = 5000;
+    IQUnit.config.mainJsUrl = 'app/main.js';
+    IQUnit.config.injectScripts = ['/test/libs/jquery.mockjax.js', '/test/utility/jquery.waitFor.js'];
+    IQUnit.config.driver = AppDriver;
 
+    IQUnit.module('index');
 
     // ToDo: move to a separate suite so we can still run unit tests fast
-    // ToDo: create an AppDriver to make this test more readable
-    IQUnit.asyncTest('login-then-view', '/#login', function (require, $) {
+    IQUnit.asyncTest('login-then-view-jquery', '/#login', function (require, $) {
         // then first we see the login page
         var $main = $('#main');
         var $header = $('#header');
@@ -54,4 +51,36 @@ define(function (require) {
             QUnit.start();
         });
     });
+
+    IQUnit.asyncTest('login-then-view', '/#login', function (require, $, app) {
+        // then the app has started
+        QUnit.equal(app.header.text(), 'Pluto', 'header');
+        QUnit.start();
+    });
+
+//    IQUnit.asyncTest('login-then-view', '/#login', function (require, $, app) {
+//        // then the app has started
+//        QUnit.equal(app.header.text(), 'Pluto', 'header');
+//
+//        // given mocked server response
+//        app.server.user('lars').list('509070d37b1e65530d005067').cards('open', [{id: 42, name: 'play!'}]);
+//
+//        app.loginPage().then(function (loginPage) {
+//            // then we see the login page
+//            QUnit.equal(loginPage.user.label(), 'User Token:', '.userLabel');
+//
+//            // when we enter a user token and click the login button
+//            loginPage.user.input('lars');
+//            loginPage.login.click();
+//            return app.cardsPage();
+//        }).then(function (cardsPage) {
+//
+//            // then we see the list of cards
+//            var cards = cardsPage.cards;
+//            QUnit.equal(cards.length, 1, 'cards.length');
+//            QUnit.equal(cards[0].text, 'play!', 'cards[0].text');
+//
+//            QUnit.start();
+//        });
+//    });
 });

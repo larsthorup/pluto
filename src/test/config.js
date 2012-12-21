@@ -14,7 +14,8 @@ window.config = function () {
             waitFor: '../test/utility/jquery.waitFor',
             iqunit: '../test/utility/iqunit',
             tests: '../test/tests',
-            stubs: '../test/stubs'
+            stubs: '../test/stubs',
+            drivers: '../test/drivers'
         },
         shim: {
             backbone: {
