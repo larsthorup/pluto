@@ -5,9 +5,14 @@ define(function (require) {
     var TextFieldDriver = function (className, $elem, $) {
         this.$ = $;
         this.$elem = $elem;
-        this.label = this.$.trim(this.$('label.' + className + 'Label', $elem).text());
+        this.className = className;
+        // ToDo: remove 'Label' from label class name
+        this.label = this.$.trim(this.$('label.' + this.className + 'Label', this.$elem).text());
     };
     TextFieldDriver.prototype = {
+        input: function (value) {
+            this.$('input.' + this.className, this.$elem).val(value);
+        }
     };
     return TextFieldDriver;
 });

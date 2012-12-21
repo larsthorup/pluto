@@ -3,10 +3,12 @@ define(function (require) {
     'use strict';
     var HeaderDriver = require('drivers/header');
     var LoginDriver = require('drivers/login');
+    var ServerDriver = require('drivers/server');
 
     var AppDriver = function ($) {
         this.$ = $;
         this.header = new HeaderDriver('#header', this.$);
+        this.server = new ServerDriver(this.$);
     };
     AppDriver.prototype = {
         loginPage: function () {

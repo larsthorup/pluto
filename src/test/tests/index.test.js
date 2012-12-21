@@ -55,11 +55,26 @@ define(function (require) {
     IQUnit.asyncTest('login-then-view', '/#login', function (require, $, app) {
         // then the app has started
         QUnit.equal(app.header.text(), 'Pluto', 'header');
-        QUnit.start();
+
+        // ToDo: move to setup
+        // given mocked server response
+        app.server.mock({user: 'lars',
+            lists: [{
+                id: '509070d37b1e65530d005067',
+                openCards: [{id: 42, name: 'play!'}]
+            }]
+        });
 
         app.loginPage().done(function (loginPage) {
             // then we see the login page
             QUnit.equal(loginPage.user.label, 'User Token:', 'loginPage.user.label');
+
+            // when we enter a user token and click the login button
+            loginPage.user.input('lars');
+            loginPage.login.click();
+            // return app.cardsPage();
+        }).done(function (/*cardsPage*/) {
+            QUnit.start();
         });
     });
 
