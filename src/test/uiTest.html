@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Pluto Test Suite</title>
+    <link rel="stylesheet" href="libs/qunit.css">
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
+    <!-- ToDo: figure out how to shim load these -->
+    <script src="libs/qunit.js"></script>
+    <script src="libs/sinon.js"></script>
+
+    <!-- Note: config.js is included manually (not using data-main attribute) because otherwise grunt test will not work -->
+    <script src="../libs/require.js"></script>
+    <script src="uiTestConfig.js"></script>
+
+    <script>
+        config();
+    </script>
+</body>
+</html>

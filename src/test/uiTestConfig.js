@@ -8,11 +8,11 @@ window.config = function () {
             jquery: '../libs/jquery',
             underscore: '../libs/lodash',
             backbone: '../libs/backbone',
-            tpl: '../libs/plugins/tpl',
             // Note: base directory is app/, which is why ../test is necessary
-            mockjax: '../test/libs/jquery.mockjax',
+            waitFor: '../test/utility/jquery.waitFor',
+            iqunit: '../test/utility/iqunit',
             tests: '../test/tests',
-            stubs: '../test/stubs'
+            drivers: '../test/drivers'
         },
         shim: {
             backbone: {
@@ -26,22 +26,10 @@ window.config = function () {
 
     // Note: this needs to be in config.js, not in a separate main.js, otherwise grunt test will not work correctly...
     var testModules = [
-        'tests/util.test',
-        'tests/persistence/trello.test',
-        'tests/models/session.test',
-        'tests/models/card.test',
-        'tests/collections/cards.test',
-        'tests/collections/cards_trello_card.test',
-        'tests/views/session.test',
-        'tests/views/card.test',
-        'tests/views/cards.test',
-        'tests/views/cards_cards.test',
-        'tests/app.test'
+        '../test/utility/jquery.waitFor.test'
     ];
     if (window.location.protocol !== 'file:') {
-        // Note: the tpl plugin for require.js uses XHR to load files which does not work when running the tests from a file: url
-        testModules.push('tests/templateRepo.test');
-        testModules.push('tests/views/session.html.test');
+        testModules.push('tests/index.test');
     }
 
     // Note: defer Qunit until RequireJS resolved all modules

@@ -40,7 +40,7 @@ module.exports = function (grunt) {
     // test
     var qunitConfig = {
         src: ['src/test/index.html'],
-        serve: ['http://localhost:8082/test/index.html'],
+        serve: ['http://localhost:8082/test/index.html', 'http://localhost:8082/test/uiTest.html'],
         bundle: ['output/bundle/test/index.html']
     };
     grunt.loadNpmTasks('grunt-junit');
