@@ -20,7 +20,8 @@ window.config = function () {
                 exports: 'Backbone'
             },
 
-            mockjax: ['jquery']
+            mockjax: ['jquery'],
+            waitFor: ['jquery']
         }
     });
 
@@ -38,7 +39,7 @@ window.config = function () {
     require(testModules, QUnit.start);
 };
 
-var requireResourceTrace = false;
+var requireResourceTrace = true;
 
 // Note: enable to debug issues in module loading
 if (requireResourceTrace) {
