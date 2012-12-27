@@ -39,7 +39,7 @@ window.config = function () {
     require(testModules, QUnit.start);
 };
 
-var requireResourceTrace = true;
+var requireResourceTrace = false;
 
 // Note: enable to debug issues in module loading
 if (requireResourceTrace) {

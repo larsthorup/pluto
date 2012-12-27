@@ -6,7 +6,7 @@ module.exports = function (grunt) {
 
     // convenience
     grunt.registerTask('default', 'lint test');
-    grunt.registerTask('all', 'clean lint test coverage bundle');
+    grunt.registerTask('all', 'clean lint test coverage bundle test:ui');
     grunt.registerTask('ci', 'lint qunit:src');
 
 
@@ -40,8 +40,8 @@ module.exports = function (grunt) {
     // test
     var qunitConfig = {
         src: ['src/test/index.html'],
-        serve: ['http://localhost:8082/test/index.html', 'http://localhost:8082/test/uiTest.html'],
-        bundle: ['output/bundle/test/index.html']
+        serve: ['http://localhost:8082/test/index.html'],
+        ui: ['http://localhost:8083/test/uiTest.html']
     };
     grunt.loadNpmTasks('grunt-junit');
 
@@ -104,7 +104,6 @@ module.exports = function (grunt) {
         }
     };
     grunt.registerTask('bundle', 'requirejs copy:bundle');
-    // ToDo: grunt.registerTask('test:bundle', 'qunit:bundle');
 
 
     // serve
@@ -121,11 +120,16 @@ module.exports = function (grunt) {
     grunt.registerTask('serve:test', 'HTTP serve src on port 8082', function () {
         serve('src', 8082);
     });
+    grunt.registerTask('serve:optimized', 'HTTP serve optimized on port 8082', function () {
+        serve('output/optimized', 8083);
+    });
     grunt.registerTask('wait', 'keep running until terminated', function () {
         /*var done = */
         this.async();
     });
     grunt.registerTask('test', 'junit:env serve:test qunit:serve');
+    grunt.registerTask('test:ui', 'junit:env serve:optimized qunit:ui');
+
 
     // grunt
     grunt.initConfig({
