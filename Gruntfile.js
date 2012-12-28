@@ -1,4 +1,5 @@
 /*global module*/
+/*jshint camelcase:false*/ // because of gruntConfig.qunit_junit
 module.exports = function (grunt) {
     'use strict';
     // var connect = require('connect');
@@ -45,8 +46,13 @@ module.exports = function (grunt) {
         // serve: ['http://localhost:8082/test/index.html'],
         // ui: ['http://localhost:8083/test/uiTest.html']
     };
-    grunt.registerTask('test', 'qunit:src'); // junit:env serve:test qunit:serve
-    // grunt.loadNpmTasks('grunt-junit');
+    grunt.loadNpmTasks('grunt-qunit-junit');
+    gruntConfig.qunit_junit = {
+        options: {
+            dest: 'output/testresults'
+        }
+    };
+    grunt.registerTask('test', ['qunit_junit', 'qunit:src']); // serve:test qunit:serve
 
 
     /*
