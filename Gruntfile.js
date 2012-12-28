@@ -2,6 +2,7 @@
 module.exports = function (grunt) {
     'use strict';
     var connect = require('connect');
+    var gruntConfig = {};
 
 
     // convenience
@@ -12,13 +13,13 @@ module.exports = function (grunt) {
 
     // clean
     grunt.loadNpmTasks('grunt-clean');
-    var cleanConfig = {
+    gruntConfig.clean = {
         folder: 'output'
     };
 
 
     // lint
-    var lintConfig = {
+    gruntConfig.lint = {
         all: [
             'Gruntfile.js',
             'src/app/**/*.js',
@@ -29,7 +30,7 @@ module.exports = function (grunt) {
             // '!src/test/libs'
         ]
     };
-    var jsHintOptions = {
+    gruntConfig.jshint = {
         options: { bitwise: true, camelcase: true, curly: true, eqeqeq: true, forin: true, immed: true, indent: 4,
             latedef: true, newcap: true, noarg: true, noempty: true, nonew: true, plusplus: true, quotmark: true,
             regexp: true, undef: true, unused: true, strict: true, trailing: true
@@ -38,7 +39,7 @@ module.exports = function (grunt) {
 
 
     // test
-    var qunitConfig = {
+    gruntConfig.qunit = {
         src: ['src/test/index.html'],
         serve: ['http://localhost:8082/test/index.html'],
         ui: ['http://localhost:8083/test/uiTest.html']
@@ -47,7 +48,7 @@ module.exports = function (grunt) {
 
 
     // watch
-    var watchConfig = {
+    gruntConfig.watch = {
         scripts: {
             files: 'src/**/*.*',
             tasks: 'lint test'
@@ -57,7 +58,7 @@ module.exports = function (grunt) {
 
     // coverage
     grunt.loadNpmTasks('grunt-qunit-cov');
-    var coverageConfig = {
+    gruntConfig['qunit-cov'] = {
         test:
         {
             minimum: 1.0,
@@ -73,7 +74,7 @@ module.exports = function (grunt) {
 
     // bundle
     grunt.loadNpmTasks('grunt-requirejs');
-    var requirejsConfig = {
+    gruntConfig.requirejs = {
         name: 'main',
         dir: 'output/optimized',
         appDir: 'src',
@@ -92,7 +93,7 @@ module.exports = function (grunt) {
         }
     };
     grunt.loadNpmTasks('grunt-contrib-copy');
-    var copyConfig = {
+    gruntConfig.copy = {
         bundle: {
             files: {
                 'output/bundle/index.html': 'output/optimized/index.html',
@@ -132,15 +133,6 @@ module.exports = function (grunt) {
 
 
     // grunt
-    grunt.initConfig({
-        clean: cleanConfig,
-        lint: lintConfig,
-        jshint: jsHintOptions,
-        qunit: qunitConfig,
-        watch: watchConfig,
-        'qunit-cov': coverageConfig,
-        requirejs: requirejsConfig,
-        copy: copyConfig
-    });
+    grunt.initConfig(gruntConfig);
 
 };
