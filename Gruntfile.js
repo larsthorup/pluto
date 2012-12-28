@@ -10,15 +10,14 @@ module.exports = function (grunt) {
     // convenience
     grunt.registerTask('default', ['lint', 'test']);
 
-    grunt.registerTask('all', ['clean', 'lint', 'test']); // coverage bundle test:ui
+    grunt.registerTask('all', ['clean', 'lint', 'test', 'bundle']); // coverage test:ui
     grunt.registerTask('ci', ['lint', 'test']);
 
 
     // clean
     grunt.loadNpmTasks('grunt-contrib-clean');
-    gruntConfig.clean = {
-        output: ['output']
-    };
+    gruntConfig.clean = {};
+    gruntConfig.clean.output = ['output'];
 
 
     // lint
@@ -40,11 +39,10 @@ module.exports = function (grunt) {
 
     // test
     grunt.loadNpmTasks('grunt-contrib-qunit');
-    gruntConfig.qunit = {
-        src: ['src/test/index.html'],
-        serve: ['http://localhost:8082/test/index.html']
+    gruntConfig.qunit = {};
+    gruntConfig.qunit.src = ['src/test/index.html'];
+    gruntConfig.qunit.serve = ['http://localhost:8082/test/index.html'];
         // ui: ['http://localhost:8083/test/uiTest.html']
-    };
     grunt.loadNpmTasks('grunt-qunit-junit');
     gruntConfig.qunit_junit = {
         options: {
@@ -100,10 +98,24 @@ module.exports = function (grunt) {
         }
     };
     grunt.registerTask('coverage', 'qunit-cov');
+    */
 
 
     // bundle
-    grunt.loadNpmTasks('grunt-requirejs');
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
+    gruntConfig.requirejs = {
+        bundle: {
+            options: {
+                name: 'main',
+                appDir: 'src',
+                baseUrl: 'app',
+                mainConfigFile: 'src/app/config.js',
+                dir: 'output/optimized'
+            }
+        }
+    };
+    grunt.registerTask('bundle', 'requirejs'); // copy:bundle
+    /*
     gruntConfig.requirejs = {
         name: 'main',
         dir: 'output/optimized',
@@ -134,7 +146,6 @@ module.exports = function (grunt) {
             }
         }
     };
-    grunt.registerTask('bundle', 'requirejs copy:bundle');
     grunt.registerTask('serve:bundle', 'HTTP serve bundle on port 8081', function () {
         serve('output/bundle', 8081);
     });
