@@ -10,17 +10,16 @@ module.exports = function (grunt) {
     // convenience
     grunt.registerTask('default', ['lint', 'test']);
 
-    grunt.registerTask('all', ['lint', 'test']); // clean coverage bundle test:ui
+    grunt.registerTask('all', ['clean', 'lint', 'test']); // coverage bundle test:ui
     grunt.registerTask('ci', ['lint', 'test']);
 
 
-    /*
     // clean
-    grunt.loadNpmTasks('grunt-clean');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     gruntConfig.clean = {
-        folder: 'output'
+        output: ['output']
     };
-    */
+
 
     // lint
     grunt.loadNpmTasks('grunt-contrib-jshint');
