@@ -1,5 +1,5 @@
 /*global define*/
-define(function (require) {
+define(function () {
     'use strict';
 
     var HeaderDriver = function (selector, $) {

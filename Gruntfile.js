@@ -1,43 +1,43 @@
-/*global module, require*/
+/*global module*/
 module.exports = function (grunt) {
     'use strict';
-    var connect = require('connect');
-    var gruntConfig = {};
-
+    // var connect = require('connect');
+    var gruntConfig = {
+        pkg: grunt.file.readJSON('package.json')
+    };
 
     // convenience
-    grunt.registerTask('default', 'lint test');
-    grunt.registerTask('all', 'clean lint test coverage bundle test:ui');
-    grunt.registerTask('ci', 'lint qunit:src');
+    grunt.registerTask('default', 'lint'); // test
+
+    // grunt.registerTask('all', 'clean lint test coverage bundle test:ui');
+    grunt.registerTask('ci', 'lint'); // qunit:src
 
 
+    /*
     // clean
     grunt.loadNpmTasks('grunt-clean');
     gruntConfig.clean = {
         folder: 'output'
     };
-
+    */
 
     // lint
-    gruntConfig.lint = {
-        all: [
-            'Gruntfile.js',
-            'src/app/**/*.js',
-            'src/test/stubs/**/*.js',
-            'src/test/tests/**/*.js',
-            'src/test/*.js'
-            // Note: use this instead when grunt-0.4 is available
-            // '!src/test/libs'
-        ]
-    };
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     gruntConfig.jshint = {
         options: { bitwise: true, camelcase: true, curly: true, eqeqeq: true, forin: true, immed: true, indent: 4,
             latedef: true, newcap: true, noarg: true, noempty: true, nonew: true, plusplus: true, quotmark: true,
             regexp: true, undef: true, unused: true, strict: true, trailing: true
-        }
+        },
+        all: [
+            'Gruntfile.js',
+            'src/app/**/*.js',
+            'src/test/**/*.js',
+            '!src/test/libs/**/*.js'
+        ]
     };
+    grunt.registerTask('lint', 'jshint');
 
-
+    /*
     // test
     gruntConfig.qunit = {
         src: ['src/test/index.html'],
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
     // watch
     gruntConfig.watch = {
         scripts: {
-            files: 'src/**/*.*',
+            files: 'src/**'+'/*.*',
             tasks: 'lint test'
         }
     };
@@ -125,13 +125,13 @@ module.exports = function (grunt) {
         serve('output/optimized', 8083);
     });
     grunt.registerTask('wait', 'keep running until terminated', function () {
-        /*var done = */
+        // var done =
         this.async();
     });
     grunt.registerTask('test', 'junit:env serve:test qunit:serve');
     grunt.registerTask('test:ui', 'junit:env serve:optimized qunit:ui');
 
-
+*/
     // grunt
     grunt.initConfig(gruntConfig);
 

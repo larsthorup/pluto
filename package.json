@@ -5,15 +5,11 @@
     "author": "Lars Thorup <lars@zealake.com>",
     "engine": "node 1.1.x",
     "devDependencies": {
-        "grunt": "0.3.x",
-        "phantomjs": "0.2.x",
-        "grunt-junit": "0.1.x",
-        "grunt-qunit-cov": ">=0.2.4",
-        "grunt-requirejs": "0.2.x",
-        "connect": "2.7.x",
-        "grunt-contrib-copy": "0.3.x",
-        "grunt-clean": "0.3.x"
+        "grunt-cli": "~0.1.6",
+        "grunt": "~0.4.0",
+        "grunt-contrib-jshint": "~0.1.0"
     },
+    "comment": "phantomjs, grunt-junit, grunt-qunit-cov, grunt-requirejs, connect, grunt-contrib-copy, grunt-clean",
     "scripts": {
         "test": "grunt --config Gruntfile.js ci"
     }

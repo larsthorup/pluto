@@ -1,4 +1,4 @@
-/*global define,QUnit,window*/
+/*global define,QUnit*/
 define(function (require) {
     'use strict';
     var q$ = require('jquery');
@@ -9,7 +9,7 @@ define(function (require) {
             // Note: default values
             testTimeout: 2000
         },
-        module: function(name, testEnvironment) {
+        module: function (name, testEnvironment) {
             QUnit.module(name, {
                 setup: function () {
                     this.testTimeoutBefore = QUnit.config.testTimeout;

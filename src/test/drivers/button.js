@@ -1,5 +1,5 @@
 /*global define*/
-define(function (require) {
+define(function () {
     'use strict';
 
     var ButtonDriver = function (className, $elem, $) {
