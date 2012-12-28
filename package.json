@@ -7,9 +7,10 @@
     "devDependencies": {
         "grunt-cli": "~0.1.6",
         "grunt": "~0.4.0",
-        "grunt-contrib-jshint": "~0.1.0"
+        "grunt-contrib-jshint": "~0.1.0",
+        "grunt-contrib-qunit": "~0.1.0"
     },
-    "comment": "phantomjs, grunt-junit, grunt-qunit-cov, grunt-requirejs, connect, grunt-contrib-copy, grunt-clean",
+    "comment": "grunt-junit, grunt-qunit-cov, grunt-requirejs, connect, grunt-contrib-copy, grunt-clean",
     "scripts": {
         "test": "grunt --config Gruntfile.js ci"
     }

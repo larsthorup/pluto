@@ -7,10 +7,10 @@ module.exports = function (grunt) {
     };
 
     // convenience
-    grunt.registerTask('default', 'lint'); // test
+    grunt.registerTask('default', ['lint', 'test']);
 
-    // grunt.registerTask('all', 'clean lint test coverage bundle test:ui');
-    grunt.registerTask('ci', 'lint'); // qunit:src
+    grunt.registerTask('all', ['lint', 'test']); // clean coverage bundle test:ui
+    grunt.registerTask('ci', ['lint', 'test']);
 
 
     /*
@@ -37,16 +37,19 @@ module.exports = function (grunt) {
     };
     grunt.registerTask('lint', 'jshint');
 
-    /*
+
     // test
+    grunt.loadNpmTasks('grunt-contrib-qunit');
     gruntConfig.qunit = {
-        src: ['src/test/index.html'],
-        serve: ['http://localhost:8082/test/index.html'],
-        ui: ['http://localhost:8083/test/uiTest.html']
+        src: ['src/test/index.html']
+        // serve: ['http://localhost:8082/test/index.html'],
+        // ui: ['http://localhost:8083/test/uiTest.html']
     };
-    grunt.loadNpmTasks('grunt-junit');
+    grunt.registerTask('test', 'qunit:src'); // junit:env serve:test qunit:serve
+    // grunt.loadNpmTasks('grunt-junit');
 
 
+    /*
     // watch
     gruntConfig.watch = {
         scripts: {
