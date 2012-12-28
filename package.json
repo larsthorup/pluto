@@ -11,9 +11,10 @@
         "grunt-contrib-jshint": "~0.1.0",
         "grunt-contrib-qunit": "~0.1.0",
         "grunt-qunit-junit": "~0.1.0",
-        "grunt-contrib-watch": "~0.2.0"
+        "grunt-contrib-watch": "~0.2.0",
+        "grunt-contrib-connect": "~0.1.0"
     },
-    "comment": "grunt-junit, grunt-qunit-cov, grunt-requirejs, connect, grunt-contrib-copy, grunt-clean",
+    "comment": "grunt-qunit-cov, grunt-requirejs, grunt-contrib-copy",
     "scripts": {
         "test": "grunt --config Gruntfile.js ci"
     }

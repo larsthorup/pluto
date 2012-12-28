@@ -41,8 +41,8 @@ module.exports = function (grunt) {
     // test
     grunt.loadNpmTasks('grunt-contrib-qunit');
     gruntConfig.qunit = {
-        src: ['src/test/index.html']
-        // serve: ['http://localhost:8082/test/index.html'],
+        src: ['src/test/index.html'],
+        serve: ['http://localhost:8082/test/index.html']
         // ui: ['http://localhost:8083/test/uiTest.html']
     };
     grunt.loadNpmTasks('grunt-qunit-junit');
@@ -51,7 +51,6 @@ module.exports = function (grunt) {
             dest: 'output/testresults'
         }
     };
-    grunt.registerTask('test', ['qunit_junit', 'qunit:src']); // serve:test qunit:serve
 
 
     // watch
@@ -62,6 +61,28 @@ module.exports = function (grunt) {
             tasks: ['lint', 'test']
         }
     };
+
+
+    // serve
+    grunt.registerTask('wait', 'keep running until terminated', function () {
+        /* var done =*/
+        this.async();
+    });
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    gruntConfig.connect = {};
+    gruntConfig.connect.src = {
+        options: {
+            port: 8080,
+            base: 'src'
+        }
+    };
+    gruntConfig.connect.test = {
+        options: {
+            port: 8082,
+            base: 'src'
+        }
+    };
+    grunt.registerTask('test', ['qunit_junit', 'connect:test', 'qunit:serve']);
 
 
     /*
@@ -114,33 +135,15 @@ module.exports = function (grunt) {
         }
     };
     grunt.registerTask('bundle', 'requirejs copy:bundle');
-
-
-    // serve
-    var serve = function (path, port) {
-        // Note: using connect['static'], as jshint complains about connect.static, because static is a reserved word
-        connect(connect['static'](path)).listen(port);
-    };
-    grunt.registerTask('serve:src', 'HTTP serve src on port 8080', function () {
-        serve('src', 8080);
-    });
     grunt.registerTask('serve:bundle', 'HTTP serve bundle on port 8081', function () {
         serve('output/bundle', 8081);
     });
-    grunt.registerTask('serve:test', 'HTTP serve src on port 8082', function () {
-        serve('src', 8082);
-    });
-    grunt.registerTask('serve:optimized', 'HTTP serve optimized on port 8082', function () {
+    grunt.registerTask('serve:optimized', 'HTTP serve optimized on port 8083', function () {
         serve('output/optimized', 8083);
     });
-    grunt.registerTask('wait', 'keep running until terminated', function () {
-        // var done =
-        this.async();
-    });
-    grunt.registerTask('test', 'junit:env serve:test qunit:serve');
     grunt.registerTask('test:ui', 'junit:env serve:optimized qunit:ui');
+    */
 
-*/
     // grunt
     grunt.initConfig(gruntConfig);
 
