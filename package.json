@@ -10,7 +10,8 @@
         "grunt-contrib-clean": "~0.4.0",
         "grunt-contrib-jshint": "~0.1.0",
         "grunt-contrib-qunit": "~0.1.0",
-        "grunt-qunit-junit": "~0.1.0"
+        "grunt-qunit-junit": "~0.1.0",
+        "grunt-contrib-watch": "~0.2.0"
     },
     "comment": "grunt-junit, grunt-qunit-cov, grunt-requirejs, connect, grunt-contrib-copy, grunt-clean",
     "scripts": {

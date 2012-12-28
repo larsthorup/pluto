@@ -54,16 +54,17 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['qunit_junit', 'qunit:src']); // serve:test qunit:serve
 
 
-    /*
     // watch
+    grunt.loadNpmTasks('grunt-contrib-watch');
     gruntConfig.watch = {
         scripts: {
-            files: 'src/**'+'/*.*',
-            tasks: 'lint test'
+            files: ['src/**/*.*'],
+            tasks: ['lint', 'test']
         }
     };
 
 
+    /*
     // coverage
     grunt.loadNpmTasks('grunt-qunit-cov');
     gruntConfig['qunit-cov'] = {
