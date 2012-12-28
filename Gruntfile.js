@@ -2,16 +2,16 @@
 /*jshint camelcase:false*/ // because of gruntConfig.qunit_junit
 module.exports = function (grunt) {
     'use strict';
-    // var connect = require('connect');
+
     var gruntConfig = {
         pkg: grunt.file.readJSON('package.json')
     };
 
+
     // convenience
     grunt.registerTask('default', ['lint', 'test']);
-
-    grunt.registerTask('all', ['clean', 'lint', 'test', 'bundle']); // coverage test:ui
-    grunt.registerTask('ci', ['lint', 'test']);
+    grunt.registerTask('all', ['clean', 'lint', 'test', 'bundle', 'test:ui']); // coverage
+    grunt.registerTask('ci', ['clean', 'lint', 'test', 'bundle', 'test:ui']);
 
 
     // clean
@@ -22,18 +22,17 @@ module.exports = function (grunt) {
 
     // lint
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    gruntConfig.jshint = {
-        options: { bitwise: true, camelcase: true, curly: true, eqeqeq: true, forin: true, immed: true, indent: 4,
-            latedef: true, newcap: true, noarg: true, noempty: true, nonew: true, plusplus: true, quotmark: true,
-            regexp: true, undef: true, unused: true, strict: true, trailing: true
-        },
-        all: [
-            'Gruntfile.js',
-            'src/app/**/*.js',
-            'src/test/**/*.js',
-            '!src/test/libs/**/*.js'
-        ]
+    gruntConfig.jshint = {};
+    gruntConfig.jshint.options = { bitwise: true, camelcase: true, curly: true, eqeqeq: true, forin: true, immed: true,
+        indent: 4, latedef: true, newcap: true, noarg: true, noempty: true, nonew: true, plusplus: true,
+        quotmark: true, regexp: true, undef: true, unused: true, strict: true, trailing: true
     };
+    gruntConfig.jshint.all = [
+        'Gruntfile.js',
+        'src/app/**/*.js',
+        'src/test/**/*.js',
+        '!src/test/libs/**/*.js'
+    ];
     grunt.registerTask('lint', 'jshint');
 
 
@@ -42,7 +41,7 @@ module.exports = function (grunt) {
     gruntConfig.qunit = {};
     gruntConfig.qunit.src = ['src/test/index.html'];
     gruntConfig.qunit.serve = ['http://localhost:8082/test/index.html'];
-        // ui: ['http://localhost:8083/test/uiTest.html']
+    gruntConfig.qunit.ui = ['http://localhost:8083/test/uiTest.html'];
     grunt.loadNpmTasks('grunt-qunit-junit');
     gruntConfig.qunit_junit = {
         options: {
@@ -53,11 +52,10 @@ module.exports = function (grunt) {
 
     // watch
     grunt.loadNpmTasks('grunt-contrib-watch');
-    gruntConfig.watch = {
-        scripts: {
-            files: ['src/**/*.*'],
-            tasks: ['lint', 'test']
-        }
+    gruntConfig.watch = {};
+    gruntConfig.watch.scripts = {
+        files: ['src/**/*.*'],
+        tasks: ['lint', 'test']
     };
 
 
@@ -103,57 +101,44 @@ module.exports = function (grunt) {
 
     // bundle
     grunt.loadNpmTasks('grunt-contrib-requirejs');
-    gruntConfig.requirejs = {
-        bundle: {
-            options: {
-                name: 'main',
-                appDir: 'src',
-                baseUrl: 'app',
-                mainConfigFile: 'src/app/config.js',
-                dir: 'output/optimized'
-            }
-        }
-    };
-    grunt.registerTask('bundle', 'requirejs'); // copy:bundle
-    /*
-    gruntConfig.requirejs = {
-        name: 'main',
-        dir: 'output/optimized',
-        appDir: 'src',
-        baseUrl: 'app',
-        paths: {
-            jquery: '../libs/jquery',
-            underscore: '../libs/lodash',
-            backbone: '../libs/backbone',
-            tpl: '../libs/plugins/tpl'
-        },
-        shim: {
-            backbone: {
-                deps: ['underscore', 'jquery'],
-                exports: 'Backbone'
-            }
+    gruntConfig.requirejs = {};
+    gruntConfig.requirejs.bundle = {
+        options: {
+            name: 'main',
+            appDir: 'src',
+            baseUrl: 'app',
+            mainConfigFile: 'src/app/config.js',
+            dir: 'output/optimized'
         }
     };
     grunt.loadNpmTasks('grunt-contrib-copy');
-    gruntConfig.copy = {
-        bundle: {
-            files: {
-                'output/bundle/index.html': 'output/optimized/index.html',
-                'output/bundle/app/css/index.css': 'output/optimized/app/css/index.css',
-                'output/bundle/libs/require.js': 'output/optimized/libs/require.js',
-                'output/bundle/app/config.js': 'output/optimized/app/config.js',
-                'output/bundle/app/main.js': 'output/optimized/app/main.js'
-            }
+    gruntConfig.copy = {};
+    gruntConfig.copy.bundle = {
+        files: {
+            'output/bundle/': [
+                'output/optimized/index.html',
+                'output/optimized/app/css/index.css',
+                'output/optimized/libs/require.js',
+                'output/optimized/app/config.js',
+                'output/optimized/app/main.js'
+            ]
         }
     };
-    grunt.registerTask('serve:bundle', 'HTTP serve bundle on port 8081', function () {
-        serve('output/bundle', 8081);
-    });
-    grunt.registerTask('serve:optimized', 'HTTP serve optimized on port 8083', function () {
-        serve('output/optimized', 8083);
-    });
-    grunt.registerTask('test:ui', 'junit:env serve:optimized qunit:ui');
-    */
+    grunt.registerTask('bundle', ['requirejs:bundle', 'copy:bundle']);
+    gruntConfig.connect.bundle = {
+        options: {
+            port: 8081,
+            base: 'output/bundle'
+        }
+    };
+    gruntConfig.connect.optimized = {
+        options: {
+            port: 8083,
+            base: 'output/optimized'
+        }
+    };
+    grunt.registerTask('test:ui', ['qunit_junit', 'connect:optimized', 'qunit:ui']);
+
 
     // grunt
     grunt.initConfig(gruntConfig);
