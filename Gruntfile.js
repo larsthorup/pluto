@@ -1,5 +1,5 @@
 /*global module, require*/
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     'use strict';
     var connect = require('connect');
     var gruntConfig = {};
