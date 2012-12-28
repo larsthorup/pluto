@@ -1,5 +1,5 @@
 /*global module*/
-/*jshint camelcase:false*/ // because of gruntConfig.qunit_junit
+/*jshint camelcase:true*/ // because of gruntConfig.qunit_junit
 module.exports = function (grunt) {
     'use strict';
 
