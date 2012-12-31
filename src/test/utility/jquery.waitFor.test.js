@@ -42,7 +42,7 @@ define(function (require) {
         }, 200);
 
         // then
-        dfd.done(function ($elem) { QUnit.ok(false, 'unexpected done'); });
+        dfd.done(function (/*$elem*/) { QUnit.ok(false, 'unexpected done'); });
         dfd.fail(function () {
             QUnit.ok(true, 'fail');
 

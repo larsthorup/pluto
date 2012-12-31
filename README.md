@@ -37,22 +37,26 @@ perform static analysis
 
     grunt lint
 
-run all tests (results in output\testresults)
+run all unit tests (results in output\testresults)
 
     grunt test
 
-produce test coverage statistics (in output\coverage\out\coverage.html)
+run all ui tests (results in output\testresults)
+
+    grunt test:ui
+
+produce unit test coverage statistics (in output\coverage\out\coverage.html)
 
     grunt coverage
 
-serve source application
+serve source application (on http://localhost:8080)
 
-    grunt serve:src wait
+    grunt connect:src wait
 
 compress and minify (in output\bundle)
 
     grunt bundle
 
-serve bundled application
+serve bundled application (on http://localhost:8081)
 
-    grunt serve:bundle wait
+    grunt connect:bundle wait
