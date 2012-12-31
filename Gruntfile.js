@@ -10,12 +10,12 @@ module.exports = function (grunt) {
 
     // convenience
     grunt.registerTask('default', ['lint', 'test']);
-    grunt.registerTask('all', ['clean', 'lint', 'test', 'bundle', 'test:ui']); // coverage
+    grunt.registerTask('all', ['clean', 'lint', 'test', 'coverage', 'bundle', 'test:ui']);
 
 
     // continuous integration
-    grunt.registerTask('travis', ['clean', 'lint', 'test', 'bundle', 'test:ui']); // coverage
-    grunt.registerTask('teamcity:test', ['clean', 'lint', 'test']); // coverage
+    grunt.registerTask('travis', ['clean', 'lint', 'test', 'bundle', 'test:ui']); // ToDo: coverage
+    grunt.registerTask('teamcity:test', ['clean', 'lint', 'test', 'coverage']);
     grunt.registerTask('teamcity:bundle', ['clean', 'bundle', 'test:ui']);
 
 
@@ -86,7 +86,6 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['qunit_junit', 'connect:test', 'qunit:serve']);
 
 
-    /*
     // coverage
     grunt.loadNpmTasks('grunt-qunit-cov');
     gruntConfig['qunit-cov'] = {
@@ -101,7 +100,6 @@ module.exports = function (grunt) {
         }
     };
     grunt.registerTask('coverage', 'qunit-cov');
-    */
 
 
     // bundle
