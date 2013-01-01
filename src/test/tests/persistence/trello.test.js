@@ -1,9 +1,10 @@
-/*global define,QUnit,sinon*/
+/*global define,QUnit*/
 define(function (require) {
     'use strict';
 
     // framework
     var Backbone = require('backbone');
+    var sinon = require('sinon');
 
     // module under test
     var Trello = require('persistence/trello');

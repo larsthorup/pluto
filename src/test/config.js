@@ -11,6 +11,7 @@ window.config = function () {
             tpl: '../libs/plugins/tpl',
             // Note: base directory is app/, which is why ../test is necessary
             mockjax: '../test/libs/jquery.mockjax',
+            sinon: '../test/libs/sinon',
             tests: '../test/tests',
             stubs: '../test/stubs'
         },
@@ -18,6 +19,10 @@ window.config = function () {
             backbone: {
                 deps: ['underscore', 'jquery'],
                 exports: 'Backbone'
+            },
+
+            sinon: {
+                exports: 'sinon'
             },
 
             mockjax: ['jquery']

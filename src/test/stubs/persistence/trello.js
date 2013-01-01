@@ -1,8 +1,9 @@
-/*global define,sinon*/
-define(function () {
+/*global define*/
+define(function (require) {
     'use strict';
-    var TrelloStub = function () {
+    var sinon = require('sinon');
 
+    var TrelloStub = function () {
     };
     TrelloStub.prototype = {
         login: sinon.spy()

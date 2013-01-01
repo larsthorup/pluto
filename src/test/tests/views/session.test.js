@@ -1,9 +1,10 @@
-/*global define,QUnit,sinon*/
+/*global define,QUnit*/
 define(function (require) {
     'use strict';
 
     // framework
     var $ = require('jquery');
+    var sinon = require('sinon');
 
     // module under test
     var SessionView = require('views/session');

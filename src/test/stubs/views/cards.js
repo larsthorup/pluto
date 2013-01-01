@@ -1,8 +1,9 @@
-/*global define,sinon*/
-define(function () {
+/*global define*/
+define(function (require) {
     'use strict';
-    var CardsViewStub = function () {
+    var sinon = require('sinon');
 
+    var CardsViewStub = function () {
     };
     CardsViewStub.prototype = {
         render: sinon.stub()

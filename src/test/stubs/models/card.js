@@ -1,8 +1,9 @@
-/*global define,sinon*/
+/*global define*/
 define(function (require) {
     'use strict';
     var $ = require('jquery');
     var Backbone = require('backbone');
+    var sinon = require('sinon');
 
     // Note: we use a backbone model as a stub to make it easily work with a collection
     var CardStub = Backbone.Model.extend({

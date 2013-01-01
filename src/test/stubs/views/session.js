@@ -1,6 +1,8 @@
-/*global define,sinon*/
-define(function () {
+/*global define*/
+define(function (require) {
     'use strict';
+    var sinon = require('sinon');
+
     var SessionViewStub = function () {
 
     };
