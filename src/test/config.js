@@ -5,26 +5,32 @@ window.config = function () {
         baseUrl: '../app',
 
         paths: {
+            // Note: Main application paths from app/config.js. DRY would be nice, but does not seem to be supported by RequireJS
             jquery: '../libs/jquery',
             underscore: '../libs/lodash',
             backbone: '../libs/backbone',
             tpl: '../libs/plugins/tpl',
+
+            // Note: additional libraries used for testing
             // Note: base directory is app/, which is why ../test is necessary
             mockjax: '../test/libs/jquery.mockjax',
             sinon: '../test/libs/sinon',
+
+            // Note: shortcuts used in testing
             tests: '../test/tests',
             stubs: '../test/stubs'
         },
         shim: {
+            // Note: Main application shims from app/config.js. DRY would be nice, but does not seem to be supported by RequireJS
             backbone: {
                 deps: ['underscore', 'jquery'],
                 exports: 'Backbone'
             },
 
+            // Note: additional shims for libraries used for testing
             sinon: {
                 exports: 'sinon'
             },
-
             mockjax: ['jquery']
         }
     });
