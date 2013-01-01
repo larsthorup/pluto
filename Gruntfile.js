@@ -14,7 +14,7 @@ module.exports = function (grunt) {
 
 
     // continuous integration
-    grunt.registerTask('travis', ['clean', 'lint', 'test', 'bundle', 'test:ui']); // ToDo: coverage
+    grunt.registerTask('travis', ['clean', 'lint', 'test', 'bundle', 'test:ui']); // Note: coverage is not yet supported on travis because jscoverage.exe is not in path
     grunt.registerTask('teamcity:test', ['clean', 'lint', 'test', 'coverage']);
     grunt.registerTask('teamcity:bundle', ['clean', 'bundle', 'test:ui']);
 

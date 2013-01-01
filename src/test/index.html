@@ -10,8 +10,10 @@
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
 
-    <!-- ToDo: figure out how to shim load these -->
+    <!-- Note: We need to load QUnit here, because loading it with require() is too late for the references in bridge.js of grunt-contrib-qunit-->
     <script src="libs/qunit.js"></script>
+
+    <!-- ToDo: figure out how to shim load these -->
     <script src="libs/sinon.js"></script>
 
     <!-- Note: config.js is included manually (not using data-main attribute) because otherwise grunt test will not work -->
