@@ -19,7 +19,8 @@ define(function (require) {
         },
 
         render: function () {
-            // ToDo: use a 'data' variable to avoid having _.template() use the slow with statement
+            // Note: improved performance using a 'data' variable to avoid having _.template() use the slow with statement
+            // would be nice, but is not currently supported by the requirejs-tpl plugin
             this.$el.html(this.template(this.model.toJSON()));
             return this;
         },

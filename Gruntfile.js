@@ -47,6 +47,7 @@ module.exports = function (grunt) {
     gruntConfig.qunit.src = ['src/test/index.html'];
     gruntConfig.qunit.serve = ['http://localhost:8082/test/index.html'];
     gruntConfig.qunit.ui = ['http://localhost:8083/test/uiTest.html'];
+    gruntConfig.qunit.uiSrc = ['http://localhost:8080/test/uiTest.html'];
     grunt.loadNpmTasks('grunt-qunit-junit');
     gruntConfig.qunit_junit = {
         options: {
@@ -141,6 +142,17 @@ module.exports = function (grunt) {
         }
     };
     grunt.registerTask('test:ui', ['qunit_junit', 'connect:optimized', 'qunit:ui']);
+    grunt.registerTask('test:ui:src', ['qunit_junit', 'connect:src', 'qunit:uiSrc']); // Note: to get better stack traces on failures
+
+
+    // error handling
+    // ToDo: awaits https://github.com/gruntjs/grunt-contrib-qunit/pull/11
+    grunt.event.on('qunit.error.onError', function (msg, stack) {
+        grunt.util._.each(stack, function (entry) {
+            grunt.log.writeln(entry.file + ':' + entry.line);
+        });
+        grunt.warn(msg);
+    });
 
 
     // grunt

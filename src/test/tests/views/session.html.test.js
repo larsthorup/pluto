@@ -17,5 +17,6 @@ define(function (require) {
         // then
         QUnit.ok($('.login', $html).length > 0, '.login');
         QUnit.ok($('input.user', $html).length > 0, 'input.user');
+        QUnit.ok($('label.user', $html).length > 0, 'label.user');
     });
 });

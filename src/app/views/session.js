@@ -31,7 +31,7 @@ define(function (require) {
         },
 
         login: function () {
-            var userId = $('.user', this.$el).val();
+            var userId = $('input.user', this.$el).val();
             this.model.login(userId);
             this.app.router.navigate('', {trigger: true});
         }

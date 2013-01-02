@@ -19,7 +19,7 @@ define(function (require) {
         setup: function () {
             this.app = new AppStub();
             var templateRepo = new TemplateRepoStub({
-                'session': '<input class="user"/><a class="login">Sign In</a>'
+                'session': '<label class="user"><input class="user"/></label><a class="login">Sign In</a>'
             });
             this.document = $('<div><div id="view"></div></div>');
             this.trello = new TrelloStub();
@@ -51,7 +51,7 @@ define(function (require) {
         this.sessionView.render();
 
         // when
-        $('.user', this.document).val('lars');
+        $('input.user', this.document).val('lars');
         $('.login', this.document).click();
 
         // then
