@@ -4,11 +4,11 @@ define(function (require) {
     var IQUnit = require('iqunit');
     var AppDriver = require('drivers/app');
 
-    // ToDo: configure iframe visibility
     IQUnit.config.testTimeout = 500000;
     IQUnit.config.mainJsUrl = 'app/main.js';
     IQUnit.config.injectScripts = ['/test/libs/jquery.mockjax.js', '/uitest/helpers/jquery.waitFor.js'];
     IQUnit.config.driver = AppDriver;
+    IQUnit.config.visible = true;
 
     IQUnit.module('authentication', '/#login', {
         setup: function () {
@@ -43,6 +43,8 @@ define(function (require) {
             return self.app.cardsPage();
         }).pipe(function (cardsPage) {
 
+            // ToDo: demonstrate how to dump html of the page for debugging purposes
+
             // then we see the list of cards
             var cards = cardsPage.cards;
             QUnit.equal(cards.length, 1, 'cards.length');
@@ -55,7 +57,7 @@ define(function (require) {
     IQUnit.module('authentication', '/#login', {
         setup: function () {
             var self = this;
-            
+
             // given mocked server response
             self.app.server.mock({
                 user: 'lars',

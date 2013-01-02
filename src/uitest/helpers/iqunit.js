@@ -18,7 +18,11 @@ define(function (require) {
                     QUnit.config.testTimeout = IQUnit.config.testTimeout;
 
                     // Note: first we load the referenced page into an iframe in QUnit's HTML fixture so we can interact with it
-                    q$('#qunit-fixture').html('<iframe id="iqUnit-appUnderTest" src="' + pageUrl + '"></iframe>');
+                    var $fixture = q$('#qunit-fixture');
+                    if(IQUnit.config.visible) {
+                        $fixture.css({left: 'inherit', top: 'inherit'}); // Note: instead of the usual (-10000, -10000)
+                    }
+                    $fixture.html('<iframe id="iqUnit-appUnderTest" src="' + pageUrl + '"></iframe>');
                     var $appUnderTest = q$('#iqUnit-appUnderTest');
                     // ToDo: error handling
                     $appUnderTest.load(function () {
