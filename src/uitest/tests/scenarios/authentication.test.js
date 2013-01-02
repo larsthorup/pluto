@@ -10,23 +10,26 @@ define(function (require) {
     IQUnit.config.injectScripts = ['/test/libs/jquery.mockjax.js', '/uitest/helpers/jquery.waitFor.js'];
     IQUnit.config.driver = AppDriver;
 
-    IQUnit.module('authentication', '/#login');
+    IQUnit.module('authentication', '/#login', {
+        setup: function () {
+            var self = this;
+
+            // given mocked server response
+            self.app.server.mock({
+                user: 'lars',
+                lists: [{
+                    id: '509070d37b1e65530d005067',
+                    openCards: [{id: 42, name: 'play!'}]
+                }]
+            });
+        }
+    });
 
     QUnit.asyncTest('login-successful', function () {
         var self = this;
 
         // then the app has started
         QUnit.equal(self.app.header.text(), 'Pluto', 'header');
-
-        // ToDo: move to setup
-        // given mocked server response
-        self.app.server.mock({
-            user: 'lars',
-            lists: [{
-                id: '509070d37b1e65530d005067',
-                openCards: [{id: 42, name: 'play!'}]
-            }]
-        });
 
         self.app.loginPage().pipe(function (loginPage) {
             // then we see the login page
@@ -49,21 +52,26 @@ define(function (require) {
         });
     });
 
+    IQUnit.module('authentication', '/#login', {
+        setup: function () {
+            var self = this;
+            
+            // given mocked server response
+            self.app.server.mock({
+                user: 'lars',
+                lists: [{
+                    id: '509070d37b1e65530d005067',
+                    status: 401 // Note: 401 = Unauthorized
+                }]
+            });
+        }
+    });
+
     QUnit.asyncTest('login-fails', function () {
         var self = this;
 
         // then the app has started
         QUnit.equal(self.app.header.text(), 'Pluto', 'header');
-
-        // ToDo: move to setup
-        // given mocked server response
-        self.app.server.mock({
-            user: 'lars',
-            lists: [{
-                id: '509070d37b1e65530d005067',
-                status: 401 // Note: 401 = Unauthorized
-            }]
-        });
 
         self.app.loginPage().pipe(function (loginPage) {
             // then we see the login page
