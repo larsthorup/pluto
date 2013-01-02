@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Pluto Test Suite</title>
-    <link rel="stylesheet" href="libs/qunit.css">
+    <link rel="stylesheet" href="../test/libs/qunit.css">
 </head>
 
 <body>
@@ -11,11 +11,11 @@
     <div id="qunit-fixture"></div>
 
     <!-- Note: We need to load QUnit here, because loading it with require() is too late for the references in bridge.js of grunt-contrib-qunit-->
-    <script src="libs/qunit.js"></script>
+    <script src="../test/libs/qunit.js"></script>
 
     <!-- Note: config.js is included manually, because loading it with the data-main attribute causes it to be loaded after bridge.js instead of before, so grunt qunit won't work -->
     <script src="../libs/require.js"></script>
-    <script src="uiTestConfig.js"></script>
+    <script src="../test/uiTestConfig.js"></script>
 
     <script>
         config();

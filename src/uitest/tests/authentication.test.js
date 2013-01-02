@@ -12,7 +12,6 @@ define(function (require) {
 
     IQUnit.module('index');
 
-    // ToDo: move to a separate suite so we can still run unit tests fast
     IQUnit.asyncTest('login-then-view', '/#login', function (require, $, app) {
         // then the app has started
         QUnit.equal(app.header.text(), 'Pluto', 'header');
