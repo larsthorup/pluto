@@ -7,24 +7,30 @@ define(function (require) {
         this.$ = $;
     };
     ServerDriver.prototype = {
-        mock: function (config) {
+        mock: function (options) {
             var trello = new Trello();
-            var list = config.lists[0];
+            var list = options.lists[0];
             var listId = list.id;
             var mockUrl = trello.url + '/lists/' + listId;
-            this.$.mockjax({
+            var mockjaxOptions = {
                 log: null,
                 url: mockUrl,
                 data: {
                     key: trello.appKey,
-                    token: config.user,
+                    token: options.user,
                     cards: 'open'
                 },
-                responseTime: 1,
-                responseText: {
+                responseTime: 1
+            };
+            if(list.status) {
+                mockjaxOptions.status = list.status;
+            }
+            if(list.openCards) {
+                mockjaxOptions.responseText = {
                     cards: list.openCards
-                }
-            });
+                };
+            }
+            this.$.mockjax(mockjaxOptions);
 
         }
     };

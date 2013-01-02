@@ -12,14 +12,17 @@ define(function (require) {
         this.server = new ServerDriver(this.$);
     };
     AppDriver.prototype = {
+        // ToDo: consider waiting for $('#iqUnit-appUnderTest').load event to catch page navigation
+        // ToDo: configurable timeout
         loginPage: function () {
-            var promise = this.$('#main').waitFor().pipe(this.$.proxy(function ($elem) {
+            // Note: we need to pause initially to wait for the page to start reloading
+            var promise = this.$('#main').waitFor({timeout: 100, pause: 100}).pipe(this.$.proxy(function ($elem) {
                 return new LoginDriver($elem, this.$);
             }, this));
             return promise;
         },
         cardsPage: function () {
-            var promise = this.$('#main ul.items li').waitFor().pipe(this.$.proxy(function ($elem) {
+            var promise = this.$('#main ul.items li').waitFor({timeout: 100, pause: 100}).pipe(this.$.proxy(function ($elem) {
                 return new CardsDriver($elem, this.$);
             }, this));
             return promise;

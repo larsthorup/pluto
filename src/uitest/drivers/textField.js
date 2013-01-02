@@ -7,10 +7,14 @@ define(function () {
         this.$elem = $elem;
         this.className = className;
         this.label = this.$.trim(this.$('label.' + this.className, this.$elem).text());
+        this.$input = this.$('input.' + this.className, this.$elem);
     };
     TextFieldDriver.prototype = {
         input: function (value) {
-            this.$('input.' + this.className, this.$elem).val(value);
+            this.$input.val(value);
+        },
+        val: function () {
+            return this.$input.val();
         }
     };
     return TextFieldDriver;

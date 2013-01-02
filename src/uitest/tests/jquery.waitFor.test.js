@@ -55,7 +55,22 @@ define(function (require) {
 
     QUnit.asyncTest('custom timeout', function () {
         // when
-        var dfd = $('#target').waitFor(300);
+        var dfd = $('#target').waitFor({timeout: 300});
+        window.setTimeout(function () {
+            $('#qunit-fixture').html('<div id="target">grapes</div>');
+        }, 200);
+
+        // then
+        dfd.done(function ($elem) {
+            QUnit.equal($elem.text(), 'grapes', '$elem.text()');
+            QUnit.start();
+        });
+        dfd.fail(function () { QUnit.ok(false, 'unexpected fail'); });
+    });
+
+    QUnit.asyncTest('custom pause', function () {
+        // when
+        var dfd = $('#target').waitFor({timeout: 50, pause: 250});
         window.setTimeout(function () {
             $('#qunit-fixture').html('<div id="target">grapes</div>');
         }, 200);

@@ -2,8 +2,9 @@
 (function ($) {
     'use strict';
 
-    $.fn.waitFor = function (timeout) {
-        timeout = timeout || 100; // Note: default timeout
+    $.fn.waitFor = function (options) {
+        options = options || {}; // Note: all arguments default
+        options.timeout = options.timeout || 100; // Note: default timeout
         var dfd = $.Deferred();
         var selector = this.selector;
         var waitForDeferred = function (dfd, timeout) {
@@ -21,7 +22,12 @@
                 }
             }
         };
-        waitForDeferred(dfd, timeout);
+        var startWaiting = function () { waitForDeferred(dfd, options.timeout); };
+        if(options.pause) {
+            window.setTimeout(startWaiting, options.pause);
+        } else {
+            startWaiting();
+        }
         return dfd.promise();
     };
 }(jQuery));
