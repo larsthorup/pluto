@@ -48,12 +48,10 @@ define(function (require) {
                             // Note: so then we can get a reference to the jQuery object on the local page
                             var $ = require('jquery');
 
-                            // Note: using the jQuery object we can load mockjax and waitFor into the local page where it will plugin to the local jQuery object
-                            // ToDo: configure injectScripts
-                            var dfd1 = $.getScript('/test/libs/jquery.mockjax.js');
-                            var dfd2 = $.getScript('/uitest/helpers/jquery.waitFor.js');
-                            var dfd = $.when(dfd1, dfd2);
-                            dfd.done(function () {
+                            // Note: using the local jQuery object we can inject scripts into the local page where they will connect to the local jQuery object
+                            var scriptListLoading = $.map(IQUnit.config.injectScripts, $.getScript);
+                            var allScriptsLoading = $.when.apply(null, scriptListLoading);
+                            allScriptsLoading.done(function () {
                                 var app = new IQUnit.config.driver($);
                                 callback(require, $, app);
                             });
