@@ -27,10 +27,10 @@ window.config = function () {
 
     // Note: this needs to be in config.js, not in a separate main.js, otherwise grunt test will not work correctly...
     var testModules = [
-        'tests/jquery.waitFor.test'
+        'tests/helpers/jquery.waitFor.test'
     ];
     if (window.location.protocol !== 'file:') {
-        testModules.push('tests/authentication.test');
+        testModules.push('tests/scenarios/authentication.test');
     }
 
     // Note: defer Qunit until RequireJS resolved all modules
