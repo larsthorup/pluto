@@ -10,15 +10,17 @@ define(function (require) {
     IQUnit.config.injectScripts = ['/test/libs/jquery.mockjax.js', '/uitest/helpers/jquery.waitFor.js'];
     IQUnit.config.driver = AppDriver;
 
-    IQUnit.module('authentication');
+    IQUnit.module('authentication', '/#login');
 
-    IQUnit.asyncTest('login-successful', '/#login', function (require, $, app) {
+    QUnit.asyncTest('login-successful', function () {
+        var self = this;
+
         // then the app has started
-        QUnit.equal(app.header.text(), 'Pluto', 'header');
+        QUnit.equal(self.app.header.text(), 'Pluto', 'header');
 
         // ToDo: move to setup
         // given mocked server response
-        app.server.mock({
+        self.app.server.mock({
             user: 'lars',
             lists: [{
                 id: '509070d37b1e65530d005067',
@@ -26,7 +28,7 @@ define(function (require) {
             }]
         });
 
-        app.loginPage().pipe(function (loginPage) {
+        self.app.loginPage().pipe(function (loginPage) {
             // then we see the login page
             QUnit.equal(loginPage.user.label, 'User Token:', 'loginPage.user.label');
 
@@ -35,7 +37,7 @@ define(function (require) {
             loginPage.login.click();
 
             // then we are redirected to the cards page
-            return app.cardsPage();
+            return self.app.cardsPage();
         }).pipe(function (cardsPage) {
 
             // then we see the list of cards
@@ -47,13 +49,15 @@ define(function (require) {
         });
     });
 
-    IQUnit.asyncTest('login-fails', '/#login', function (require, $, app) {
+    QUnit.asyncTest('login-fails', function () {
+        var self = this;
+
         // then the app has started
-        QUnit.equal(app.header.text(), 'Pluto', 'header');
+        QUnit.equal(self.app.header.text(), 'Pluto', 'header');
 
         // ToDo: move to setup
         // given mocked server response
-        app.server.mock({
+        self.app.server.mock({
             user: 'lars',
             lists: [{
                 id: '509070d37b1e65530d005067',
@@ -61,7 +65,7 @@ define(function (require) {
             }]
         });
 
-        app.loginPage().pipe(function (loginPage) {
+        self.app.loginPage().pipe(function (loginPage) {
             // then we see the login page
             QUnit.equal(loginPage.user.label, 'User Token:', 'loginPage.user.label');
 
@@ -70,7 +74,7 @@ define(function (require) {
             loginPage.login.click();
 
             // then we are redirected to the login page
-            return app.loginPage();
+            return self.app.loginPage();
         }).pipe(function (loginPage) {
 
             // then the user input field is blank
