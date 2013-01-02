@@ -5,15 +5,14 @@ define(function (require) {
     var AppDriver = require('drivers/app');
 
     // ToDo: configure iframe visibility
-    // ToDo: move to test/config.js
     IQUnit.config.testTimeout = 500000;
     IQUnit.config.mainJsUrl = 'app/main.js';
     IQUnit.config.injectScripts = ['/test/libs/jquery.mockjax.js', '/uitest/helpers/jquery.waitFor.js'];
     IQUnit.config.driver = AppDriver;
 
-    IQUnit.module('index');
+    IQUnit.module('authentication');
 
-    IQUnit.asyncTest('login-then-view', '/#login', function (require, $, app) {
+    IQUnit.asyncTest('login-successful', '/#login', function (require, $, app) {
         // then the app has started
         QUnit.equal(app.header.text(), 'Pluto', 'header');
 
