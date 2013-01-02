@@ -17,7 +17,6 @@ define(function (require) {
             this.templateRepo = this.options.dep.templateRepo;
             // ToDo: use an event broker instead of a direct collection reference?
             this.collection = this.options.dep.cards;
-            // ToDo: Use symbolic event ids instead of strings
             this.collection.on('add', this.addOne, this);
             this.collection.on('reset', this.addAll, this);
             this.template = this.templateRepo.cards;

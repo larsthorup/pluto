@@ -51,7 +51,7 @@ define(function (require) {
                             // Note: using the jQuery object we can load mockjax and waitFor into the local page where it will plugin to the local jQuery object
                             // ToDo: configure injectScripts
                             var dfd1 = $.getScript('/test/libs/jquery.mockjax.js');
-                            var dfd2 = $.getScript('/test/utility/jquery.waitFor.js');
+                            var dfd2 = $.getScript('/uitest/helpers/jquery.waitFor.js');
                             var dfd = $.when(dfd1, dfd2);
                             dfd.done(function () {
                                 var app = new IQUnit.config.driver($);

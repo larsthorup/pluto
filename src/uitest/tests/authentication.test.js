@@ -7,7 +7,7 @@ define(function (require) {
     // ToDo: move to test/config.js
     IQUnit.config.testTimeout = 500000;
     IQUnit.config.mainJsUrl = 'app/main.js';
-    IQUnit.config.injectScripts = ['/test/libs/jquery.mockjax.js', '/test/utility/jquery.waitFor.js'];
+    IQUnit.config.injectScripts = ['/test/libs/jquery.mockjax.js', '/uitest/helpers/jquery.waitFor.js'];
     IQUnit.config.driver = AppDriver;
 
     IQUnit.module('index');
