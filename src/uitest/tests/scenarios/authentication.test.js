@@ -4,10 +4,26 @@ define(function (require) {
     var IQUnit = require('iqunit');
     var AppDriver = require('drivers/app');
 
+    // ToDo: move configuration elsewhere
     IQUnit.config.testTimeout = 500000;
-    IQUnit.config.mainJsUrl = 'app/main.js';
     IQUnit.config.injectScripts = ['/test/libs/jquery.mockjax.js', '/uitest/helpers/jquery.waitFor.js'];
     IQUnit.config.visible = true;
+    IQUnit.config.getJQueryUnderTest = function (window, callback) {
+        // Note: we can get a reference to the local page's require object as soon as the iframe is loaded
+        var require = window.require;
+        var mainJsUrl = 'app/main.js';
+
+        // Note: we know that all dependent modules have been loaded when the outermost dependency, app/main.js, has been loaded
+        // ToDo: error handling
+        require.onResourceLoad = function (context, map/*, depArray*/) {
+            if (map.url === mainJsUrl) {
+
+                // Note: so then we can get a reference to the jQuery object in the app under test
+                var a$ = require('jquery');
+                callback(a$);
+            }
+        };
+    };
 
     IQUnit.module('authentication', '/#login', {
         setup: function () {
