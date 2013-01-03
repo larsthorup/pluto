@@ -30,6 +30,7 @@ window.config = function () {
         'tests/helpers/jquery.waitFor.test'
     ];
     if (window.location.protocol !== 'file:') {
+        testModules.push('tests/helpers/iqunit.test');
         testModules.push('tests/scenarios/authentication.test');
     }
 

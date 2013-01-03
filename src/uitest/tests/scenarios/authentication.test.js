@@ -7,12 +7,12 @@ define(function (require) {
     IQUnit.config.testTimeout = 500000;
     IQUnit.config.mainJsUrl = 'app/main.js';
     IQUnit.config.injectScripts = ['/test/libs/jquery.mockjax.js', '/uitest/helpers/jquery.waitFor.js'];
-    IQUnit.config.driver = AppDriver;
     IQUnit.config.visible = true;
 
     IQUnit.module('authentication', '/#login', {
         setup: function () {
             var self = this;
+            self.app = new AppDriver(self.$);
 
             // given mocked server response
             self.app.server.mock({
@@ -57,6 +57,7 @@ define(function (require) {
     IQUnit.module('authentication', '/#login', {
         setup: function () {
             var self = this;
+            self.app = new AppDriver(self.$);
 
             // given mocked server response
             self.app.server.mock({
