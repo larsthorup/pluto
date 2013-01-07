@@ -4,7 +4,7 @@ define(function () {
 
     var config = {
         visible: true,
-        testTimeout: 500000,
+        testTimeout: 20000,
         injectScripts: ['/test/libs/jquery.mockjax.js', '/uitest/helpers/jquery.waitFor.js'],
         getJQueryUnderTest: function (window, callback) {
             // Note: we can get a reference to the local page's require object as soon as the iframe is loaded

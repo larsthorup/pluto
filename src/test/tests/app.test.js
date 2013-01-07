@@ -2,9 +2,6 @@
 define(function (require) {
     'use strict';
 
-    // framework
-    require('mockjax');
-
     // module under test
     var App = require('app');
 

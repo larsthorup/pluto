@@ -30,8 +30,10 @@ define(function (require) {
                     cards: list.openCards
                 };
             }
-            this.$.mockjax(mockjaxOptions);
-
+            this.mockjaxId = this.$.mockjax(mockjaxOptions);
+        },
+        mockClear: function () {
+            this.$.mockjaxClear(this.mockjaxId);
         }
     };
     return ServerDriver;

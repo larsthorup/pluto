@@ -23,25 +23,28 @@ define(function (require) {
                     Card: Card
                 }
             });
+            this.mockjaxId = $.mockjax({
+                log: null,
+                url: 'https://api.trello.com/1/lists/abc',
+                data: {
+                    key: this.trello.appKey,
+                    token: 'lars',
+                    cards: 'open'
+                },
+                responseTime: 1,
+                responseText: {
+                    cards: [{id: 42, name: 'play!'}]
+                }
+            });
+        },
+        teardown: function () {
+            $.mockjaxClear(this.mockjaxId);
         }
     });
 
     QUnit.asyncTest('fetch', function () {
         // given
         this.trello.login('lars');
-        $.mockjax({
-            log: null,
-            url: 'https://api.trello.com/1/lists/abc',
-            data: {
-                key: this.trello.appKey,
-                token: 'lars',
-                cards: 'open'
-            },
-            responseTime: 1,
-            responseText: {
-                cards: [{id: 42, name: 'play!'}]
-            }
-        });
 
         // when
         var fetchPromise = this.cards.fetch();

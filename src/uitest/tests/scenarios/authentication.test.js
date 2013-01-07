@@ -20,6 +20,10 @@ define(function (require) {
                     openCards: [{id: 42, name: 'play!'}]
                 }]
             });
+        },
+        teardown: function () {
+            var self = this;
+            self.app.server.mockClear();
         }
     });
 
