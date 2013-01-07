@@ -23,7 +23,7 @@
             }
         };
         var startWaiting = function () { waitForDeferred(dfd, options.timeout); };
-        if(options.pause) {
+        if (options.pause) {
             window.setTimeout(startWaiting, options.pause);
         } else {
             startWaiting();

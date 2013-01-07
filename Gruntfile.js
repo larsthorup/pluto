@@ -34,8 +34,8 @@ module.exports = function (grunt) {
     };
     gruntConfig.jshint.all = [
         'Gruntfile.js',
-        'src/app/**/*.js',
-        'src/test/**/*.js',
+        'src/**/*.js',
+        '!src/libs/**/*.js',
         '!src/test/libs/**/*.js'
     ];
     grunt.registerTask('lint', 'jshint');

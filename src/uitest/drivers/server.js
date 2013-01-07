@@ -22,10 +22,10 @@ define(function (require) {
                 },
                 responseTime: 1
             };
-            if(list.status) {
+            if (list.status) {
                 mockjaxOptions.status = list.status;
             }
-            if(list.openCards) {
+            if (list.openCards) {
                 mockjaxOptions.responseText = {
                     cards: list.openCards
                 };

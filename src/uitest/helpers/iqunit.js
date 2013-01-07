@@ -5,34 +5,30 @@ define(function (require) {
 
     // Note: Interactive QUnit
     var IQUnit = {
-        config: {
-            // Note: default values
-            testTimeout: 2000
-        },
-        module: function (name, pageUrl, testEnvironment) {
+        module: function (name, config, testEnvironment) {
             QUnit.module(name, {
                 setup: function () {
                     QUnit.stop();
                     var self = this;
                     self.testTimeoutBefore = QUnit.config.testTimeout;
-                    QUnit.config.testTimeout = IQUnit.config.testTimeout;
+                    QUnit.config.testTimeout = config.testTimeout;
 
                     // Note: make the page visible if requested
                     var $fixture = q$('#qunit-fixture');
-                    if(IQUnit.config.visible) {
+                    if (config.visible) {
                         $fixture.css({left: 'inherit', top: 'inherit'}); // Note: instead of the usual (-10000, -10000)
                     }
 
                     // Note: first we load the referenced page into an iframe in QUnit's HTML fixture so we can interact with it
-                    $fixture.html('<iframe id="iqUnit-appUnderTest" src="' + pageUrl + '"></iframe>');
+                    $fixture.html('<iframe id="iqUnit-appUnderTest" src="' + config.url + '"></iframe>');
                     var $appUnderTest = q$('#iqUnit-appUnderTest');
                     // ToDo: error handling
                     $appUnderTest.load(function () {
 
                         // Note: using the local jQuery object we can inject scripts into the local page where they will connect to the local jQuery object
-                        IQUnit.config.getJQueryUnderTest($appUnderTest[0].contentWindow, function (a$) {
-                            // ToDo: load scripts without using jQuery to have one less dependency
-                            var scriptListLoading = a$.map(IQUnit.config.injectScripts, a$.getScript);
+                        config.getJQueryUnderTest($appUnderTest[0].contentWindow, function (a$) {
+                            // ToDo: load scripts without using jQuery to have one less dependency, then getJQueryUnderTest can be a pure setup thing not in IQUnit
+                            var scriptListLoading = a$.map(config.injectScripts, a$.getScript);
                             var allScriptsLoading = a$.when.apply(null, scriptListLoading);
                             // ToDo: error handling
                             allScriptsLoading.done(function () {
