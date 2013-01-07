@@ -12,7 +12,6 @@ define(function (require) {
     // given
     var config = {
         visible: true,
-        testTimeout: 2000,
         url: 'iqunit.test.html',
         injectScripts: ['iqunit.test.inject.js'],
         getJQueryUnderTest: function (window, callback) {
@@ -46,9 +45,8 @@ define(function (require) {
 
 
     // given
-    var configInvisible = {
+    var configVisibleIsFalse = {
         visible: false,
-        testTimeout: 2000,
         url: 'iqunit.test.html',
         injectScripts: ['iqunit.test.inject.js'],
         getJQueryUnderTest: function (window, callback) {
@@ -56,7 +54,7 @@ define(function (require) {
         }
     };
     // when
-    IQUnit.module('iqunit', configInvisible);
+    IQUnit.module('iqunit', configVisibleIsFalse);
 
     QUnit.test('not-visible', function () {
         // then
@@ -65,7 +63,21 @@ define(function (require) {
     });
 
 
+    // given
+    var configUrlIsBad = {
+        visible: true,
+        url: 'notFound.test.html',
+        error: function (msg) {
+            // then
+            QUnit.equal(msg, 'Failed to load "notFound.test.html"', 'msg');
+            QUnit.start();
+        }
+    };
+    // when
+    IQUnit.module('iqunit', configUrlIsBad);
+    QUnit.test('bad-url', function () {
+    });
 
-    // Test failure to load page into frame
+
     // Test failure to load scripts
 });

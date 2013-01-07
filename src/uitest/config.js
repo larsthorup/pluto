@@ -35,6 +35,7 @@ window.config = function () {
 
     // Note: defer Qunit until RequireJS resolved all modules
     QUnit.config.autostart = false;
+    QUnit.config.testTimeout = 5000;
     require(testModules, QUnit.start);
 };
 
