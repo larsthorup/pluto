@@ -9,7 +9,6 @@ window.config = function () {
             underscore: '../libs/lodash',
             backbone: '../libs/backbone',
             // Note: base directory is app/, which is why ../test is necessary
-            mockjax: '../test/libs/jquery.mockjax', // ToDo: remove when iqunit is extracted
             waitFor: '../uitest/helpers/jquery.waitFor',
             iqunit: '../uitest/helpers/iqunit',
             tests: '../uitest/tests',
@@ -21,7 +20,6 @@ window.config = function () {
                 exports: 'Backbone'
             },
 
-            mockjax: ['jquery'],
             waitFor: ['jquery']
         }
     });

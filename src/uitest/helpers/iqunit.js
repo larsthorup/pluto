@@ -15,9 +15,8 @@ define(function (require) {
 
                     // Note: make the page visible if requested
                     var $fixture = q$('#qunit-fixture');
-                    if (config.visible) {
-                        $fixture.css({left: 'inherit', top: 'inherit'}); // Note: instead of the usual (-10000, -10000)
-                    }
+                    var iframePosition = config.visible ? 'inherit' : '-10000px'; // Note: -10000px is from qunit.css
+                    $fixture.css({left: iframePosition, top: iframePosition});
 
                     // Note: first we load the referenced page into an iframe in QUnit's HTML fixture so we can interact with it
                     $fixture.html('<iframe id="iqUnit-appUnderTest" src="' + config.url + '"></iframe>');
