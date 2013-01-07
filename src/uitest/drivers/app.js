@@ -7,28 +7,32 @@ define(function (require) {
     var CardsDriver = require('drivers/cards');
 
     var AppDriver = function ($) {
-        this.$ = $;
-        this.header = new HeaderDriver('#header', this.$);
-        this.server = new ServerDriver(this.$);
+        var self = this;
+        self.$ = $;
+        self.header = new HeaderDriver('#header', self.$);
+        self.server = new ServerDriver(self.$);
     };
     AppDriver.prototype = {
         // ToDo: consider waiting for $('#iqUnit-appUnderTest').load event to catch page navigation
         // ToDo: configurable timeout
         loginPage: function () {
+            var self = this;
             // Note: we need to pause initially to wait for the page to start reloading
-            var promise = this.$('#main').waitFor({timeout: 100, pause: 100}).pipe(this.$.proxy(function ($elem) {
-                return new LoginDriver($elem, this.$);
-            }, this));
+            var promise = self.$('#main').waitFor({timeout: 100, pause: 100}).then(function ($elem) {
+                return new LoginDriver($elem, self.$);
+            });
             return promise;
         },
         cardsPage: function () {
-            var promise = this.$('#main ul.items li').waitFor({timeout: 100, pause: 100}).pipe(this.$.proxy(function ($elem) {
-                return new CardsDriver($elem, this.$);
-            }, this));
+            var self = this;
+            var promise = self.$('#main ul.items li').waitFor({timeout: 100, pause: 100}).then(function ($elem) {
+                return new CardsDriver($elem, self.$);
+            });
             return promise;
         },
         html: function () {
-            return this.$('html')[0].outerHTML;
+            var self = this;
+            return self.$('html')[0].outerHTML;
         }
     };
     return AppDriver;
