@@ -9,6 +9,7 @@ window.config = function () {
             underscore: '../libs/lodash',
             backbone: '../libs/backbone',
             // Note: base directory is app/, which is why ../test is necessary
+            mockjax: '../test/libs/jquery.mockjax', // ToDo: remove when iqunit is extracted
             waitFor: '../uitest/helpers/jquery.waitFor',
             iqunit: '../uitest/helpers/iqunit',
             tests: '../uitest/tests',
@@ -27,10 +28,10 @@ window.config = function () {
 
     // Note: this needs to be in config.js, not in a separate main.js, otherwise grunt test will not work correctly...
     var testModules = [
-        'tests/helpers/jquery.waitFor.test'
+        'tests/helpers/jquery.waitFor.test',
+        'tests/helpers/iqunit.test'
     ];
     if (window.location.protocol !== 'file:') {
-        testModules.push('tests/helpers/iqunit.test');
         testModules.push('tests/scenarios/authentication.test');
     }
 
