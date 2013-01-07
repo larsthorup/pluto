@@ -13,7 +13,7 @@ define(function (require) {
         visible: true,
         testTimeout: 2000,
         url: 'iqunit.test.html',
-        injectScripts: [], // ['/lib/inject.js'],
+        injectScripts: ['iqunit.test.inject.js'],
         getJQueryUnderTest: function (window, callback) {
             // console.log('jQuery under test = ' + window.$);
             callback(window.$);
@@ -28,7 +28,6 @@ define(function (require) {
 
     IQUnit.module('iqunit', config, {
         setup: function () {
-
         },
         teardown: function () {
         }
@@ -36,7 +35,8 @@ define(function (require) {
 
     QUnit.asyncTest('test', function () {
         // ToDo: implement
-        QUnit.expect(0);
+        var self = this;
+        QUnit.equal(self.$.fn.injected(), 'injected!', '$.fn.injected()');
         QUnit.start();
     });
 
