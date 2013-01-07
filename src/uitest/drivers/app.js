@@ -26,6 +26,9 @@ define(function (require) {
                 return new CardsDriver($elem, this.$);
             }, this));
             return promise;
+        },
+        html: function () {
+            return this.$('html')[0].outerHTML;
         }
     };
     return AppDriver;

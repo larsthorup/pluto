@@ -59,7 +59,8 @@ define(function (require) {
             return self.app.cardsPage();
         }).then(function (cardsPage) {
 
-            // ToDo: demonstrate how to dump html of the page for debugging purposes
+            // Note: demonstrates how to dump html of the page for debugging purposes
+            // console.log(self.app.html());
 
             // then we see the list of cards
             var cards = cardsPage.cards;
