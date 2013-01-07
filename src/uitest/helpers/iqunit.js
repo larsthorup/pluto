@@ -31,7 +31,7 @@ define(function (require) {
                         var iframeHtml = iframeWindow.document.documentElement.outerHTML;
                         var phantomJsIframeLoadFailed = iframeHtml.indexOf('Cannot GET ') > 0 && iframeHtml.indexOf(config.url) > 0;
                         return !phantomJsIframeLoadFailed;
-                    } ;
+                    };
 
                     $appUnderTest.load(function () {
                         var iframeWindow = $appUnderTest[0].contentWindow;
