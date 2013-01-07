@@ -20,26 +20,37 @@ define(function (require) {
                     $fixture.html('<iframe id="iqUnit-appUnderTest" src="' + config.url + '"></iframe>');
                     var $appUnderTest = q$('#iqUnit-appUnderTest');
 
-                    // Note: error handling
+                    // Note: error handling for iframe loading
                     var appUnderTestLoaded = false;
                     window.setTimeout(function () {
                         if (!appUnderTestLoaded && config.error) {
                             config.error('Failed to load "' + config.url + '"');
                         }
                     }, QUnit.config.testTimeout / 2);
+                    var iframeLoadedSuccessfully = function (iframeWindow) {
+                        var iframeHtml = iframeWindow.document.documentElement.outerHTML;
+                        var phantomJsIframeLoadFailed = iframeHtml.indexOf('Cannot GET ') > 0 && iframeHtml.indexOf(config.url) > 0;
+                        return !phantomJsIframeLoadFailed;
+                    } ;
 
                     $appUnderTest.load(function () {
-                        var iframeHtml = $appUnderTest[0].contentWindow.document.documentElement.outerHTML;
-                        var phantomJsIframeLoadFailed = iframeHtml.indexOf('Cannot GET ') > 0 && iframeHtml.indexOf(config.url) > 0;
-                        if (!phantomJsIframeLoadFailed) {
+                        var iframeWindow = $appUnderTest[0].contentWindow;
+                        if (iframeLoadedSuccessfully(iframeWindow)) {
                             appUnderTestLoaded = true;
 
                             // Note: using the local jQuery object we can inject scripts into the local page where they will connect to the local jQuery object
-                            config.getJQueryUnderTest($appUnderTest[0].contentWindow, function (a$) {
+                            config.getJQueryUnderTest(iframeWindow, function (a$) {
                                 // ToDo: load scripts without using jQuery to have one less dependency, then getJQueryUnderTest can be a pure setup thing not in IQUnit
                                 var scriptListLoading = a$.map(config.injectScripts, a$.getScript);
                                 var allScriptsLoading = a$.when.apply(null, scriptListLoading);
-                                // ToDo: error handling
+
+                                // Note: error handling for script injection
+                                allScriptsLoading.fail(function () {
+                                    if (config.error) {
+                                        config.error('Failed to load "' + config.injectScripts + '"');
+                                    }
+                                });
+
                                 allScriptsLoading.done(function () {
                                     self.$ = a$;
                                     if (testEnvironment && testEnvironment.setup) {

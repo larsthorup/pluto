@@ -8,16 +8,17 @@ define(function (require) {
     // module under test
     var IQUnit = require('iqunit');
 
+    var getGlobalJQuery = function (window, callback) {
+        // console.log('jQuery under test = ' + window.$);
+        callback(window.$);
+    };
 
     // given
     var config = {
         visible: true,
         url: 'iqunit.test.html',
-        injectScripts: ['iqunit.test.inject.js'],
-        getJQueryUnderTest: function (window, callback) {
-            // console.log('jQuery under test = ' + window.$);
-            callback(window.$);
-        }
+        getJQueryUnderTest: getGlobalJQuery,
+        injectScripts: ['iqunit.test.inject.js']
     };
 
     // when
@@ -48,10 +49,8 @@ define(function (require) {
     var configVisibleIsFalse = {
         visible: false,
         url: 'iqunit.test.html',
-        injectScripts: ['iqunit.test.inject.js'],
-        getJQueryUnderTest: function (window, callback) {
-            callback(window.$);
-        }
+        getJQueryUnderTest: getGlobalJQuery,
+        injectScripts: ['iqunit.test.inject.js']
     };
     // when
     IQUnit.module('iqunit', configVisibleIsFalse);
@@ -79,5 +78,21 @@ define(function (require) {
     });
 
 
-    // Test failure to load scripts
+    // given
+    var configInjectedScriptIsBad = {
+        visible: true,
+        url: 'iqunit.test.html',
+        getJQueryUnderTest: getGlobalJQuery,
+        injectScripts: ['notFound.test.inject.js'],
+        error: function (msg) {
+            // then
+            QUnit.equal(msg, 'Failed to load "notFound.test.inject.js"', 'msg');
+            QUnit.start();
+        }
+    };
+    // when
+    IQUnit.module('iqunit', configInjectedScriptIsBad);
+    QUnit.test('missing injected script', function () {
+    });
+
 });
