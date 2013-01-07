@@ -47,7 +47,7 @@ define(function (require) {
         // then the app has started
         QUnit.equal(self.app.header.text(), 'Pluto', 'header');
 
-        self.app.loginPage().pipe(function (loginPage) {
+        self.app.loginPage().then(function (loginPage) {
             // then we see the login page
             QUnit.equal(loginPage.user.label, 'User Token:', 'loginPage.user.label');
 
@@ -57,7 +57,7 @@ define(function (require) {
 
             // then we are redirected to the cards page
             return self.app.cardsPage();
-        }).pipe(function (cardsPage) {
+        }).then(function (cardsPage) {
 
             // ToDo: demonstrate how to dump html of the page for debugging purposes
 
@@ -92,7 +92,7 @@ define(function (require) {
         // then the app has started
         QUnit.equal(self.app.header.text(), 'Pluto', 'header');
 
-        self.app.loginPage().pipe(function (loginPage) {
+        self.app.loginPage().then(function (loginPage) {
             // then we see the login page
             QUnit.equal(loginPage.user.label, 'User Token:', 'loginPage.user.label');
 
@@ -102,7 +102,7 @@ define(function (require) {
 
             // then we are redirected to the login page
             return self.app.loginPage();
-        }).pipe(function (loginPage) {
+        }).then(function (loginPage) {
 
             // then the user input field is blank
             QUnit.equal(loginPage.user.val(), '', 'loginPage.user.value');
