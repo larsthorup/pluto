@@ -9,11 +9,10 @@ define(function (require) {
 
     IQUnit.module('authentication', config, {
         setup: function () {
-            var self = this;
-            self.app = new AppDriver(self.$);
+            this.app = new AppDriver(this.$);
 
             // given mocked server response
-            self.app.server.mock({
+            this.app.server.mock({
                 user: 'lars',
                 lists: [{
                     id: '509070d37b1e65530d005067',
@@ -22,8 +21,7 @@ define(function (require) {
             });
         },
         teardown: function () {
-            var self = this;
-            self.app.server.mockClear();
+            this.app.server.mockClear();
         }
     });
 
@@ -63,11 +61,10 @@ define(function (require) {
 
     IQUnit.module('authentication', config, {
         setup: function () {
-            var self = this;
-            self.app = new AppDriver(self.$);
+            this.app = new AppDriver(this.$);
 
             // given mocked server response
-            self.app.server.mock({
+            this.app.server.mock({
                 user: 'lars',
                 lists: [{
                     id: '509070d37b1e65530d005067',

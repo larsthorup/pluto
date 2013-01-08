@@ -63,9 +63,8 @@ define(function (require) {
                     });
                 },
                 teardown: function () {
-                    var self = this;
                     if (testEnvironment && testEnvironment.teardown) {
-                        testEnvironment.teardown.apply(self);
+                        testEnvironment.teardown.apply(this);
                     }
                 }
             });

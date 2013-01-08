@@ -25,17 +25,13 @@ define(function (require) {
     IQUnit.module('iqunit', config);
 
     QUnit.test('url', function () {
-        var self = this;
-
         // then
-        QUnit.equal(self.$.trim(self.$('body').text()), 'IQUnit Test', 'body.text');
+        QUnit.equal(this.$.trim(this.$('body').text()), 'IQUnit Test', 'body.text');
     });
 
     QUnit.test('injectScripts', function () {
-        var self = this;
-
         // then
-        QUnit.equal(self.$.fn.injected(), 'injected!', '$.fn.injected()');
+        QUnit.equal(this.$.fn.injected(), 'injected!', '$.fn.injected()');
     });
 
     QUnit.test('visible', function () {
