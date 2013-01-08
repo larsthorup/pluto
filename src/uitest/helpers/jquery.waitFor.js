@@ -14,7 +14,7 @@
             } else {
                 var waitTime = 50;
                 if (timeout < waitTime) {
-                    dfd.reject();
+                    dfd.reject('Timed out waiting for: "' + selector + '"');
                 } else {
                     window.setTimeout(function () {
                         waitForDeferred(dfd, timeout - waitTime);

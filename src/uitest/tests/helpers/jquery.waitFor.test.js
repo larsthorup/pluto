@@ -106,12 +106,13 @@ define(function (require) {
             QUnit.equal($target2.text(), 'oranges', '$target2.text()');
         }).done(function () {
             QUnit.start();
-        }).fail(function () {
-            QUnit.ok(false, '#target2 not found');
+        }).fail(function (msg) {
+            QUnit.ok(false, msg);
+            QUnit.start();
         });
     });
 
-    QUnit.asyncTest('pipeline-fails-later', function () {
+    QUnit.asyncTest('pipeline-fails-late', function () {
         // given
         window.setTimeout(function () {
             $('#qunit-fixture').html('<div id="target1">apples</div>');
@@ -128,19 +129,40 @@ define(function (require) {
             }, 30);
 
             // and when
-            return $('#target-not-found').waitFor();
+            return $('#target2-not-found').waitFor();
         }).then(function (/*$target2*/) {
-            QUnit.ok(false, '#target-not-found found');
+            QUnit.ok(false, '#target2-not-found found');
         }).done(function () {
             QUnit.ok(false, 'should never be called');
-        }).fail(function () {
+            QUnit.start();
+        }).fail(function (msg) {
 
             // and then
+            QUnit.equal(msg, 'Timed out waiting for: "#target2-not-found"', 'msg');
             QUnit.start();
         });
     });
 
+    QUnit.asyncTest('pipeline-fails-early', function () {
+        // given
+        window.setTimeout(function () {
+            $('#qunit-fixture').html('<div id="target1">apples</div>');
+        }, 30);
 
+        // when
+        $('#target1-not-found').waitFor().then(function (/*$target1*/) {
+            QUnit.ok(false, '#target1-not-found found');
+        }).then(function (/*$target2*/) {
+            QUnit.ok(false, 'should never be called');
+        }).done(function () {
+            QUnit.ok(false, 'should never be called');
+            QUnit.start();
+        }).fail(function (msg) {
 
+            // and then
+            QUnit.equal(msg, 'Timed out waiting for: "#target1-not-found"', 'msg');
+            QUnit.start();
+        });
+    });
 
 });
