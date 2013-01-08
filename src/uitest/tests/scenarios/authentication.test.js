@@ -53,6 +53,10 @@ define(function (require) {
             QUnit.equal(cards.length, 1, 'cards.length');
             QUnit.equal(cards[0].text, 'play!', 'cards[0].text');
 
+        }).done(function () {
+            QUnit.start();
+        }).fail(function (msg) {
+            QUnit.ok(false, msg);
             QUnit.start();
         });
     });
@@ -94,6 +98,10 @@ define(function (require) {
             // then the user input field is blank
             QUnit.equal(loginPage.user.val(), '', 'loginPage.user.value');
 
+        }).done(function () {
+            QUnit.start();
+        }).fail(function (msg) {
+            QUnit.ok(false, msg);
             QUnit.start();
         });
     });

@@ -43,7 +43,7 @@ run all unit tests (results in output\testresults)
 
 run all ui tests (results in output\testresults)
 
-    grunt test:ui
+    grunt test:ui:src
 
 produce unit test coverage statistics (in output\coverage\out\coverage.html)
 
