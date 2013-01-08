@@ -83,4 +83,32 @@ define(function (require) {
         dfd.fail(function () { QUnit.ok(false, 'unexpected fail'); });
     });
 
+    QUnit.asyncTest('pipeline', function () {
+        // given
+        window.setTimeout(function () {
+            $('#qunit-fixture').html('<div id="target1">apples</div>');
+        }, 30);
+
+        // when
+        // ToDo: $.when(function () { return $('#target1').waitFor()) }).then
+        $('#target1').waitFor().then(function ($target1) {
+            // then
+            QUnit.equal($target1.text(), 'apples', '$target1.text()');
+
+            // and given
+            window.setTimeout(function () {
+                $('#qunit-fixture').html('<div id="target2">oranges</div>');
+            }, 30);
+
+            // and when
+            return $('#target2').waitFor();
+        }).then(function ($target2) {
+            // and then
+            QUnit.equal($target2.text(), 'oranges', '$target2.text()');
+            QUnit.start();
+        });
+    });
+
+
+
 });

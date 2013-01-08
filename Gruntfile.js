@@ -85,6 +85,7 @@ module.exports = function (grunt) {
         }
     };
     grunt.registerTask('test', ['qunit_junit', 'connect:test', 'qunit:serve']);
+    grunt.registerTask('test:ui:src', ['qunit_junit', 'connect:src', 'qunit:uiSrc']); // Note: to get better stack traces on failures
 
 
     // coverage
@@ -142,7 +143,6 @@ module.exports = function (grunt) {
         }
     };
     grunt.registerTask('test:ui', ['qunit_junit', 'connect:optimized', 'qunit:ui']);
-    grunt.registerTask('test:ui:src', ['qunit_junit', 'connect:src', 'qunit:uiSrc']); // Note: to get better stack traces on failures
 
 
     // error handling
