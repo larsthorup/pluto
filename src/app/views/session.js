@@ -22,7 +22,7 @@ define(function (require) {
 
         render: function () {
             this.$el.html(this.template(this.model.toJSON()));
-            this.$el.keypress(_.bind(function (e) {
+            this.$el.keypress(_.bind(function onKeypress(e) {
                 if (e.which === keycode.ENTER) {
                     this.login();
                 }

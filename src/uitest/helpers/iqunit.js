@@ -27,13 +27,13 @@ define(function (require) {
                             config.error('Failed to load "' + config.url + '"');
                         }
                     }, QUnit.config.testTimeout / 2);
-                    var iframeLoadedSuccessfully = function (iframeWindow) {
+                    function iframeLoadedSuccessfully(iframeWindow) {
                         var iframeHtml = iframeWindow.document.documentElement.outerHTML;
                         var phantomJsIframeLoadFailed = iframeHtml.indexOf('Cannot GET ') > 0 && iframeHtml.indexOf(config.url) > 0;
                         return !phantomJsIframeLoadFailed;
-                    };
+                    }
 
-                    $appUnderTest.load(function () {
+                    $appUnderTest.load(function onAppUnderTestLoaded() {
                         var iframeWindow = $appUnderTest[0].contentWindow;
                         if (iframeLoadedSuccessfully(iframeWindow)) {
                             appUnderTestLoaded = true;
@@ -45,13 +45,13 @@ define(function (require) {
                                 var allScriptsLoading = a$.when.apply(null, scriptListLoading);
 
                                 // Note: error handling for script injection
-                                allScriptsLoading.fail(function () {
+                                allScriptsLoading.fail(function onScriptsLoadingFailed() {
                                     if (config.error) {
                                         config.error('Failed to load "' + config.injectScripts + '"');
                                     }
                                 });
 
-                                allScriptsLoading.done(function () {
+                                allScriptsLoading.done(function onAllScriptsLoaded() {
                                     self.$ = a$;
                                     if (testEnvironment && testEnvironment.setup) {
                                         testEnvironment.setup.apply(self);

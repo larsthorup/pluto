@@ -50,7 +50,7 @@ define(function (require) {
             // ToDo: show "loading..."
             var fetchPromise = this.cards.fetch();
             // ToDo: turn off "loading..."
-            fetchPromise.fail(_.bind(function () {
+            fetchPromise.fail(_.bind(function onFecthFailed() {
                 // ToDo: show error
                 // ToDo: DRY
                 this.router.navigate('login', {trigger: true});

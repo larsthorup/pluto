@@ -7,7 +7,7 @@
         options.timeout = options.timeout || 100; // Note: default timeout
         var dfd = $.Deferred();
         var selector = this.selector;
-        var waitForDeferred = function (dfd, timeout) {
+        function waitForDeferred(dfd, timeout) {
             var $elements = $(selector);
             if ($elements.length > 0) {
                 dfd.resolve($elements);
@@ -21,8 +21,10 @@
                     }, waitTime);
                 }
             }
-        };
-        var startWaiting = function () { waitForDeferred(dfd, options.timeout); };
+        }
+        function startWaiting() {
+            waitForDeferred(dfd, options.timeout);
+        }
         if (options.pause) {
             window.setTimeout(startWaiting, options.pause);
         } else {
