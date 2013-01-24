@@ -1,4 +1,5 @@
 /*global jQuery,window*/
+/*jslint vars:true nomen:true*/
 (function ($) {
     'use strict';
 

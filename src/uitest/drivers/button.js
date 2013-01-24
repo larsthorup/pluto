@@ -1,4 +1,5 @@
 /*global define*/
+/*jslint vars:true nomen:true*/
 define(function () {
     'use strict';
 

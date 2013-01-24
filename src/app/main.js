@@ -1,4 +1,5 @@
 /*global define, document*/
+/*jslint vars:true nomen:true*/
 // ToDo: consider using domReady require.js plugin to inject document object
 define(function (require) {
     'use strict';

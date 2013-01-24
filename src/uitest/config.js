@@ -1,4 +1,5 @@
 /*global window,require,QUnit*/
+/*jslint vars:true nomen:true*/
 window.config = function () {
     'use strict';
     require.config({
@@ -43,7 +44,7 @@ var requireResourceTrace = false;
 
 // Note: enable to debug issues in module loading
 if (requireResourceTrace) {
-    require.onResourceLoad = function (context, map/*, depArray*/) {
+    require.onResourceLoad = function (context, map) { /*, depArray*/
         'use strict';
         window.console.log('Loaded ' + map.url);
     };

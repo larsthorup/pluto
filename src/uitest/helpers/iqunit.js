@@ -1,4 +1,5 @@
 /*global define,window,QUnit*/
+/*jslint vars:true nomen:true*/
 define(function (require) {
     'use strict';
     var q$ = require('jquery');

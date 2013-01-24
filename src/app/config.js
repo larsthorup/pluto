@@ -1,4 +1,5 @@
 /*global require,window*/
+/*jslint vars:true nomen:true*/
 require.config({
     deps: ['main'],
 
@@ -21,7 +22,7 @@ var requireResourceTrace = false;
 
 // Note: enable to debug issues in module loading
 if (requireResourceTrace) {
-    require.onResourceLoad = function (context, map/*, depArray*/) {
+    require.onResourceLoad = function (context, map) { /*, depArray*/
         'use strict';
         window.console.log('Loaded ' + map.url);
     };

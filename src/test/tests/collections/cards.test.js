@@ -1,4 +1,5 @@
 /*global define, QUnit*/
+/*jslint vars:true nomen:true*/
 define(function (require) {
     'use strict';
 

@@ -1,4 +1,5 @@
 /*global define*/
+/*jslint vars:true nomen:true*/
 define(function (require) {
     'use strict';
     var Trello = require('persistence/trello');

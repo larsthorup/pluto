@@ -1,5 +1,6 @@
 /*global define,QUnit*/
-define(function (/*require*/) {
+/*jslint vars:true nomen:true*/
+define(function () {
     'use strict';
 
     QUnit.module('util');

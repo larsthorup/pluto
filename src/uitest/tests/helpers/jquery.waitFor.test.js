@@ -1,4 +1,5 @@
 /*global define,QUnit,window*/
+/*jslint vars:true nomen:true*/
 define(function (require) {
     'use strict';
     var $ = require('jquery');
@@ -42,7 +43,7 @@ define(function (require) {
         }, 200);
 
         // then
-        dfd.done(function (/*$elem*/) { QUnit.ok(false, 'unexpected done'); });
+        dfd.done(function () { QUnit.ok(false, 'unexpected done'); });
         dfd.fail(function () {
             QUnit.ok(true, 'fail');
 
@@ -130,7 +131,7 @@ define(function (require) {
 
             // and when
             return $('#target2-not-found').waitFor();
-        }).then(function (/*$target2*/) {
+        }).then(function () {
             QUnit.ok(false, '#target2-not-found found');
         }).done(function () {
             QUnit.ok(false, 'should never be called');
@@ -150,9 +151,9 @@ define(function (require) {
         }, 30);
 
         // when
-        $('#target1-not-found').waitFor().then(function (/*$target1*/) {
+        $('#target1-not-found').waitFor().then(function () {
             QUnit.ok(false, '#target1-not-found found');
-        }).then(function (/*$target2*/) {
+        }).then(function () {
             QUnit.ok(false, 'should never be called');
         }).done(function () {
             QUnit.ok(false, 'should never be called');

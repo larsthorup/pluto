@@ -1,4 +1,5 @@
 /*global define*/
+/*jslint vars:true*/
 define(function (require) {
     'use strict';
     var Backbone = require('backbone');
