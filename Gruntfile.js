@@ -15,7 +15,7 @@ module.exports = function (grunt) {
 
     // continuous integration
     grunt.registerTask('travis', ['clean', 'lint', 'test', 'bundle', 'test:ui']); // Note: coverage is not yet supported on travis because jscoverage.exe is not in path
-    grunt.registerTask('teamcity:test', ['clean', 'lint', 'test', 'coverage']);
+    grunt.registerTask('teamcity:test', ['clean', 'lint', 'test'/*, 'coverage'*/]);
     grunt.registerTask('teamcity:bundle', ['clean', 'bundle', 'test:ui']);
 
 
@@ -46,9 +46,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-qunit');
     gruntConfig.qunit = {};
     gruntConfig.qunit.src = ['src/test/index.html'];
-    gruntConfig.qunit.serve = ['http://localhost:8082/test/index.html'];
-    gruntConfig.qunit.ui = ['http://localhost:8083/uitest/index.html'];
-    gruntConfig.qunit.uiSrc = ['http://localhost:8080/uitest/index.html'];
+    gruntConfig.qunit.serve = { options: { urls: ['http://localhost:8082/test/index.html'] } };
+    gruntConfig.qunit.ui = { options: { urls: ['http://localhost:8083/uitest/index.html'] } };
+    gruntConfig.qunit.uiSrc = { options: { urls: ['http://localhost:8080/uitest/index.html'] } };
     grunt.loadNpmTasks('grunt-qunit-junit');
     gruntConfig.qunit_junit = {
         options: {
