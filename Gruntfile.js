@@ -95,6 +95,7 @@ module.exports = function (grunt) {
         test:
         {
             minimum: 1.0,
+            encoding: 'ISO-8859-1',
             baseDir: 'src',
             srcDir: 'src/app',
             depDirs: ['src/libs', 'src/test'],
